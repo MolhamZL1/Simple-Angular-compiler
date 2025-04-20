@@ -28,14 +28,14 @@ public class BaseVisitor extends AngularParserBaseVisitor {
 
     @Override
     public ImportStatement visitImportSideEffect(AngularParser.ImportSideEffectContext ctx) {
-        // Assuming "STRING" in the AngularParser represents the quoted module name
+
         String module = stripQuotes(ctx.STRING().getText());
         return new ImportSideEffect(module);
     }
 
     @Override
     public ImportStatement visitImportDefault(AngularParser.ImportDefaultContext ctx) {
-        // Assuming "IDENTIFIER" represents the default import name
+
         String name = ctx.IDENTIFIER().getText();
         String module = stripQuotes(ctx.STRING().getText());
         return new ImportDefault(name, module);
@@ -43,7 +43,7 @@ public class BaseVisitor extends AngularParserBaseVisitor {
 
     @Override
     public ImportStatement visitImportNamespace(AngularParser.ImportNamespaceContext ctx) {
-        // Assuming "IDENTIFIER" is the alias for namespace import
+
         String alias = ctx.IDENTIFIER().getText();
         String module = stripQuotes(ctx.STRING().getText());
         return new ImportNamespace(alias, module);
@@ -52,7 +52,7 @@ public class BaseVisitor extends AngularParserBaseVisitor {
     @Override
     public ImportStatement visitImportNamed(AngularParser.ImportNamedContext ctx) {
         // Visit the import specifiers
-        List<ImportItem> items = visitImportSpecifier(ctx.importSpecifier());
+        List<ImportItem> items = (List<ImportItem>) visit(ctx.importSpecifier());
         String module = stripQuotes(ctx.STRING().getText());
         return new ImportNamed(items, module);
     }
@@ -61,7 +61,7 @@ public class BaseVisitor extends AngularParserBaseVisitor {
     public ImportStatement visitImportDefaultWithNamed(AngularParser.ImportDefaultWithNamedContext ctx) {
         // Default identifier and named import specifiers
         String defaultId = ctx.IDENTIFIER().getText();
-        List<ImportItem> items = visitImportSpecifier(ctx.importSpecifier());
+        List<ImportItem> items = (List<ImportItem>) visit(ctx.importSpecifier());
         String module = stripQuotes(ctx.STRING().getText());
         return new ImportDefaultWithNamed(defaultId, items, module);
     }
@@ -94,7 +94,7 @@ public class BaseVisitor extends AngularParserBaseVisitor {
     public ImportItem visitImportItem(AngularParser.ImportItemContext ctx) {
         // Extracting original name and alias for an import item
         String original = ctx.IDENTIFIER(0).getText();
-        String alias = (ctx.IDENTIFIER().size() > 1) ? ctx.IDENTIFIER(1).getText() : original;
+        String alias = (ctx.IDENTIFIER().size() > 1) ? ctx.IDENTIFIER(1).getText() : null;
         return new ImportItem(original, alias);
     }
 
