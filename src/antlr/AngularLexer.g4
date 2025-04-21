@@ -30,6 +30,10 @@ FROM: 'from';
 NEW:'new';
 THIS:'this';
 IMPLEMENTS:'implements';
+STRINGKEYWORD:'string';
+BOOLEANKEYWORD:'boolean';
+NUMBER:'number';
+ANY:'any';
 //angular
 INPUT: '@Input';
 OUTPUT: '@Output';
@@ -85,6 +89,7 @@ SEMI: ';';
 COLON: ':';
 DOT: '.';
 QUESITIONMARK: '?';
+DOLLARSIGN:'$';
 
 // Literals
 Integer: [0]|([1-9][0-9]*);
@@ -99,5 +104,6 @@ IDENTIFIER: [a-zA-Z_$][a-zA-Z0-9_$]*;
 SINGLE_LINE_COMMENT: '//' ~[\r\n]* ->skip;
 COMMENT_BLOCK: '/*' .*? '*/' -> skip;
 WS : [ \t\r\n]+ -> skip;
+
 
 
