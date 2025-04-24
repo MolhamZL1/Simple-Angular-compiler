@@ -4,6 +4,7 @@ IF: 'if';
 ELSEIF: 'else' WS 'if';
 ELSE: 'else';
 FOR: 'for';
+OF:'of';
 WHILE: 'while';
 SWITCH: 'switch';
 CASE: 'case';

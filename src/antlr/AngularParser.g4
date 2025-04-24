@@ -37,18 +37,68 @@ importItem: IDENTIFIER (AS IDENTIFIER)?;
 statement
         : variableDeclaration
 //        | objectDecleration
-//        | ifStatement
-//        | forStatement
-//        | whileStatement
-//        | expressionStatement
+       | ifStatement
+       |   blockStatement
+       | loopStatement
+       | expressionStatement
         ;
+
+        loopStatement
+            :forStatement
+
+
+            | whileStatement
+            | doWhileStatement
+            | forOfStatement
+
+           // | angularForStatement
+            ;
+
+
+
+        // Standard for loop
+        forStatement
+            : FOR LPAREN (variableDeclaration | expressionStatement | SEMI)
+              expression? SEMI
+              expression? RPAREN statement
+            ;
+
+        // While loop
+        whileStatement
+            : WHILE LPAREN expression RPAREN statement
+            ;
+
+        // Do-while loop
+        doWhileStatement
+            : DO statement WHILE LPAREN expression RPAREN SEMI?
+            ;
+
+        // For-of loop (iterables)
+        forOfStatement
+            : FOR LPAREN (VAR | LET | CONST) IDENTIFIER OF expression RPAREN statement
+            ;
+
+//        // Angular *ngFor template
+//        angularForStatement
+//            : '*ngFor' EQUAL '"' LET IDENTIFIER OF expression
+//              (SEMI LET IDENTIFIER EQUAL IDENTIFIER)* '"'
+//            ;
+
+        ifStatement
+            : IF LPAREN expression RPAREN statement (ELSE statement)?
+            ;
+
+        blockStatement
+            : LCURLY statement* RCURLY
+            ;
 
 variableDeclaration
     : (CONST | LET | VAR) IDENTIFIER typeAnnotation? (EQUAL expression)? (AS IDENTIFIER)? eos
     ;
+    expressionStatement: expression eos;
+
 expression
-    : literal                                                                                 # LiteralExpr
-    | IDENTIFIER                                                                              # IdentifierExpr
+    : primary                                                                                 # PrimaryExpr
     | expression DOT IDENTIFIER                                                               # MemberDotExpr
     | expression LSBRACKET expression RSBRACKET                                               # MemberIndexExpr
     | expression LPAREN args? RPAREN                                                          # CallExpr
@@ -64,7 +114,29 @@ expression
     | expression EQUAL expression                                                             # AssignmentExpr
     | expression QUESITIONMARK expression COLON expression                                    # TernaryExpr
     | LPAREN expression RPAREN                                                                # ParenthesizedExpr
+    | expression ((MINUS MINUS)|(PLUS PLUS))                                                  # PostFixExpr
+    |((MINUS MINUS)|(PLUS PLUS)) expression                                                   # PreFixExpr
    // | templateLiteral                                                                         # TemplateExpr
+    ;
+
+    primary
+        : literal                            # LiteralExpr
+        | IDENTIFIER                         # IdentifierExpr
+        | arrayLiteral                       # ArrayLiteralExpr
+        | objectLiteral                      # ObjectLiteralExpr
+        ;
+
+arrayLiteral : LSBRACKET (expression (COMMA expression)*)? RSBRACKET;
+
+objectLiteral : LCURLY (propertyAssignment (COMMA propertyAssignment)*)? RCURLY;
+
+propertyAssignment : IDENTIFIER COLON expression;
+
+loopControlStatement
+    : BREAK
+    | CONTINUE
+    | BREAK IDENTIFIER  // labeled break
+    | CONTINUE IDENTIFIER  // labeled continue
     ;
 
 // القواعد المساعدة

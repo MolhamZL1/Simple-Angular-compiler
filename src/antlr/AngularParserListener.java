@@ -128,6 +128,76 @@ public interface AngularParserListener extends ParseTreeListener {
 	 */
 	void exitStatement(AngularParser.StatementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AngularParser#loopStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterLoopStatement(AngularParser.LoopStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AngularParser#loopStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitLoopStatement(AngularParser.LoopStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AngularParser#forStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterForStatement(AngularParser.ForStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AngularParser#forStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitForStatement(AngularParser.ForStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AngularParser#whileStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterWhileStatement(AngularParser.WhileStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AngularParser#whileStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitWhileStatement(AngularParser.WhileStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AngularParser#doWhileStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterDoWhileStatement(AngularParser.DoWhileStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AngularParser#doWhileStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitDoWhileStatement(AngularParser.DoWhileStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AngularParser#forOfStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterForOfStatement(AngularParser.ForOfStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AngularParser#forOfStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitForOfStatement(AngularParser.ForOfStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AngularParser#ifStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterIfStatement(AngularParser.IfStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AngularParser#ifStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitIfStatement(AngularParser.IfStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AngularParser#blockStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterBlockStatement(AngularParser.BlockStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AngularParser#blockStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitBlockStatement(AngularParser.BlockStatementContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AngularParser#variableDeclaration}.
 	 * @param ctx the parse tree
 	 */
@@ -137,6 +207,28 @@ public interface AngularParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitVariableDeclaration(AngularParser.VariableDeclarationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AngularParser#expressionStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpressionStatement(AngularParser.ExpressionStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AngularParser#expressionStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpressionStatement(AngularParser.ExpressionStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code PreFixExpr}
+	 * labeled alternative in {@link AngularParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterPreFixExpr(AngularParser.PreFixExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code PreFixExpr}
+	 * labeled alternative in {@link AngularParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitPreFixExpr(AngularParser.PreFixExprContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code RelationalExpr}
 	 * labeled alternative in {@link AngularParser#expression}.
@@ -270,18 +362,6 @@ public interface AngularParserListener extends ParseTreeListener {
 	 */
 	void exitAdditiveExpr(AngularParser.AdditiveExprContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code IdentifierExpr}
-	 * labeled alternative in {@link AngularParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterIdentifierExpr(AngularParser.IdentifierExprContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code IdentifierExpr}
-	 * labeled alternative in {@link AngularParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitIdentifierExpr(AngularParser.IdentifierExprContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code SafeIndexExpr}
 	 * labeled alternative in {@link AngularParser#expression}.
 	 * @param ctx the parse tree
@@ -294,17 +374,29 @@ public interface AngularParserListener extends ParseTreeListener {
 	 */
 	void exitSafeIndexExpr(AngularParser.SafeIndexExprContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code LiteralExpr}
+	 * Enter a parse tree produced by the {@code PostFixExpr}
 	 * labeled alternative in {@link AngularParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterLiteralExpr(AngularParser.LiteralExprContext ctx);
+	void enterPostFixExpr(AngularParser.PostFixExprContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code LiteralExpr}
+	 * Exit a parse tree produced by the {@code PostFixExpr}
 	 * labeled alternative in {@link AngularParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitLiteralExpr(AngularParser.LiteralExprContext ctx);
+	void exitPostFixExpr(AngularParser.PostFixExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code PrimaryExpr}
+	 * labeled alternative in {@link AngularParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrimaryExpr(AngularParser.PrimaryExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code PrimaryExpr}
+	 * labeled alternative in {@link AngularParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrimaryExpr(AngularParser.PrimaryExprContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code ParenthesizedExpr}
 	 * labeled alternative in {@link AngularParser#expression}.
@@ -341,6 +433,94 @@ public interface AngularParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTernaryExpr(AngularParser.TernaryExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code LiteralExpr}
+	 * labeled alternative in {@link AngularParser#primary}.
+	 * @param ctx the parse tree
+	 */
+	void enterLiteralExpr(AngularParser.LiteralExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code LiteralExpr}
+	 * labeled alternative in {@link AngularParser#primary}.
+	 * @param ctx the parse tree
+	 */
+	void exitLiteralExpr(AngularParser.LiteralExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code IdentifierExpr}
+	 * labeled alternative in {@link AngularParser#primary}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdentifierExpr(AngularParser.IdentifierExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code IdentifierExpr}
+	 * labeled alternative in {@link AngularParser#primary}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdentifierExpr(AngularParser.IdentifierExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ArrayLiteralExpr}
+	 * labeled alternative in {@link AngularParser#primary}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayLiteralExpr(AngularParser.ArrayLiteralExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ArrayLiteralExpr}
+	 * labeled alternative in {@link AngularParser#primary}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayLiteralExpr(AngularParser.ArrayLiteralExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ObjectLiteralExpr}
+	 * labeled alternative in {@link AngularParser#primary}.
+	 * @param ctx the parse tree
+	 */
+	void enterObjectLiteralExpr(AngularParser.ObjectLiteralExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ObjectLiteralExpr}
+	 * labeled alternative in {@link AngularParser#primary}.
+	 * @param ctx the parse tree
+	 */
+	void exitObjectLiteralExpr(AngularParser.ObjectLiteralExprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AngularParser#arrayLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayLiteral(AngularParser.ArrayLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AngularParser#arrayLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayLiteral(AngularParser.ArrayLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AngularParser#objectLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterObjectLiteral(AngularParser.ObjectLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AngularParser#objectLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitObjectLiteral(AngularParser.ObjectLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AngularParser#propertyAssignment}.
+	 * @param ctx the parse tree
+	 */
+	void enterPropertyAssignment(AngularParser.PropertyAssignmentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AngularParser#propertyAssignment}.
+	 * @param ctx the parse tree
+	 */
+	void exitPropertyAssignment(AngularParser.PropertyAssignmentContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AngularParser#loopControlStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterLoopControlStatement(AngularParser.LoopControlStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AngularParser#loopControlStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitLoopControlStatement(AngularParser.LoopControlStatementContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AngularParser#args}.
 	 * @param ctx the parse tree
