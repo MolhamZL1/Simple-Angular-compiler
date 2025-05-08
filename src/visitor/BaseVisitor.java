@@ -1,14 +1,15 @@
 package visitor;
 
-import AST.ASTNode;
+import AST.*;
+import AST.ComponentClasses.*;
+import AST.ExpressionsClasses.Expression;
 import AST.ImportsClasses.*;
-import AST.Program;
+import AST.Number;
 import antlr.AngularParser;
 import antlr.AngularParserBaseVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class BaseVisitor extends AngularParserBaseVisitor {
     @Override
@@ -96,6 +97,136 @@ public class BaseVisitor extends AngularParserBaseVisitor {
         String original = ctx.IDENTIFIER(0).getText();
         String alias = (ctx.IDENTIFIER().size() > 1) ? ctx.IDENTIFIER(1).getText() : null;
         return new ImportItem(original, alias);
+    }
+
+    @Override
+    public ComponentDeclaration visitComponentDeclaration(AngularParser.ComponentDeclarationContext ctx) {
+        List<MetadataProperty> metadataProperties = new ArrayList<>();
+        AngularParser.ComponentMetadataContext metadataCtx = ctx.componentMetadata();
+
+        if (metadataCtx.metadataProperty() != null) {
+            for (AngularParser.MetadataPropertyContext propCtx : metadataCtx.metadataProperty()) {
+                MetadataProperty property = (MetadataProperty) visit(propCtx);
+                if (property != null) {
+                    metadataProperties.add(property);
+                }
+            }
+        }
+        ComponentDeclaration componentDeclaration=new ComponentDeclaration(metadataProperties);
+        return componentDeclaration;
+    }
+    @Override
+    public MetadataProperty visitMetadataProperty(AngularParser.MetadataPropertyContext ctx) {
+
+        if (ctx.selectorProperty() != null) {
+            return (MetadataProperty) visit(ctx.selectorProperty());
+        } else if (ctx.templateProperty() != null) {
+            return (MetadataProperty) visit(ctx.templateProperty());
+        } else if (ctx.stylesProperty() != null) {
+            return(MetadataProperty) visit(ctx.stylesProperty());
+        } else if (ctx.standalone() != null) {
+            return(MetadataProperty) visit(ctx.standalone());
+        } else if (ctx.imports() != null) {
+            return(MetadataProperty) visit(ctx.imports());
+        }
+        throw new IllegalStateException("Unknown metadata property type");
+    }
+@Override
+    public SelectorProperty visitSelectorProperty(AngularParser.SelectorPropertyContext ctx) {
+        String selector = ctx.STRING().getText();
+        return new SelectorProperty(stripQuotes(selector));
+    }
+    @Override
+    public TemplateProperty visitTemplateProperty(AngularParser.TemplatePropertyContext ctx) {
+        if (ctx.templateUrl() != null) {
+            return (TemplateProperty) visit(ctx.templateUrl());
+
+        } else if(ctx.templetHTML()!=null) {
+            return (TemplateProperty) visit(ctx.templetHTML());
+        }
+        throw new IllegalStateException("Unknown template property type");
+
+    }
+
+    @Override
+    public TemplateUrl visitTemplateUrl(AngularParser.TemplateUrlContext ctx) {
+        String url=ctx.STRING().getText();
+        return new TemplateUrl(url);
+    }
+
+    @Override
+    public TempletHTML visitTempletHTML(AngularParser.TempletHTMLContext ctx) {
+        HTML html=(HTML) visit(ctx.html());
+        return new TempletHTML(html);
+    }
+
+    @Override
+    public HTML visitHtml(AngularParser.HtmlContext ctx) {
+       String html= ctx.STRING().getText();
+        return new HTML(html);
+    }
+
+//    @Override
+//    public StylesProperty visitStylesProperty(AngularParser.StylesPropertyContext ctx) {
+//        if (ctx.styleUrls() != null) {
+//            List<String> paths = new ArrayList<>();
+//            if (ctx.styleUrls().arrayLiteral() != null) {
+//                paths = visitArrayLiteral(ctx.styleUrls().arrayLiteral());
+//            } else {
+//                paths.add(cleanStringLiteral(ctx.styleUrls().STRING().getText()));
+//            }
+//            return new StylesProperty(true, paths);
+//        }
+//        throw new UnsupportedOperationException("Inline styles not implemented");
+//    }
+    @Override
+    public StandaloneProperty visitStandalone(AngularParser.StandaloneContext ctx) {
+        boolean value = Boolean.parseBoolean(ctx.Boolean().getText());
+        return new StandaloneProperty(value);
+    }
+//    @Override
+//    public ImportsProperty visitImports(AngularParser.ImportsContext ctx) {
+//        List<String> imports = visitArrayLiteral(ctx.arrayLiteral());
+//        return new ImportsProperty(imports);
+//    }
+//
+//    @Override
+//    public List<String> visitArrayLiteral(AngularParser.ArrayLiteralContext ctx) {
+//        return ctx.STRING().stream()
+//                .map(node -> cleanStringLiteral(node.getText()))
+//                .collect(Collectors.toList());
+//    }
+
+    @Override
+    public Literal visitLiteral(AngularParser.LiteralContext ctx) {
+        String literal;
+        if(ctx.number()!=null){
+            literal= (String) visit(ctx.number());
+        }
+        else{
+            literal=ctx.getText();
+        }
+        return new Literal(literal);
+    }
+
+    @Override
+    public Args visitArgs(AngularParser.ArgsContext ctx) {
+        List expressions=new ArrayList<Expression>();
+        for (AngularParser.ExpressionContext exprctx :ctx.expression()) {
+            Expression expression= (Expression) visit(exprctx);
+            expressions.add(expression);
+        }
+        return new Args(expressions);
+    }
+
+    @Override
+    public Number visitNumber(AngularParser.NumberContext ctx) {
+        return new Number(ctx.getText());
+    }
+
+    @Override
+    public Type visitType(AngularParser.TypeContext ctx) {
+        return new Type(ctx.getText());
     }
 
     private String stripQuotes(String s) {

@@ -498,18 +498,6 @@ public interface AngularParserListener extends ParseTreeListener {
 	 */
 	void exitExpressionStatement(AngularParser.ExpressionStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Obinit}
-	 * labeled alternative in {@link AngularParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterObinit(AngularParser.ObinitContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Obinit}
-	 * labeled alternative in {@link AngularParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitObinit(AngularParser.ObinitContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code PreFixExpr}
 	 * labeled alternative in {@link AngularParser#expression}.
 	 * @param ctx the parse tree
@@ -582,18 +570,6 @@ public interface AngularParserListener extends ParseTreeListener {
 	 */
 	void exitUnaryExpr(AngularParser.UnaryExprContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code LogicalAndExpr}
-	 * labeled alternative in {@link AngularParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterLogicalAndExpr(AngularParser.LogicalAndExprContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code LogicalAndExpr}
-	 * labeled alternative in {@link AngularParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitLogicalAndExpr(AngularParser.LogicalAndExprContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code MemberIndexExpr}
 	 * labeled alternative in {@link AngularParser#expression}.
 	 * @param ctx the parse tree
@@ -605,30 +581,6 @@ public interface AngularParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMemberIndexExpr(AngularParser.MemberIndexExprContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code MultiplicativeExpr}
-	 * labeled alternative in {@link AngularParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterMultiplicativeExpr(AngularParser.MultiplicativeExprContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code MultiplicativeExpr}
-	 * labeled alternative in {@link AngularParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitMultiplicativeExpr(AngularParser.MultiplicativeExprContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code LogicalOrExpr}
-	 * labeled alternative in {@link AngularParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterLogicalOrExpr(AngularParser.LogicalOrExprContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code LogicalOrExpr}
-	 * labeled alternative in {@link AngularParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitLogicalOrExpr(AngularParser.LogicalOrExprContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code MemberDotExpr}
 	 * labeled alternative in {@link AngularParser#expression}.
@@ -642,6 +594,18 @@ public interface AngularParserListener extends ParseTreeListener {
 	 */
 	void exitMemberDotExpr(AngularParser.MemberDotExprContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code ArthmaticOpExpr}
+	 * labeled alternative in {@link AngularParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterArthmaticOpExpr(AngularParser.ArthmaticOpExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ArthmaticOpExpr}
+	 * labeled alternative in {@link AngularParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitArthmaticOpExpr(AngularParser.ArthmaticOpExprContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code EqualityExpr}
 	 * labeled alternative in {@link AngularParser#expression}.
 	 * @param ctx the parse tree
@@ -653,18 +617,6 @@ public interface AngularParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitEqualityExpr(AngularParser.EqualityExprContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code AdditiveExpr}
-	 * labeled alternative in {@link AngularParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterAdditiveExpr(AngularParser.AdditiveExprContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code AdditiveExpr}
-	 * labeled alternative in {@link AngularParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitAdditiveExpr(AngularParser.AdditiveExprContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code SafeIndexExpr}
 	 * labeled alternative in {@link AngularParser#expression}.
@@ -737,6 +689,18 @@ public interface AngularParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCallExpr(AngularParser.CallExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code LogicalExpr}
+	 * labeled alternative in {@link AngularParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterLogicalExpr(AngularParser.LogicalExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code LogicalExpr}
+	 * labeled alternative in {@link AngularParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitLogicalExpr(AngularParser.LogicalExprContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code ThisExpr}
 	 * labeled alternative in {@link AngularParser#expression}.
@@ -821,6 +785,18 @@ public interface AngularParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitObjectLiteralExpr(AngularParser.ObjectLiteralExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ObjectinitExpr}
+	 * labeled alternative in {@link AngularParser#primary}.
+	 * @param ctx the parse tree
+	 */
+	void enterObjectinitExpr(AngularParser.ObjectinitExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ObjectinitExpr}
+	 * labeled alternative in {@link AngularParser#primary}.
+	 * @param ctx the parse tree
+	 */
+	void exitObjectinitExpr(AngularParser.ObjectinitExprContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AngularParser#arrayLiteral}.
 	 * @param ctx the parse tree
