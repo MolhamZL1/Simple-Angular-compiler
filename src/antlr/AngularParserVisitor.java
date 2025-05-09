@@ -155,6 +155,12 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitClassDeclaration(AngularParser.ClassDeclarationContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AngularParser#genericClassParameters}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGenericClassParameters(AngularParser.GenericClassParametersContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AngularParser#classBody}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -166,6 +172,18 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitClassMember(AngularParser.ClassMemberContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AngularParser#classMemberModifier}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitClassMemberModifier(AngularParser.ClassMemberModifierContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AngularParser#classStatment}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitClassStatment(AngularParser.ClassStatmentContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AngularParser#angularSpecificMember}.
 	 * @param ctx the parse tree
@@ -191,17 +209,41 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitViewChildDeclaration(AngularParser.ViewChildDeclarationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AngularParser#accessModifier}.
+	 * Visit a parse tree produced by {@link AngularParser#constructorDeclaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAccessModifier(AngularParser.AccessModifierContext ctx);
+	T visitConstructorDeclaration(AngularParser.ConstructorDeclarationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AngularParser#delegatedConstructor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDelegatedConstructor(AngularParser.DelegatedConstructorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AngularParser#deafultConstructor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeafultConstructor(AngularParser.DeafultConstructorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AngularParser#accessorDeclaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAccessorDeclaration(AngularParser.AccessorDeclarationContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AngularParser#propertyDeclaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitPropertyDeclaration(AngularParser.PropertyDeclarationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AngularParser#accessModifier}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAccessModifier(AngularParser.AccessModifierContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AngularParser#methodDeclaration}.
 	 * @param ctx the parse tree
@@ -221,18 +263,6 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAnonymosMethod(AngularParser.AnonymosMethodContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AngularParser#constructorDeclaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitConstructorDeclaration(AngularParser.ConstructorDeclarationContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AngularParser#accessorDeclaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAccessorDeclaration(AngularParser.AccessorDeclarationContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link AngularParser#parameterList}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -250,6 +280,12 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitStatement(AngularParser.StatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AngularParser#loopControlStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLoopControlStatement(AngularParser.LoopControlStatementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AngularParser#loopStatement}.
 	 * @param ctx the parse tree
@@ -287,6 +323,24 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIfStatement(AngularParser.IfStatementContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AngularParser#ifSection}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfSection(AngularParser.IfSectionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AngularParser#elseIfSection}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElseIfSection(AngularParser.ElseIfSectionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AngularParser#elseSection}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElseSection(AngularParser.ElseSectionContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AngularParser#blockStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -298,6 +352,12 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitVariableDeclaration(AngularParser.VariableDeclarationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AngularParser#variableDeclarationKeyword}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariableDeclarationKeyword(AngularParser.VariableDeclarationKeywordContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AngularParser#expressionStatement}.
 	 * @param ctx the parse tree
@@ -516,11 +576,11 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMapmember(AngularParser.MapmemberContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AngularParser#loopControlStatement}.
+	 * Visit a parse tree produced by {@link AngularParser#identifier}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLoopControlStatement(AngularParser.LoopControlStatementContext ctx);
+	T visitIdentifier(AngularParser.IdentifierContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AngularParser#args}.
 	 * @param ctx the parse tree

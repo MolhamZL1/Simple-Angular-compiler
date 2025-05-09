@@ -48,6 +48,7 @@ STANDALONE:'standalone';
 STYLEURL:'styleUrl';
 TEMPLATEURL:'templateUrl';
 TEMPLATE:'template';
+NGFOR:'*ngFor';
 
 //MODIFIRES
 PUBLIC : 'public';
@@ -59,6 +60,8 @@ ABSTRACT : 'abstract';
 FINAL : 'final';
 ASYNC : 'async';
 EXTENDS:'extends';
+SET:'set';
+GET:'get';
 
 // Operators
 EQUAL: '=';
@@ -91,6 +94,7 @@ COMMA: ',';
 SEMI: ';';
 COLON: ':';
 DOT: '.';
+DOUBLEQUTATION:'"';
 QUESITIONMARK: '?';
 DOLLARSIGN:'$';
 

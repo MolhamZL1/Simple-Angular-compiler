@@ -1,6 +1,8 @@
 package AST;
 
-public class Identifier implements Primary{
+import AST.Primary.Primary;
+
+public class Identifier implements Primary {
     private String identifier;
 
     public Identifier(String identifier) {

@@ -5,6 +5,7 @@ import AST.ComponentClasses.*;
 import AST.ExpressionsClasses.Expression;
 import AST.ImportsClasses.*;
 import AST.Number;
+import AST.Primary.Literal;
 import antlr.AngularParser;
 import antlr.AngularParserBaseVisitor;
 
@@ -115,22 +116,22 @@ public class BaseVisitor extends AngularParserBaseVisitor {
         ComponentDeclaration componentDeclaration=new ComponentDeclaration(metadataProperties);
         return componentDeclaration;
     }
-    @Override
-    public MetadataProperty visitMetadataProperty(AngularParser.MetadataPropertyContext ctx) {
-
-        if (ctx.selectorProperty() != null) {
-            return (MetadataProperty) visit(ctx.selectorProperty());
-        } else if (ctx.templateProperty() != null) {
-            return (MetadataProperty) visit(ctx.templateProperty());
-        } else if (ctx.stylesProperty() != null) {
-            return(MetadataProperty) visit(ctx.stylesProperty());
-        } else if (ctx.standalone() != null) {
-            return(MetadataProperty) visit(ctx.standalone());
-        } else if (ctx.imports() != null) {
-            return(MetadataProperty) visit(ctx.imports());
-        }
-        throw new IllegalStateException("Unknown metadata property type");
-    }
+//    @Override
+//    public MetadataProperty visitMetadataProperty(AngularParser.MetadataPropertyContext ctx) {
+//
+//        if (ctx.selectorProperty() != null) {
+//            return (MetadataProperty) visit(ctx.selectorProperty());
+//        } else if (ctx.templateProperty() != null) {
+//            return (MetadataProperty) visit(ctx.templateProperty());
+//        } else if (ctx.stylesProperty() != null) {
+//            return(MetadataProperty) visit(ctx.stylesProperty());
+//        } else if (ctx.standalone() != null) {
+//            return(MetadataProperty) visit(ctx.standalone());
+//        } else if (ctx.imports() != null) {
+//            return(MetadataProperty) visit(ctx.imports());
+//        }
+//        throw new IllegalStateException("Unknown metadata property type");
+//    }
 @Override
     public SelectorProperty visitSelectorProperty(AngularParser.SelectorPropertyContext ctx) {
         String selector = ctx.STRING().getText();

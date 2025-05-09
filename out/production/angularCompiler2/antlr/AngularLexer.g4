@@ -48,6 +48,7 @@ STANDALONE:'standalone';
 STYLEURL:'styleUrl';
 TEMPLATEURL:'templateUrl';
 TEMPLATE:'template';
+NGFOR:'*ngFor';
 
 //MODIFIRES
 PUBLIC : 'public';
@@ -91,6 +92,7 @@ COMMA: ',';
 SEMI: ';';
 COLON: ':';
 DOT: '.';
+DOUBLEQUTATION:'"';
 QUESITIONMARK: '?';
 DOLLARSIGN:'$';
 

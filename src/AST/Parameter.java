@@ -1,5 +1,7 @@
 package AST;
 
+import AST.Primary.Literal;
+
 public class Parameter implements ASTNode{
    private String id;
    private Type type;

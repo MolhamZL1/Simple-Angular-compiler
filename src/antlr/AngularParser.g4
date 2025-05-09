@@ -73,159 +73,184 @@ templateProperty//done
 
     html:STRING;//done
 
-stylesProperty
+stylesProperty//done
     : styleUrls
  //   | stylesCss
     ;
 
-styleUrls:STYLEURL COLON  (STRING | arrayLiteral);// edit this to list of urls
+styleUrls:STYLEURL COLON LSBRACKET? (STRING (COMMA STRING)*) RSBRACKET?;//done
   //  stylesCss:TEMPLATE COLON STRING;
 
-classDeclaration
+classDeclaration//done
     : EXPORT?
       ABSTRACT?
-      CLASS IDENTIFIER (LESS_THAN IDENTIFIER (EXTENDS IDENTIFIER)?(COMMA IDENTIFIER (EXTENDS IDENTIFIER)?)* GREATER_THAN)?
-      (EXTENDS IDENTIFIER)?
-      (IMPLEMENTS IDENTIFIER (COMMA IDENTIFIER)*)?
+      CLASS identifier
+      (LESS_THAN genericClassParameters(COMMA genericClassParameters)* GREATER_THAN)?
+      (EXTENDS identifier)?
+      (IMPLEMENTS identifier (COMMA identifier)*)?
       classBody
     ;
 
-classBody
+ genericClassParameters:identifier (EXTENDS identifier)?;//done
+
+classBody//done
     : LCURLY classMember* RCURLY
     ;
 
-classMember
+classMember//done
       :accessModifier?
-      (STATIC | READONLY | ABSTRACT | OVERRIDE)?
-      (   propertyDeclaration
-        | methodDeclaration
-        | variableDeclaration
-        | constructorDeclaration
-        | accessorDeclaration
-        | angularSpecificMember
-      )
-    ;
+       classMemberModifier?
+       classStatment
+       ;
 
-    angularSpecificMember
-        : inputDeclaration
-        | outputDeclaration
-        | viewChildDeclaration
+classMemberModifier:(STATIC | READONLY | ABSTRACT | OVERRIDE);//done
+
+    classStatment:
+          propertyDeclaration//
+        | methodDeclaration//
+        | variableDeclaration//
+        | constructorDeclaration//
+        | accessorDeclaration//
+        | angularSpecificMember//
         ;
 
-    inputDeclaration
-        : INPUT LPAREN (STRING | objectLiteral)?RPAREN
-          IDENTIFIER typeAnnotation? (EQUAL expression)? eos
+    angularSpecificMember//done
+        : inputDeclaration//
+        | outputDeclaration//
+        | viewChildDeclaration//
         ;
 
-    outputDeclaration
+    inputDeclaration//done
+        : INPUT LPAREN (STRING | objectLiteral)? RPAREN
+          identifier typeAnnotation? (EQUAL expression)? eos
+        ;
+
+    outputDeclaration//done
         : OUTPUT (LPAREN STRING? RPAREN)?
-          IDENTIFIER typeAnnotation? EQUAL objectInit eos
+          identifier typeAnnotation? EQUAL objectInit eos
         ;
 
-    viewChildDeclaration
-        : VIEW_CHILD LPAREN STRING (COMMA objectLiteral)? RPAREN
-          IDENTIFIER typeAnnotation? eos
+    viewChildDeclaration//done
+        : VIEWCHILD LPAREN STRING (COMMA objectLiteral)? RPAREN
+          identifier typeAnnotation? eos
         ;
 
-    accessModifier
-        : PUBLIC | PRIVATE | PROTECTED
-        ;
-
-// Core class members
-propertyDeclaration
-    : IDENTIFIER typeAnnotation? (EQUAL expression)? SEMI
+constructorDeclaration//done
+    : deafultConstructor
+    | delegatedConstructor
     ;
 
-methodDeclaration
+    delegatedConstructor://done
+    CONSTRUCTOR LPAREN parameterList? RPAREN
+                               COLON THIS LPAREN args? RPAREN
+                             ;
+
+    deafultConstructor://done
+    CONSTRUCTOR LPAREN parameterList? RPAREN
+                              blockStatement
+                           ;
+
+accessorDeclaration//done
+    : (GET | SET) deafultMethod
+    ;
+
+ propertyDeclaration//done
+        : identifier typeAnnotation? (EQUAL expression)? SEMI
+        ;
+
+      accessModifier//done
+            : PUBLIC | PRIVATE | PROTECTED
+            ;
+
+methodDeclaration//done
     :deafultMethod
     |anonymosMethod
     ;
 
-    deafultMethod: ASYNC? IDENTIFIER LPAREN (parameterList | args)? RPAREN
+    deafultMethod://done
+     ASYNC? identifier LPAREN (parameterList | args)? RPAREN
                    typeAnnotation? (blockStatement | ARROW expressionStatement);
 
-    anonymosMethod://ondonig
+    anonymosMethod://done
     ASYNC? LPAREN (parameterList|args)? RPAREN typeAnnotation? ARROW (blockStatement|expressionStatement);
 
-constructorDeclaration
-    : CONSTRUCTOR LPAREN parameterList? RPAREN
-      ((COLON THIS LPAREN args? RPAREN) | blockStatement)?
-    ;
-
-accessorDeclaration
-    : (GET | SET) IDENTIFIER LPAREN parameter? RPAREN
-      typeAnnotation? (blockStatement | SEMI)
-    ;
-
-     parameterList:
+     parameterList://no need
                (parameter (COMMA parameter)*)? ;
 
-              parameter:
+              parameter://done
               IDENTIFIER (typeAnnotation  (EQUAL literal)?)?;
 
 
 
 
-statement
-       : variableDeclaration
-       | ifStatement
-       | blockStatement
-       | loopStatement
-       | loopControlStatement
-       | expressionStatement
+statement//done
+       : variableDeclaration//
+       | ifStatement//
+       | blockStatement//
+       | loopStatement//
+       | loopControlStatement//
+       | expressionStatement//
        ;
 
-loopControlStatement
-    : BREAK
-    | CONTINUE
-    | BREAK IDENTIFIER
-    | CONTINUE IDENTIFIER
+loopControlStatement//done
+    : (BREAK|CONTINUE)
+    //identifier?
     ;
 
-loopStatement
-            :forStatement
+loopStatement//done
+            : forStatement
             | whileStatement
             | doWhileStatement
             | forOfStatement
            // | angularForStatement
             ;
 
-forStatement
-    : FOR LPAREN (variableDeclaration | expressionStatement | SEMI)
-      expression? SEMI
-      expression? RPAREN statement
+forStatement//done
+    : FOR LPAREN
+      (variableDeclaration | expression? SEMI)//Initialization
+      expression? SEMI//condition
+      expression?//update
+      RPAREN statement
     ;
 
-        whileStatement
+        whileStatement//done
             : WHILE LPAREN expression RPAREN statement
             ;
 
 
-        doWhileStatement
+        doWhileStatement//done
             : DO statement WHILE LPAREN expression RPAREN SEMI?
             ;
 
-        forOfStatement
-            : FOR LPAREN (VAR | LET | CONST) IDENTIFIER OF expression RPAREN statement
+        forOfStatement//done
+            : FOR LPAREN variableDeclarationKeyword identifier OF expression RPAREN statement
             ;
 
-//        // Angular *ngFor template
+
 //        angularForStatement
-//            : '*ngFor' EQUAL '"' LET IDENTIFIER OF expression
-//              (SEMI LET IDENTIFIER EQUAL IDENTIFIER)* '"'
+//            : NGFOR EQUAL DOUBLEQUTATION variableDeclarationKeyword identifier OF expression
+//              (SEMI variableDeclarationKeyword identifier EQUAL identifier)* DOUBLEQUTATION
 //            ;
 
-        ifStatement
-            : IF LPAREN expression RPAREN statement (ELSE statement)?
+        ifStatement//done
+            : ifSection (elseIfSection)* (elseSection)?
             ;
+
+            ifSection:IF LPAREN expression RPAREN statement;//done
+
+            elseIfSection:ELSEIF LPAREN expression RPAREN statement;//done
+
+            elseSection:ELSE statement;//done
 
         blockStatement
             : LCURLY statement* RCURLY
             ;
 
-variableDeclaration
-    :EXPORT? (CONST | LET | VAR) IDENTIFIER typeAnnotation? (EQUAL expression)? (AS IDENTIFIER)? eos
+variableDeclaration//done
+    :EXPORT? variableDeclarationKeyword identifier typeAnnotation? (EQUAL expression)? (AS identifier)? SEMI
     ;
+
+    variableDeclarationKeyword:(CONST | LET | VAR);//done
 
 expressionStatement: expression eos;//no need
 
