@@ -1,12 +1,13 @@
 package AST.ImportsClasses;
 
 
+import AST.Identifier;
 
 public class ImportDefault implements ImportStatement {
-    private String name;
+    private Identifier name;
     private String module;
 
-    public ImportDefault(String name, String module) {
+    public ImportDefault(Identifier name, String module) {
         this.name = name;
         this.module = module;
     }

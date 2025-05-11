@@ -4,35 +4,39 @@ options { tokenVocab=AngularLexer; }
 
 program//done
     :(
-       primary
+              importStatement
+             |componentDeclaration
+             |classDeclaration
+             |statement
+             |methodDeclaration
      )* EOF;
 // functionDeclaration
 importStatement//done
-    : importDefault
-    | importNamespace
-    | importNamed
-    | importDefaultWithNamed
-    | importDefaultWithNamespace
-    | importSideEffect
+    : importDefault                   #ImportDefaultLabel
+    | importNamespace                 #ImportNamespaceLabel
+    | importNamed                     #ImportNamedLabel
+    | importDefaultWithNamed          #ImportDefaultWithNamedLabel
+    | importDefaultWithNamespace      #ImportDefaultWithNamespaceLabel
+    | importSideEffect                #ImportSideEffectLabel
     ;
 
 importSideEffect: IMPORT STRING eos;//done
 
-importDefault: IMPORT IDENTIFIER FROM STRING eos;//done
+importDefault: IMPORT identifier FROM STRING eos;//done
 
-importNamespace: IMPORT STAR AS IDENTIFIER FROM STRING eos;//done
+importNamespace: IMPORT STAR AS identifier FROM STRING eos;//done
 
 importNamed: IMPORT importSpecifier FROM STRING eos;//done
 
-importDefaultWithNamed: IMPORT IDENTIFIER COMMA importSpecifier FROM STRING eos;//done
+importDefaultWithNamed: IMPORT identifier COMMA importSpecifier FROM STRING eos;//done
 
-importDefaultWithNamespace: IMPORT IDENTIFIER COMMA STAR AS IDENTIFIER FROM STRING eos;//done
+importDefaultWithNamespace: IMPORT identifier COMMA STAR AS identifier FROM STRING eos;//done
 
 importSpecifier: LCURLY importList RCURLY;//no need
 
 importList: importItem (COMMA importItem)*;//no need
 
-importItem: IDENTIFIER (AS IDENTIFIER)?;//done
+importItem: original=identifier (AS alias=identifier)?;//done
 
 componentDeclaration//done
     : COMPONENT LPAREN componentMetadata RPAREN

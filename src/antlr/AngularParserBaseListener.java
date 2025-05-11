@@ -29,13 +29,73 @@ public class AngularParserBaseListener implements AngularParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterImportStatement(AngularParser.ImportStatementContext ctx) { }
+	@Override public void enterImportDefaultLabel(AngularParser.ImportDefaultLabelContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitImportStatement(AngularParser.ImportStatementContext ctx) { }
+	@Override public void exitImportDefaultLabel(AngularParser.ImportDefaultLabelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterImportNamespaceLabel(AngularParser.ImportNamespaceLabelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitImportNamespaceLabel(AngularParser.ImportNamespaceLabelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterImportNamedLabel(AngularParser.ImportNamedLabelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitImportNamedLabel(AngularParser.ImportNamedLabelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterImportDefaultWithNamedLabel(AngularParser.ImportDefaultWithNamedLabelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitImportDefaultWithNamedLabel(AngularParser.ImportDefaultWithNamedLabelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterImportDefaultWithNamespaceLabel(AngularParser.ImportDefaultWithNamespaceLabelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitImportDefaultWithNamespaceLabel(AngularParser.ImportDefaultWithNamespaceLabelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterImportSideEffectLabel(AngularParser.ImportSideEffectLabelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitImportSideEffectLabel(AngularParser.ImportSideEffectLabelContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

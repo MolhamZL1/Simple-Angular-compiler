@@ -1,16 +1,24 @@
 package AST.ImportsClasses;
 
-public class ImportItem {
-    private String original;
-    private String alias;
+import AST.ASTNode;
+import AST.Identifier;
 
-    public ImportItem(String original, String alias) {
+public class ImportItem implements ASTNode {
+    private Identifier original;
+    private Identifier alias;
+
+    public ImportItem(Identifier original, Identifier alias) {
         this.original = original;
         this.alias = alias;
     }
 
     @Override
     public String toString() {
-        return alias != null ? original + " as " + alias : original;
+        if (alias != null){
+            return   original + " as " + alias;
+        }
+        else{
+            return original.toString();
+        }
     }
 }

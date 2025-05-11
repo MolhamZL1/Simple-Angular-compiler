@@ -17,11 +17,47 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProgram(AngularParser.ProgramContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AngularParser#importStatement}.
+	 * Visit a parse tree produced by the {@code ImportDefaultLabel}
+	 * labeled alternative in {@link AngularParser#importStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitImportStatement(AngularParser.ImportStatementContext ctx);
+	T visitImportDefaultLabel(AngularParser.ImportDefaultLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ImportNamespaceLabel}
+	 * labeled alternative in {@link AngularParser#importStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitImportNamespaceLabel(AngularParser.ImportNamespaceLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ImportNamedLabel}
+	 * labeled alternative in {@link AngularParser#importStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitImportNamedLabel(AngularParser.ImportNamedLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ImportDefaultWithNamedLabel}
+	 * labeled alternative in {@link AngularParser#importStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitImportDefaultWithNamedLabel(AngularParser.ImportDefaultWithNamedLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ImportDefaultWithNamespaceLabel}
+	 * labeled alternative in {@link AngularParser#importStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitImportDefaultWithNamespaceLabel(AngularParser.ImportDefaultWithNamespaceLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ImportSideEffectLabel}
+	 * labeled alternative in {@link AngularParser#importStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitImportSideEffectLabel(AngularParser.ImportSideEffectLabelContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AngularParser#importSideEffect}.
 	 * @param ctx the parse tree

@@ -1,10 +1,12 @@
 package AST.ImportsClasses;
 
+import AST.Identifier;
+
 public class ImportNamespace implements ImportStatement {
-    private String alias;
+    private Identifier alias;
     private String module;
 
-    public ImportNamespace(String alias, String module) {
+    public ImportNamespace(Identifier alias, String module) {
         this.alias = alias;
         this.module = module;
     }

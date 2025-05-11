@@ -18,15 +18,77 @@ public interface AngularParserListener extends ParseTreeListener {
 	 */
 	void exitProgram(AngularParser.ProgramContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AngularParser#importStatement}.
+	 * Enter a parse tree produced by the {@code ImportDefaultLabel}
+	 * labeled alternative in {@link AngularParser#importStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterImportStatement(AngularParser.ImportStatementContext ctx);
+	void enterImportDefaultLabel(AngularParser.ImportDefaultLabelContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AngularParser#importStatement}.
+	 * Exit a parse tree produced by the {@code ImportDefaultLabel}
+	 * labeled alternative in {@link AngularParser#importStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitImportStatement(AngularParser.ImportStatementContext ctx);
+	void exitImportDefaultLabel(AngularParser.ImportDefaultLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ImportNamespaceLabel}
+	 * labeled alternative in {@link AngularParser#importStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterImportNamespaceLabel(AngularParser.ImportNamespaceLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ImportNamespaceLabel}
+	 * labeled alternative in {@link AngularParser#importStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitImportNamespaceLabel(AngularParser.ImportNamespaceLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ImportNamedLabel}
+	 * labeled alternative in {@link AngularParser#importStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterImportNamedLabel(AngularParser.ImportNamedLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ImportNamedLabel}
+	 * labeled alternative in {@link AngularParser#importStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitImportNamedLabel(AngularParser.ImportNamedLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ImportDefaultWithNamedLabel}
+	 * labeled alternative in {@link AngularParser#importStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterImportDefaultWithNamedLabel(AngularParser.ImportDefaultWithNamedLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ImportDefaultWithNamedLabel}
+	 * labeled alternative in {@link AngularParser#importStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitImportDefaultWithNamedLabel(AngularParser.ImportDefaultWithNamedLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ImportDefaultWithNamespaceLabel}
+	 * labeled alternative in {@link AngularParser#importStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterImportDefaultWithNamespaceLabel(AngularParser.ImportDefaultWithNamespaceLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ImportDefaultWithNamespaceLabel}
+	 * labeled alternative in {@link AngularParser#importStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitImportDefaultWithNamespaceLabel(AngularParser.ImportDefaultWithNamespaceLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ImportSideEffectLabel}
+	 * labeled alternative in {@link AngularParser#importStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterImportSideEffectLabel(AngularParser.ImportSideEffectLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ImportSideEffectLabel}
+	 * labeled alternative in {@link AngularParser#importStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitImportSideEffectLabel(AngularParser.ImportSideEffectLabelContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AngularParser#importSideEffect}.
 	 * @param ctx the parse tree

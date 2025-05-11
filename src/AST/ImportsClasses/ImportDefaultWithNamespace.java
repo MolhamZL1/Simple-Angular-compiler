@@ -1,11 +1,13 @@
 package AST.ImportsClasses;
 
+import AST.Identifier;
+
 public class ImportDefaultWithNamespace implements ImportStatement {
-    private String defaultId;
-    private String alias;
+    private Identifier defaultId;
+    private Identifier alias;
     private String module;
 
-    public ImportDefaultWithNamespace(String defaultId, String alias, String module) {
+    public ImportDefaultWithNamespace(Identifier defaultId, Identifier alias, String module) {
         this.defaultId = defaultId;
         this.alias = alias;
         this.module = module;
