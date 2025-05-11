@@ -1,10 +1,12 @@
 package AST.ExpressionsClasses;
 
+import AST.Identifier;
+
 public class SafeNavExpr implements Expression{
     private Expression baseObject;
-    private String id;
+    private Identifier id;
 
-    public SafeNavExpr(Expression baseObject, String id) {
+    public SafeNavExpr(Expression baseObject, Identifier id) {
         this.baseObject = baseObject;
         this.id = id;
     }

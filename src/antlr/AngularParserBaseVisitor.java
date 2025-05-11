@@ -564,42 +564,42 @@ public class AngularParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> imp
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitLiteralExpr(AngularParser.LiteralExprContext ctx) { return visitChildren(ctx); }
+	@Override public T visitLiteralprimary(AngularParser.LiteralprimaryContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIdentifierExpr(AngularParser.IdentifierExprContext ctx) { return visitChildren(ctx); }
+	@Override public T visitIdentifierprimary(AngularParser.IdentifierprimaryContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitArrayLiteralExpr(AngularParser.ArrayLiteralExprContext ctx) { return visitChildren(ctx); }
+	@Override public T visitArrayLiteralprimary(AngularParser.ArrayLiteralprimaryContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitMapLiteralExpr(AngularParser.MapLiteralExprContext ctx) { return visitChildren(ctx); }
+	@Override public T visitMapLiteralprimary(AngularParser.MapLiteralprimaryContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitObjectLiteralExpr(AngularParser.ObjectLiteralExprContext ctx) { return visitChildren(ctx); }
+	@Override public T visitObjectLiteralprimary(AngularParser.ObjectLiteralprimaryContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitObjectinitExpr(AngularParser.ObjectinitExprContext ctx) { return visitChildren(ctx); }
+	@Override public T visitObjectinitprimary(AngularParser.ObjectinitprimaryContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

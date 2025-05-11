@@ -5,7 +5,7 @@ public class ArthmaticOpExpr implements Expression{
     private Expression rightExpression;
     private String op;
 
-    public ArthmaticOpExpr(Expression leftExpression, Expression rightExpression, String op) {
+    public ArthmaticOpExpr(Expression leftExpression, String op, Expression rightExpression) {
         this.leftExpression = leftExpression;
         this.rightExpression = rightExpression;
         this.op = op;
@@ -15,8 +15,8 @@ public class ArthmaticOpExpr implements Expression{
     public String toString() {
         return "\nArthmaticOpExpr{" +
                 "\nleftExpression=" + leftExpression +
-                "\n, rightExpression=" + rightExpression +
                 "\n, op='" + op + '\'' +
+                "\n, rightExpression=" + rightExpression +
                 "\n}";
     }
 }

@@ -5,7 +5,7 @@ public class RelationalExpr implements Expression{
     private Expression rightExpression;
     private String op;
 
-    public RelationalExpr(Expression leftExpression, Expression rightExpression, String op) {
+    public RelationalExpr(Expression leftExpression, String op, Expression rightExpression) {
         this.leftExpression = leftExpression;
         this.rightExpression = rightExpression;
         this.op = op;
@@ -15,8 +15,9 @@ public class RelationalExpr implements Expression{
     public String toString() {
         return "\nRelationalExpr{" +
                 "\nleftExpression=" + leftExpression +
-                "\n, rightExpression=" + rightExpression +
                 "\n, op='" + op + '\'' +
+                "\n, rightExpression=" + rightExpression +
+
                 "\n}";
     }
 }

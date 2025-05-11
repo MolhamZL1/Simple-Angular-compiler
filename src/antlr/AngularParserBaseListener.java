@@ -953,73 +953,73 @@ public class AngularParserBaseListener implements AngularParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLiteralExpr(AngularParser.LiteralExprContext ctx) { }
+	@Override public void enterLiteralprimary(AngularParser.LiteralprimaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLiteralExpr(AngularParser.LiteralExprContext ctx) { }
+	@Override public void exitLiteralprimary(AngularParser.LiteralprimaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIdentifierExpr(AngularParser.IdentifierExprContext ctx) { }
+	@Override public void enterIdentifierprimary(AngularParser.IdentifierprimaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIdentifierExpr(AngularParser.IdentifierExprContext ctx) { }
+	@Override public void exitIdentifierprimary(AngularParser.IdentifierprimaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArrayLiteralExpr(AngularParser.ArrayLiteralExprContext ctx) { }
+	@Override public void enterArrayLiteralprimary(AngularParser.ArrayLiteralprimaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArrayLiteralExpr(AngularParser.ArrayLiteralExprContext ctx) { }
+	@Override public void exitArrayLiteralprimary(AngularParser.ArrayLiteralprimaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMapLiteralExpr(AngularParser.MapLiteralExprContext ctx) { }
+	@Override public void enterMapLiteralprimary(AngularParser.MapLiteralprimaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMapLiteralExpr(AngularParser.MapLiteralExprContext ctx) { }
+	@Override public void exitMapLiteralprimary(AngularParser.MapLiteralprimaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterObjectLiteralExpr(AngularParser.ObjectLiteralExprContext ctx) { }
+	@Override public void enterObjectLiteralprimary(AngularParser.ObjectLiteralprimaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitObjectLiteralExpr(AngularParser.ObjectLiteralExprContext ctx) { }
+	@Override public void exitObjectLiteralprimary(AngularParser.ObjectLiteralprimaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterObjectinitExpr(AngularParser.ObjectinitExprContext ctx) { }
+	@Override public void enterObjectinitprimary(AngularParser.ObjectinitprimaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitObjectinitExpr(AngularParser.ObjectinitExprContext ctx) { }
+	@Override public void exitObjectinitprimary(AngularParser.ObjectinitprimaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

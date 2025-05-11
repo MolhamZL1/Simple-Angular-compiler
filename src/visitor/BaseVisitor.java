@@ -2,10 +2,12 @@ package visitor;
 
 import AST.*;
 import AST.ComponentClasses.*;
-import AST.ExpressionsClasses.Expression;
+import AST.ExpressionsClasses.*;
 import AST.ImportsClasses.*;
 import AST.Number;
-import AST.Primary.Literal;
+import AST.Primary.*;
+import AST.Statement.VariableDeclaration;
+import AST.Statement.VariableDeclarationKeyword;
 import antlr.AngularParser;
 import antlr.AngularParserBaseVisitor;
 
@@ -167,36 +169,177 @@ public class BaseVisitor extends AngularParserBaseVisitor {
         return new HTML(html);
     }
 
-//    @Override
-//    public StylesProperty visitStylesProperty(AngularParser.StylesPropertyContext ctx) {
-//        if (ctx.styleUrls() != null) {
-//            List<String> paths = new ArrayList<>();
-//            if (ctx.styleUrls().arrayLiteral() != null) {
-//                paths = visitArrayLiteral(ctx.styleUrls().arrayLiteral());
-//            } else {
-//                paths.add(cleanStringLiteral(ctx.styleUrls().STRING().getText()));
-//            }
-//            return new StylesProperty(true, paths);
-//        }
-//        throw new UnsupportedOperationException("Inline styles not implemented");
-//    }
     @Override
     public StandaloneProperty visitStandalone(AngularParser.StandaloneContext ctx) {
         boolean value = Boolean.parseBoolean(ctx.Boolean().getText());
         return new StandaloneProperty(value);
     }
-//    @Override
-//    public ImportsProperty visitImports(AngularParser.ImportsContext ctx) {
-//        List<String> imports = visitArrayLiteral(ctx.arrayLiteral());
-//        return new ImportsProperty(imports);
-//    }
-//
-//    @Override
-//    public List<String> visitArrayLiteral(AngularParser.ArrayLiteralContext ctx) {
-//        return ctx.STRING().stream()
-//                .map(node -> cleanStringLiteral(node.getText()))
-//                .collect(Collectors.toList());
-//    }
+
+    @Override
+    public VariableDeclaration visitVariableDeclaration(AngularParser.VariableDeclarationContext ctx) {
+        boolean isExported=ctx.EXPORT()!=null;
+        VariableDeclarationKeyword variableDeclarationKeyword=(VariableDeclarationKeyword)visit(ctx.variableDeclarationKeyword());
+        Type type=(Type) visit(ctx.typeAnnotation().type());
+        Identifier name=(Identifier) visit(ctx.name);
+        Expression value=(Expression) visit(ctx.expression());
+        Identifier castedType=(Identifier) visit(ctx.castedType);
+        return new VariableDeclaration(isExported,variableDeclarationKeyword,type,name,value,castedType);
+    }
+
+    @Override
+    public VariableDeclarationKeyword visitVariableDeclarationKeyword(AngularParser.VariableDeclarationKeywordContext ctx) {
+        return new VariableDeclarationKeyword(ctx.getText());
+    }
+
+    @Override
+    public ThisExpr visitThisExpr(AngularParser.ThisExprContext ctx) {
+     return new ThisExpr();
+    }
+
+    @Override
+    public DotExpr visitMemberDotExpr(AngularParser.MemberDotExprContext ctx) {
+        return new DotExpr((Expression) visit(ctx.left), (Expression) visit(ctx.right));
+    }
+
+    @Override
+    public MemberIndexExpr visitMemberIndexExpr(AngularParser.MemberIndexExprContext ctx) {
+        return new MemberIndexExpr((Expression) visit(ctx.member),(Expression) visit(ctx.index));
+    }
+
+    @Override
+    public CallExpr visitCallExpr(AngularParser.CallExprContext ctx) {
+        return new CallExpr((Expression) visit(ctx.expression()),(Args) visit(ctx.args()));
+    }
+
+    @Override
+    public SafeNavExpr visitSafeNavExpr(AngularParser.SafeNavExprContext ctx) {
+        return new SafeNavExpr((Expression) visit(ctx.expression()),(Identifier) visit(ctx.identifier()));
+    }
+
+    @Override
+    public SafeIndexExpr visitSafeIndexExpr(AngularParser.SafeIndexExprContext ctx) {
+        return new SafeIndexExpr((Expression) visit(ctx.baseObject),(Expression) visit(ctx.indexObject));
+    }
+
+    @Override
+    public UnaryExpr visitUnaryExpr(AngularParser.UnaryExprContext ctx) {
+        return new UnaryExpr((Expression) visit(ctx.expression()),ctx.op.getText());
+    }
+
+    @Override
+    public ArthmaticOpExpr visitArthmaticOpExpr(AngularParser.ArthmaticOpExprContext ctx) {
+        return new ArthmaticOpExpr((Expression) visit(ctx.left), ctx.op.getText(),(Expression) visit(ctx.right));
+    }
+
+    @Override
+    public RelationalExpr visitRelationalExpr(AngularParser.RelationalExprContext ctx) {
+        return new RelationalExpr((Expression) visit(ctx.left), ctx.op.getText(),(Expression) visit(ctx.right));
+    }
+
+    @Override
+    public EqualityExpr visitEqualityExpr(AngularParser.EqualityExprContext ctx) {
+        return new EqualityExpr((Expression) visit(ctx.left), ctx.op.getText(),(Expression) visit(ctx.right));
+    }
+
+    @Override
+    public LogicalExpr visitLogicalExpr(AngularParser.LogicalExprContext ctx) {
+        return new LogicalExpr((Expression) visit(ctx.left), ctx.op.getText(),(Expression) visit(ctx.right));
+    }
+
+    @Override
+    public AssignmentExpr visitAssignmentExpr(AngularParser.AssignmentExprContext ctx) {
+        return new AssignmentExpr((Expression) visit(ctx.variable),(Expression) visit(ctx.value));
+    }
+
+    @Override
+    public AdditionAssignmentExpr visitAdditionAssignmentExpr(AngularParser.AdditionAssignmentExprContext ctx) {
+        return new AdditionAssignmentExpr((Expression) visit(ctx.variable),ctx.op.getText(),(Expression) visit(ctx.value));
+    }
+
+    @Override
+    public TernaryExpr visitTernaryExpr(AngularParser.TernaryExprContext ctx) {
+        return new TernaryExpr((Expression) visit(ctx.condition),(Expression) visit(ctx.true_),(Expression) visit(ctx.false_));
+    }
+
+    @Override
+    public ParenthesizedExpr visitParenthesizedExpr(AngularParser.ParenthesizedExprContext ctx) {
+        return new ParenthesizedExpr((Expression) visit(ctx.expression()));
+    }
+
+    @Override
+    public PostFixExpr visitPostFixExpr(AngularParser.PostFixExprContext ctx) {
+        return new PostFixExpr((Expression) visit(ctx.expression()),ctx.MINUS(0)!=null?"--":"++");
+    }
+
+    @Override
+    public PreFixExpr visitPreFixExpr(AngularParser.PreFixExprContext ctx) {
+        return new PreFixExpr((Expression) visit(ctx.expression()),ctx.MINUS(0)!=null?"--":"++");
+    }
+
+    @Override
+    public ArrayLiteral visitArrayLiteral(AngularParser.ArrayLiteralContext ctx) {
+        List<Expression> items=new ArrayList<>();
+        for (AngularParser.ExpressionContext expressionctx : ctx.expression()) {
+            Expression expression = (Expression) visit(expressionctx);
+            if (expression != null) {
+                items.add(expression);
+            }
+        }
+        return new ArrayLiteral(items);
+    }
+
+    @Override
+    public ObjectLiteral visitObjectLiteral(AngularParser.ObjectLiteralContext ctx) {
+        List<PropertyAssignment> properties=new ArrayList<>();
+        for (AngularParser.PropertyAssignmentContext propartyctx : ctx.propertyAssignment()) {
+            PropertyAssignment proparaty = (PropertyAssignment) visit(propartyctx);
+            if (proparaty != null) {
+                properties.add(proparaty);
+            }
+        }
+        return new ObjectLiteral(properties);
+    }
+
+    @Override
+    public ObjectInit visitObjectInit(AngularParser.ObjectInitContext ctx) {
+        Identifier className= (Identifier) visit(ctx.identifier());
+        Type type= (Type) visit(ctx.type());
+        Args args= (Args) visit(ctx.args());
+        return new ObjectInit(className,type,args);
+    }
+
+    @Override
+    public PropertyAssignment visitPropertyAssignment(AngularParser.PropertyAssignmentContext ctx) {
+        Identifier proparty= (Identifier) visit(ctx.identifier());
+        Expression expression=(Expression) visit(ctx.expression());
+        return new PropertyAssignment(proparty,expression);
+    }
+
+    @Override
+    public MapLitral visitMapLitral(AngularParser.MapLitralContext ctx) {
+        List<Mapmember> mapmembers=new ArrayList<>();
+
+            for (AngularParser.MapmemberContext memberCtx : ctx.mapmember()) {
+                Mapmember mapmember = (Mapmember) visit(memberCtx);
+                if (mapmember != null) {
+                    mapmembers.add(mapmember);
+                }
+            }
+
+        return new MapLitral(mapmembers);
+    }
+
+    @Override
+    public Mapmember visitMapmember(AngularParser.MapmemberContext ctx) {
+        String key=ctx.STRING().getText();
+        Expression value= (Expression) visit(ctx.expression());
+        return new Mapmember(key,value);
+    }
+
+    @Override
+    public Identifier visitIdentifier(AngularParser.IdentifierContext ctx) {
+        return new Identifier(ctx.getText());
+    }
 
     @Override
     public Literal visitLiteral(AngularParser.LiteralContext ctx) {

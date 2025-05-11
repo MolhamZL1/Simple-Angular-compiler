@@ -826,77 +826,77 @@ public interface AngularParserListener extends ParseTreeListener {
 	 */
 	void exitTernaryExpr(AngularParser.TernaryExprContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code LiteralExpr}
+	 * Enter a parse tree produced by the {@code Literalprimary}
 	 * labeled alternative in {@link AngularParser#primary}.
 	 * @param ctx the parse tree
 	 */
-	void enterLiteralExpr(AngularParser.LiteralExprContext ctx);
+	void enterLiteralprimary(AngularParser.LiteralprimaryContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code LiteralExpr}
+	 * Exit a parse tree produced by the {@code Literalprimary}
 	 * labeled alternative in {@link AngularParser#primary}.
 	 * @param ctx the parse tree
 	 */
-	void exitLiteralExpr(AngularParser.LiteralExprContext ctx);
+	void exitLiteralprimary(AngularParser.LiteralprimaryContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code IdentifierExpr}
+	 * Enter a parse tree produced by the {@code Identifierprimary}
 	 * labeled alternative in {@link AngularParser#primary}.
 	 * @param ctx the parse tree
 	 */
-	void enterIdentifierExpr(AngularParser.IdentifierExprContext ctx);
+	void enterIdentifierprimary(AngularParser.IdentifierprimaryContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code IdentifierExpr}
+	 * Exit a parse tree produced by the {@code Identifierprimary}
 	 * labeled alternative in {@link AngularParser#primary}.
 	 * @param ctx the parse tree
 	 */
-	void exitIdentifierExpr(AngularParser.IdentifierExprContext ctx);
+	void exitIdentifierprimary(AngularParser.IdentifierprimaryContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ArrayLiteralExpr}
+	 * Enter a parse tree produced by the {@code ArrayLiteralprimary}
 	 * labeled alternative in {@link AngularParser#primary}.
 	 * @param ctx the parse tree
 	 */
-	void enterArrayLiteralExpr(AngularParser.ArrayLiteralExprContext ctx);
+	void enterArrayLiteralprimary(AngularParser.ArrayLiteralprimaryContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ArrayLiteralExpr}
+	 * Exit a parse tree produced by the {@code ArrayLiteralprimary}
 	 * labeled alternative in {@link AngularParser#primary}.
 	 * @param ctx the parse tree
 	 */
-	void exitArrayLiteralExpr(AngularParser.ArrayLiteralExprContext ctx);
+	void exitArrayLiteralprimary(AngularParser.ArrayLiteralprimaryContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code MapLiteralExpr}
+	 * Enter a parse tree produced by the {@code MapLiteralprimary}
 	 * labeled alternative in {@link AngularParser#primary}.
 	 * @param ctx the parse tree
 	 */
-	void enterMapLiteralExpr(AngularParser.MapLiteralExprContext ctx);
+	void enterMapLiteralprimary(AngularParser.MapLiteralprimaryContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code MapLiteralExpr}
+	 * Exit a parse tree produced by the {@code MapLiteralprimary}
 	 * labeled alternative in {@link AngularParser#primary}.
 	 * @param ctx the parse tree
 	 */
-	void exitMapLiteralExpr(AngularParser.MapLiteralExprContext ctx);
+	void exitMapLiteralprimary(AngularParser.MapLiteralprimaryContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ObjectLiteralExpr}
+	 * Enter a parse tree produced by the {@code ObjectLiteralprimary}
 	 * labeled alternative in {@link AngularParser#primary}.
 	 * @param ctx the parse tree
 	 */
-	void enterObjectLiteralExpr(AngularParser.ObjectLiteralExprContext ctx);
+	void enterObjectLiteralprimary(AngularParser.ObjectLiteralprimaryContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ObjectLiteralExpr}
+	 * Exit a parse tree produced by the {@code ObjectLiteralprimary}
 	 * labeled alternative in {@link AngularParser#primary}.
 	 * @param ctx the parse tree
 	 */
-	void exitObjectLiteralExpr(AngularParser.ObjectLiteralExprContext ctx);
+	void exitObjectLiteralprimary(AngularParser.ObjectLiteralprimaryContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ObjectinitExpr}
+	 * Enter a parse tree produced by the {@code Objectinitprimary}
 	 * labeled alternative in {@link AngularParser#primary}.
 	 * @param ctx the parse tree
 	 */
-	void enterObjectinitExpr(AngularParser.ObjectinitExprContext ctx);
+	void enterObjectinitprimary(AngularParser.ObjectinitprimaryContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ObjectinitExpr}
+	 * Exit a parse tree produced by the {@code Objectinitprimary}
 	 * labeled alternative in {@link AngularParser#primary}.
 	 * @param ctx the parse tree
 	 */
-	void exitObjectinitExpr(AngularParser.ObjectinitExprContext ctx);
+	void exitObjectinitprimary(AngularParser.ObjectinitprimaryContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AngularParser#arrayLiteral}.
 	 * @param ctx the parse tree

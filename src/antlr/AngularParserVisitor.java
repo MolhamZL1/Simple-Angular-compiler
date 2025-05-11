@@ -498,47 +498,47 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTernaryExpr(AngularParser.TernaryExprContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code LiteralExpr}
+	 * Visit a parse tree produced by the {@code Literalprimary}
 	 * labeled alternative in {@link AngularParser#primary}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLiteralExpr(AngularParser.LiteralExprContext ctx);
+	T visitLiteralprimary(AngularParser.LiteralprimaryContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code IdentifierExpr}
+	 * Visit a parse tree produced by the {@code Identifierprimary}
 	 * labeled alternative in {@link AngularParser#primary}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIdentifierExpr(AngularParser.IdentifierExprContext ctx);
+	T visitIdentifierprimary(AngularParser.IdentifierprimaryContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ArrayLiteralExpr}
+	 * Visit a parse tree produced by the {@code ArrayLiteralprimary}
 	 * labeled alternative in {@link AngularParser#primary}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitArrayLiteralExpr(AngularParser.ArrayLiteralExprContext ctx);
+	T visitArrayLiteralprimary(AngularParser.ArrayLiteralprimaryContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code MapLiteralExpr}
+	 * Visit a parse tree produced by the {@code MapLiteralprimary}
 	 * labeled alternative in {@link AngularParser#primary}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMapLiteralExpr(AngularParser.MapLiteralExprContext ctx);
+	T visitMapLiteralprimary(AngularParser.MapLiteralprimaryContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ObjectLiteralExpr}
+	 * Visit a parse tree produced by the {@code ObjectLiteralprimary}
 	 * labeled alternative in {@link AngularParser#primary}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitObjectLiteralExpr(AngularParser.ObjectLiteralExprContext ctx);
+	T visitObjectLiteralprimary(AngularParser.ObjectLiteralprimaryContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ObjectinitExpr}
+	 * Visit a parse tree produced by the {@code Objectinitprimary}
 	 * labeled alternative in {@link AngularParser#primary}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitObjectinitExpr(AngularParser.ObjectinitExprContext ctx);
+	T visitObjectinitprimary(AngularParser.ObjectinitprimaryContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AngularParser#arrayLiteral}.
 	 * @param ctx the parse tree

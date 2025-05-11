@@ -13,8 +13,8 @@ public class Args implements ASTNode{
 
     @Override
     public String toString() {
-        return "Args{" +
-                "expressions=" + expressions +
+        return "\nArgs{" +
+                 expressions +
                 '}';
     }
 }

@@ -24,13 +24,22 @@ public class VariableDeclaration implements Statement , ClassStatment {
 
     @Override
     public String toString() {
-        return "\nVariableDeclaration{" +
-                "isExported=" + isExported +
-                ", variableDeclarationKeyword=" + variableDeclarationKeyword +
-                ", type=" + type +
-                ", name=" + name +
-                ", value=" + value +
-                ", castedType=" + castedType +
-                '}';
+        StringBuilder sb = new StringBuilder("\nVariableDeclaration{");
+        sb.append("isExported=").append(isExported);
+        sb.append(", variableDeclarationKeyword=").append(variableDeclarationKeyword);
+        if (type != null) {
+            sb.append(", type=").append(type);
+        }
+        sb.append(", name=").append(name);
+        if (value != null) {
+            sb.append(", value=").append(value);
+        }
+
+        if (castedType != null) {
+            sb.append(", castedType=").append(castedType);
+        }
+
+        sb.append('}');
+        return sb.toString();
     }
 }

@@ -4,11 +4,7 @@ options { tokenVocab=AngularLexer; }
 
 program//done
     :(
-       importStatement
-      |componentDeclaration
-      |classDeclaration
-      |statement
-      |methodDeclaration
+       primary
      )* EOF;
 // functionDeclaration
 importStatement//done
@@ -247,67 +243,67 @@ forStatement//done
             ;
 
 variableDeclaration//done
-    :EXPORT? variableDeclarationKeyword identifier typeAnnotation? (EQUAL expression)? (AS identifier)? SEMI
+    :EXPORT? variableDeclarationKeyword name=identifier typeAnnotation? (EQUAL expression)? (AS castedType=identifier)? SEMI
     ;
 
-    variableDeclarationKeyword:(CONST | LET | VAR);//done
+    variableDeclarationKeyword:(CONST | LET | VAR);//done//
 
-expressionStatement: expression eos;//no need
+expressionStatement: expression eos;//no need//noneed
 
 expression//done
-    : anonymosMethod                                                                          # AnounymusMethodExpr
-    | THIS                                                                                    # ThisExpr
-    | expression DOT expression                                                               # MemberDotExpr
-    | expression LSBRACKET expression RSBRACKET                                               # MemberIndexExpr
-    | expression LPAREN args? RPAREN                                                          # CallExpr
-    | expression QUESITIONMARK DOT IDENTIFIER                                                 # SafeNavExpr
-    | expression QUESITIONMARK RSBRACKET expression RSBRACKET                                 # SafeIndexExpr
-    | (MINUS|PLUS|NOT) expression                                                             # UnaryExpr
-    | expression (STAR|DIVIDE|MODULO|PLUS|MINUS) expression                                   # ArthmaticOpExpr
-    | expression (LESS_THAN|GREATER_THAN|LESS_THAN_OR_EQUAL|GREATER_THAN_OR_EQUAL) expression # RelationalExpr
-    | expression (EQUAL_TO|NOT_EQUAL|EQUAL_TO3|NOT_EQUAL2) expression                         # EqualityExpr
-    | expression (AND|OR) expression                                                          # LogicalExpr
-    | expression EQUAL expression                                                             # AssignmentExpr
-    | expression (PLUS|MINUS) EQUAL expression                                                # AdditionAssignmentExpr
-    | expression QUESITIONMARK expression COLON expression                                    # TernaryExpr
-    | LPAREN expression RPAREN                                                                # ParenthesizedExpr
-    | expression ((MINUS MINUS)|(PLUS PLUS))                                                  # PostFixExpr
-    | ((MINUS MINUS)|(PLUS PLUS)) expression                                                  # PreFixExpr
-    | primary                                                                                 # PrimaryExpr
+    : anonymosMethod                                                                          # AnounymusMethodExpr//noneed
+    | THIS                                                                                    # ThisExpr//
+    | left=expression DOT right=expression                                                    # MemberDotExpr//
+    | member=expression LSBRACKET index=expression RSBRACKET                                  # MemberIndexExpr//
+    | expression LPAREN args? RPAREN                                                          # CallExpr//
+    | expression QUESITIONMARK DOT identifier                                                 # SafeNavExpr//
+    | baseObject=expression QUESITIONMARK RSBRACKET indexObject=expression RSBRACKET          # SafeIndexExpr//
+    | op=(MINUS|PLUS|NOT) expression                                                          # UnaryExpr//
+    | left=expression op=(STAR|DIVIDE|MODULO|PLUS|MINUS) right=expression                     # ArthmaticOpExpr//
+    | left=expression op=(LESS_THAN|GREATER_THAN|LESS_THAN_OR_EQUAL|GREATER_THAN_OR_EQUAL) right=expression # RelationalExpr//
+    | left=expression op=(EQUAL_TO|NOT_EQUAL|EQUAL_TO3|NOT_EQUAL2)right=expression            # EqualityExpr//
+    | left=expression op=(AND|OR) right=expression                                            # LogicalExpr//
+    | variable=expression EQUAL value=expression                                              # AssignmentExpr//
+    | variable=expression op=(PLUS|MINUS) EQUAL value=expression                              # AdditionAssignmentExpr//
+    | condition=expression QUESITIONMARK true=expression COLON false=expression               # TernaryExpr//
+    | LPAREN expression RPAREN                                                                # ParenthesizedExpr//
+    | expression ((MINUS MINUS)|(PLUS PLUS))                                                  # PostFixExpr//
+    | ((MINUS MINUS)|(PLUS PLUS)) expression                                                  # PreFixExpr//
+    | primary                                                                                 # PrimaryExpr//noneed
    // | templateLiteral                                                                         # TemplateExpr
     ;
 
-    primary//done
-        : literal                            # LiteralExpr
-        | identifier                         # IdentifierExpr
-        | arrayLiteral                       # ArrayLiteralExpr
-        | mapLitral                          # MapLiteralExpr
-        | objectLiteral                      # ObjectLiteralExpr
-        | objectInit                         # ObjectinitExpr
+    primary//done//noneed
+        : literal                            # Literalprimary
+        | identifier                         # Identifierprimary
+        | arrayLiteral                       # ArrayLiteralprimary
+        | mapLitral                          # MapLiteralprimary
+        | objectLiteral                      # ObjectLiteralprimary
+        | objectInit                         # Objectinitprimary
         ;
 
-arrayLiteral : LSBRACKET (expression (COMMA expression)*)? COMMA? RSBRACKET;//done
+arrayLiteral : LSBRACKET (expression (COMMA expression)*)? COMMA? RSBRACKET;//done//
 
-objectLiteral : LCURLY (propertyAssignment (COMMA propertyAssignment)*)? COMMA? RCURLY;//done
+objectLiteral : LCURLY (propertyAssignment (COMMA propertyAssignment)*)? COMMA? RCURLY;//done//
 
-objectInit : NEW identifier (LESS_THAN type GREATER_THAN)? LPAREN args? RPAREN;//done
+objectInit : NEW identifier (LESS_THAN type GREATER_THAN)? LPAREN args? RPAREN;//done//
 
-propertyAssignment : identifier COLON expression;//done
+propertyAssignment : identifier COLON expression;//done//
 
-mapLitral : LCURLY (mapmember (COMMA mapmember)*)? COMMA? RCURLY;//done
+mapLitral : LCURLY (mapmember (COMMA mapmember)*)? COMMA? RCURLY;//done//
 
-mapmember:STRING COLON expression;//done
+mapmember:STRING COLON expression;//done//
 
-identifier:IDENTIFIER;//done
-
-
+identifier:IDENTIFIER;//done//
 
 
-args : expression (COMMA expression)*;//done
 
-literal : number | STRING | Boolean | Null | Undefined; //done
 
-number: Integer | Float; //done
+args : expression (COMMA expression)*;//done//
+
+literal : number | STRING | Boolean | Null | Undefined; //done//
+
+number: Integer | Float; //done//
 
 //modifier : PUBLIC | PRIVATE | PROTECTED | READONLY | STATIC | ABSTRACT | FINAL | ASYNC|EXPORT;
 
@@ -316,7 +312,7 @@ typeAnnotation//no need
     : COLON type
     ;
 
-type//done
+type//done//
     : STRINGKEYWORD | NUMBER | BOOLEANKEYWORD | ANY | ANY LSBRACKET RSBRACKET | IDENTIFIER (LESS_THAN type GREATER_THAN)?
     ;
 

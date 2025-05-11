@@ -5,7 +5,7 @@ public class LogicalExpr implements Expression{
     private Expression rightExpression;
     private String op;
 
-    public LogicalExpr(Expression leftExpression, Expression rightExpression, String op) {
+    public LogicalExpr(Expression leftExpression, String op, Expression rightExpression) {
         this.leftExpression = leftExpression;
         this.rightExpression = rightExpression;
         this.op = op;
@@ -15,8 +15,8 @@ public class LogicalExpr implements Expression{
     public String toString() {
         return "\nLogicalExpr{" +
                 "\nleftExpression=" + leftExpression +
-                "\n, rightExpression=" + rightExpression +
                 "\n, op='" + op + '\'' +
+                "\n, rightExpression=" + rightExpression +
                 "\n}";
     }
 }

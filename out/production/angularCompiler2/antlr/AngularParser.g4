@@ -4,11 +4,7 @@ options { tokenVocab=AngularLexer; }
 
 program//done
     :(
-       importStatement
-      |componentDeclaration
-      |classDeclaration
-      |statement
-      |methodDeclaration
+       expression
      )* EOF;
 // functionDeclaration
 importStatement//done
@@ -73,15 +69,15 @@ templateProperty//done
 
     html:STRING;//done
 
-stylesProperty
+stylesProperty//done
     : styleUrls
  //   | stylesCss
     ;
 
-styleUrls:STYLEURL COLON  (STRING | arrayLiteral);// edit this to list of urls
+styleUrls:STYLEURL COLON LSBRACKET? (STRING (COMMA STRING)*) RSBRACKET?;//done
   //  stylesCss:TEMPLATE COLON STRING;
 
-classDeclaration
+classDeclaration//done
     : EXPORT?
       ABSTRACT?
       CLASS identifier
@@ -91,63 +87,76 @@ classDeclaration
       classBody
     ;
 
- genericClassParameters:identifier (EXTENDS identifier)?;
+ genericClassParameters:identifier (EXTENDS identifier)?;//done
 
-classBody
+classBody//done
     : LCURLY classMember* RCURLY
     ;
 
-classMember
+classMember//done
       :accessModifier?
-      (STATIC | READONLY | ABSTRACT | OVERRIDE)?
-      (   propertyDeclaration
-        | methodDeclaration
-        | variableDeclaration
-        | constructorDeclaration
-        | accessorDeclaration
-        | angularSpecificMember
-      )
-    ;
+       classMemberModifier?
+       classStatment
+       ;
 
-    angularSpecificMember
-        : inputDeclaration
-        | outputDeclaration
-        | viewChildDeclaration
+classMemberModifier:(STATIC | READONLY | ABSTRACT | OVERRIDE);//done
+
+    classStatment:
+          propertyDeclaration//
+        | methodDeclaration//
+        | variableDeclaration//
+        | constructorDeclaration//
+        | accessorDeclaration//
+        | angularSpecificMember//
         ;
 
-    inputDeclaration
-        : INPUT LPAREN (STRING | objectLiteral)?RPAREN
-          IDENTIFIER typeAnnotation? (EQUAL expression)? eos
+    angularSpecificMember//done
+        : inputDeclaration//
+        | outputDeclaration//
+        | viewChildDeclaration//
         ;
 
-    outputDeclaration
+    inputDeclaration//done
+        : INPUT LPAREN (STRING | objectLiteral)? RPAREN
+          identifier typeAnnotation? (EQUAL expression)? eos
+        ;
+
+    outputDeclaration//done
         : OUTPUT (LPAREN STRING? RPAREN)?
-          IDENTIFIER typeAnnotation? EQUAL objectInit eos
+          identifier typeAnnotation? EQUAL objectInit eos
         ;
 
-    viewChildDeclaration
-        : VIEW_CHILD LPAREN STRING (COMMA objectLiteral)? RPAREN
-          IDENTIFIER typeAnnotation? eos
+    viewChildDeclaration//done
+        : VIEWCHILD LPAREN STRING (COMMA objectLiteral)? RPAREN
+          identifier typeAnnotation? eos
         ;
 
-    accessModifier
-        : PUBLIC | PRIVATE | PROTECTED
+constructorDeclaration//done
+    : deafultConstructor
+    | delegatedConstructor
+    ;
+
+    delegatedConstructor://done
+    CONSTRUCTOR LPAREN parameterList? RPAREN
+                               COLON THIS LPAREN args? RPAREN
+                             ;
+
+    deafultConstructor://done
+    CONSTRUCTOR LPAREN parameterList? RPAREN
+                              blockStatement
+                           ;
+
+accessorDeclaration//done
+    : (GET | SET) deafultMethod
+    ;
+
+ propertyDeclaration//done
+        : identifier typeAnnotation? (EQUAL expression)? SEMI
         ;
 
-propertyDeclaration
-    : IDENTIFIER typeAnnotation? (EQUAL expression)? SEMI
-    ;
-
-
-constructorDeclaration
-    : CONSTRUCTOR LPAREN parameterList? RPAREN
-      ((COLON THIS LPAREN args? RPAREN) | blockStatement)?
-    ;
-
-accessorDeclaration
-    : (GET | SET) IDENTIFIER LPAREN parameter? RPAREN
-      typeAnnotation? (blockStatement | SEMI)
-    ;
+      accessModifier//done
+            : PUBLIC | PRIVATE | PROTECTED
+            ;
 
 methodDeclaration//done
     :deafultMethod
@@ -264,37 +273,37 @@ expression//done
    // | templateLiteral                                                                         # TemplateExpr
     ;
 
-    primary//done
-        : literal                            # LiteralExpr
-        | identifier                         # IdentifierExpr
-        | arrayLiteral                       # ArrayLiteralExpr
-        | mapLitral                          # MapLiteralExpr
-        | objectLiteral                      # ObjectLiteralExpr
-        | objectInit                         # ObjectinitExpr
+    primary//done//noneed
+        : literal
+        | identifier
+        | arrayLiteral
+        | mapLitral
+        | objectLiteral
+        | objectInit
         ;
 
-arrayLiteral : LSBRACKET (expression (COMMA expression)*)? COMMA? RSBRACKET;//done
+arrayLiteral : LSBRACKET (expression (COMMA expression)*)? COMMA? RSBRACKET;//done//
 
-objectLiteral : LCURLY (propertyAssignment (COMMA propertyAssignment)*)? COMMA? RCURLY;//done
+objectLiteral : LCURLY (propertyAssignment (COMMA propertyAssignment)*)? COMMA? RCURLY;//done//
 
-objectInit : NEW identifier (LESS_THAN type GREATER_THAN)? LPAREN args? RPAREN;//done
+objectInit : NEW identifier (LESS_THAN type GREATER_THAN)? LPAREN args? RPAREN;//done//
 
-propertyAssignment : identifier COLON expression;//done
+propertyAssignment : identifier COLON expression;//done//
 
-mapLitral : LCURLY (mapmember (COMMA mapmember)*)? COMMA? RCURLY;//done
+mapLitral : LCURLY (mapmember (COMMA mapmember)*)? COMMA? RCURLY;//done//
 
-mapmember:STRING COLON expression;//done
+mapmember:STRING COLON expression;//done//
 
-identifier:IDENTIFIER;//done
-
-
+identifier:IDENTIFIER;//done//
 
 
-args : expression (COMMA expression)*;//done
 
-literal : number | STRING | Boolean | Null | Undefined; //done
 
-number: Integer | Float; //done
+args : expression (COMMA expression)*;//done//
+
+literal : number | STRING | Boolean | Null | Undefined; //done//
+
+number: Integer | Float; //done//
 
 //modifier : PUBLIC | PRIVATE | PROTECTED | READONLY | STATIC | ABSTRACT | FINAL | ASYNC|EXPORT;
 
@@ -303,7 +312,7 @@ typeAnnotation//no need
     : COLON type
     ;
 
-type//done
+type//done//
     : STRINGKEYWORD | NUMBER | BOOLEANKEYWORD | ANY | ANY LSBRACKET RSBRACKET | IDENTIFIER (LESS_THAN type GREATER_THAN)?
     ;
 

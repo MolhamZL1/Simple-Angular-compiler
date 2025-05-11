@@ -60,6 +60,8 @@ ABSTRACT : 'abstract';
 FINAL : 'final';
 ASYNC : 'async';
 EXTENDS:'extends';
+SET:'set';
+GET:'get';
 
 // Operators
 EQUAL: '=';
