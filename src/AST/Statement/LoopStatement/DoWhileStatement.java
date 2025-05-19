@@ -3,11 +3,11 @@ package AST.Statement.LoopStatement;
 import AST.ExpressionsClasses.Expression;
 import AST.Statement.Statement;
 
-public class doWhileStatement implements LoopStatement{
+public class DoWhileStatement implements LoopStatement{
     private Expression condition;
     private Statement body;
 
-    public doWhileStatement(Expression condition, Statement body) {
+    public DoWhileStatement(Expression condition, Statement body) {
         this.condition = condition;
         this.body = body;
     }

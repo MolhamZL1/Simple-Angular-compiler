@@ -3,11 +3,11 @@ package AST;
 import AST.Primary.Literal;
 
 public class Parameter implements ASTNode{
-   private String id;
+   private Identifier id;
    private Type type;
    private Literal value;
 
-    public Parameter(String id, Type type, Literal value) {
+    public Parameter(Identifier id, Type type, Literal value) {
         this.id = id;
         this.type = type;
         this.value = value;
@@ -17,8 +17,8 @@ public class Parameter implements ASTNode{
     public String toString() {
         return "Parameter{" +
                 "id='" + id + '\'' +
-                ", type=" + type +
-                ", value=" + value +
+                (type != null ? ", type=" + type : "") +
+                (value != null ? ", value=" + value : "") +
                 '}';
     }
 }

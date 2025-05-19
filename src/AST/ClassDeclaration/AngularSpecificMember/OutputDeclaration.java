@@ -19,11 +19,16 @@ public class OutputDeclaration implements AngularSpecificMember{
 
     @Override
     public String toString() {
-        return "\nOutputDeclaration{" +
-                "alias='" + alias + '\'' +
-                ", identifier=" + identifier +
-                ", type=" + type +
-                ", eventEmitter=" + eventEmitter +
-                '}';
+        StringBuilder sb = new StringBuilder("\nOutputDeclaration{");
+        sb.append("alias='").append(alias != null ? alias : "").append('\'');
+        sb.append(", identifier=").append(identifier);
+
+        if (type != null) {
+            sb.append(", type=").append(type);
+        }
+
+        sb.append(", eventEmitter=").append(eventEmitter);
+        sb.append('}');
+        return sb.toString();
     }
 }

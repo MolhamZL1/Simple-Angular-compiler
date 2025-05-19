@@ -2,7 +2,7 @@ package AST.ComponentClasses;
 
 import java.util.List;
 
-public class StyleUrls {
+public class StyleUrls implements StylesProperty{
     private List<String> urls;
 
     public StyleUrls(List<String> urls) {
@@ -12,7 +12,7 @@ public class StyleUrls {
     @Override
     public String toString() {
         return "StyleUrls{" +
-                "urls=" + urls +
+                 urls +
                 '}';
     }
 }

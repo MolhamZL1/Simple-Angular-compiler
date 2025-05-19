@@ -23,12 +23,24 @@ public class InputDeclaration implements AngularSpecificMember{
 
     @Override
     public String toString() {
-        return "\nInputDeclaration{" +
-                "alias='" + alias + '\'' +
-                ", config=" + config +
-                ", identifier=" + identifier +
-                ", type=" + type +
-                ", initializer=" + initializer +
-                '}';
+        StringBuilder sb = new StringBuilder("\nInputDeclaration{");
+        sb.append("alias='").append(alias != null ? alias : "").append('\'');
+
+        if (config != null) {
+            sb.append(", config=").append(config);
+        }
+
+        sb.append(", identifier=").append(identifier);
+
+        if (type != null) {
+            sb.append(", type=").append(type);
+        }
+
+        if (initializer != null) {
+            sb.append(", initializer=").append(initializer);
+        }
+
+        sb.append('}');
+        return sb.toString();
     }
 }

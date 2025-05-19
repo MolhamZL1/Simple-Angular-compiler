@@ -7,9 +7,9 @@ import java.util.List;
 public class IfStatement implements Statement {
 private IfSection ifSection;
 private List<ElseIfSection> elseIfSections;
-private elseSection elseSection;
+private ElseSection elseSection;
 
-    public IfStatement(IfSection ifSection, List<ElseIfSection> elseIfSections, AST.Statement.IfStatement.elseSection elseSection) {
+    public IfStatement(IfSection ifSection, List<ElseIfSection> elseIfSections, ElseSection elseSection) {
         this.ifSection = ifSection;
         this.elseIfSections = elseIfSections;
         this.elseSection = elseSection;
@@ -17,10 +17,17 @@ private elseSection elseSection;
 
     @Override
     public String toString() {
-        return "\nIfStatement{" +
-                "ifSection=" + ifSection +
-                ", elseIfSections=" + elseIfSections +
-                ", elseSection=" + elseSection +
-                '}';
+        StringBuilder sb = new StringBuilder("IfStatement{")
+                .append("ifSection=").append(ifSection);
+
+        if (elseIfSections != null) {
+            sb.append(", elseIfSections=").append(elseIfSections);
+        }
+        if (elseSection != null) {
+            sb.append(", elseSection=").append(elseSection);
+        }
+
+        return sb.append('}').toString();
     }
+
 }

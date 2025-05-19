@@ -3,10 +3,10 @@ package AST.Statement.IfStatement;
 import AST.ASTNode;
 import AST.Statement.Statement;
 
-public class elseSection implements ASTNode {
+public class ElseSection implements ASTNode {
     private Statement body;
 
-    public elseSection(Statement body) {
+    public ElseSection(Statement body) {
         this.body = body;
     }
 

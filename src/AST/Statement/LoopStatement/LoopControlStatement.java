@@ -7,7 +7,7 @@ public class LoopControlStatement implements Statement {
 private String controlKeyword;
 
 
-    public LoopControlStatement(String controlKeyword, Identifier optionalLabel) {
+    public LoopControlStatement(String controlKeyword) {
         this.controlKeyword = controlKeyword;
 
     }

@@ -13,9 +13,12 @@ private Args args;
 
     @Override
     public String toString() {
-        return "\nCallExpr{" +
-                "\nexpression=" + expression +
-                ", \nargs=" + args +
-                "\n}";
+        StringBuilder sb = new StringBuilder("\nCallExpr{");
+        sb.append("\nexpression=").append(expression);
+        if (args != null) {
+            sb.append(", \nargs=").append(args);
+        }
+        sb.append("\n}");
+        return sb.toString();
     }
 }

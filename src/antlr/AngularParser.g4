@@ -39,59 +39,59 @@ importList: importItem (COMMA importItem)*;//no need
 importItem: original=identifier (AS alias=identifier)?;//done
 
 componentDeclaration//done
-    : COMPONENT LPAREN componentMetadata RPAREN
+    : COMPONENT Component_LPAREN componentMetadata Component_RPAREN
     ;
 
 componentMetadata//no need
-    : LCURLY metadataProperty (COMMA metadataProperty)* COMMA? RCURLY
+    : Component_LCURLY metadataProperty (Comp_COMMA metadataProperty)* Comp_COMMA? Component_RCURLY
     ;
 
 metadataProperty//done
-    : selectorProperty
-    | templateProperty
-    | stylesProperty
-    | standalone
-    | imports
+    : selectorProperty   #SelectorPropertyLabel
+    | templateProperty   #TemplatePropertyLabel
+    | stylesProperty     #StylesPropertyLabel
+    | standalone         #StandaloneLabel
+    | imports            #ImportsLabel
     ;
 
-    standalone:STANDALONE COLON Boolean;//done
+    standalone:STANDALONE CompCOLON CompBool;//done
 
-     imports:IMPORTS COLON arrayLiteral;//edit this to list of id
-
+     imports:IMPORTS CompCOLON listOfId;//edit this to list of id
+listOfId:Comp_LSBRACKET (Comp_IDENTIFIER (Comp_COMMA Comp_IDENTIFIER)*) Comp_RSBRACKET;
 selectorProperty//done
-    : SELECTOR COLON STRING
+    : SELECTOR CompCOLON CompString
     ;
 
 templateProperty//done
-    : templateUrl
-    | templetHTML
+    : templateUrl    #TemplateUrlLabel
+    | templetHTML    #TemplateHTMLLabel
     ;
 
-    templateUrl:TEMPLATEURL COLON STRING;//done
+    templateUrl:TEMPLATEURL CompCOLON CompString;//done
 
-    templetHTML:TEMPLATE COLON html;//done
+    templetHTML:TEMPLATE CompCOLON html;//done
 
-    html:STRING;//done
+    html:CompString;//done
 
 stylesProperty//done
-    : styleUrls
+    : styleUrls   #StyleUrlsLabel
  //   | stylesCss
     ;
 
-styleUrls:STYLEURL COLON LSBRACKET? (STRING (COMMA STRING)*) RSBRACKET?;//done
+styleUrls:STYLEURL CompCOLON Comp_LSBRACKET? (CompString (Comp_COMMA CompString)*) Comp_RSBRACKET?;//done
   //  stylesCss:TEMPLATE COLON STRING;
 
 classDeclaration//done
     : EXPORT?
       ABSTRACT?
-      CLASS identifier
+      CLASS name=identifier
       (LESS_THAN genericClassParameters(COMMA genericClassParameters)* GREATER_THAN)?
-      (EXTENDS identifier)?
+      (EXTENDS parent=identifier)?
       (IMPLEMENTS identifier (COMMA identifier)*)?
       classBody
-    ;
+    ;//edit to string for null
 
- genericClassParameters:identifier (EXTENDS identifier)?;//done
+ genericClassParameters:parameterid=identifier (EXTENDS parent=identifier)?;//done
 
 classBody//done
     : LCURLY classMember* RCURLY
@@ -106,18 +106,18 @@ classMember//done
 classMemberModifier:(STATIC | READONLY | ABSTRACT | OVERRIDE);//done
 
     classStatment:
-          propertyDeclaration//
-        | methodDeclaration//
-        | variableDeclaration//
-        | constructorDeclaration//
-        | accessorDeclaration//
-        | angularSpecificMember//
+          propertyDeclaration            #PropartyDeclerationLabel//
+        | methodDeclaration              #MethodDeclerationLabel//
+        | variableDeclaration            #VariableDeclerationLabel//
+        | constructorDeclaration         #ConstructorDeclerationLabel//
+        | accessorDeclaration            #AccessorDeclerationLabel//
+        | angularSpecificMember          #AngularMemberLabel//
         ;
 
     angularSpecificMember//done
-        : inputDeclaration//
-        | outputDeclaration//
-        | viewChildDeclaration//
+        : inputDeclaration               #InputDeclerationLabel
+        | outputDeclaration              #OutputDeclerationLabel
+        | viewChildDeclaration           #ViewChildDeclerationLabel
         ;
 
     inputDeclaration//done
@@ -136,16 +136,16 @@ classMemberModifier:(STATIC | READONLY | ABSTRACT | OVERRIDE);//done
         ;
 
 constructorDeclaration//done
-    : deafultConstructor
-    | delegatedConstructor
+    : deafultConstructor       #DeaafultContructorLabel
+    | delegatedConstructor     #DelegatedConstructorLabel
     ;
 
-    delegatedConstructor://done
+    delegatedConstructor://done//
     CONSTRUCTOR LPAREN parameterList? RPAREN
                                COLON THIS LPAREN args? RPAREN
                              ;
 
-    deafultConstructor://done
+    deafultConstructor://done//
     CONSTRUCTOR LPAREN parameterList? RPAREN
                               blockStatement
                            ;
@@ -154,21 +154,21 @@ accessorDeclaration//done
     : (GET | SET) deafultMethod
     ;
 
- propertyDeclaration//done
-        : identifier typeAnnotation? (EQUAL expression)? SEMI
+ propertyDeclaration//done//
+        : name=identifier typeAnnotation? (EQUAL value=expression)? SEMI
         ;
 
-      accessModifier//done
+      accessModifier//done//
             : PUBLIC | PRIVATE | PROTECTED
             ;
 
 methodDeclaration//done
-    :deafultMethod
-    |anonymosMethod
+    :deafultMethod       #DeafultmethodLabel
+    |anonymosMethod      #AnonymusMethodLabel
     ;
 
     deafultMethod://done
-     ASYNC? identifier LPAREN (parameterList | args)? RPAREN
+     ASYNC? FUNCTION? identifier LPAREN (parameterList | args)? RPAREN
                    typeAnnotation? (blockStatement | ARROW expressionStatement);
 
     anonymosMethod://done
@@ -178,18 +178,15 @@ methodDeclaration//done
                (parameter (COMMA parameter)*)? ;
 
               parameter://done
-              IDENTIFIER (typeAnnotation  (EQUAL literal)?)?;
-
-
-
+              identifier (typeAnnotation  (EQUAL literal)?)?;
 
 statement//done
-       : variableDeclaration//
-       | ifStatement//
-       | blockStatement//
-       | loopStatement//
-       | loopControlStatement//
-       | expressionStatement//
+       : variableDeclaration        #VariableDeclerrationLabel//
+       | ifStatement                #IfStatmentLabel//
+       | blockStatement             #BlockStatmentLabel//
+       | loopStatement              #LoopStatmentLabel
+       | loopControlStatement       #LoopControlStatmentLabel//
+       | expressionStatement        #ExpressionStatemntLabel
        ;
 
 loopControlStatement//done
@@ -198,18 +195,18 @@ loopControlStatement//done
     ;
 
 loopStatement//done
-            : forStatement
-            | whileStatement
-            | doWhileStatement
-            | forOfStatement
+            : forStatement       #ForStatementLabel
+            | whileStatement     #WhileStatementLabel
+            | doWhileStatement   #DoWhileStatementLabel
+            | forOfStatement     #ForOfStatementLabel
            // | angularForStatement
             ;
 
 forStatement//done
     : FOR LPAREN
-      (variableDeclaration | expression? SEMI)//Initialization
-      expression? SEMI//condition
-      expression?//update
+      (variableDeclaration | initialization=expression? SEMI)//Initialization
+      condition=expression? SEMI//condition
+      update=expression?//update
       RPAREN statement
     ;
 
@@ -246,8 +243,8 @@ forStatement//done
             : LCURLY statement* RCURLY
             ;
 
-variableDeclaration//done
-    :EXPORT? variableDeclarationKeyword name=identifier typeAnnotation? (EQUAL expression)? (AS castedType=identifier)? SEMI
+variableDeclaration//done//
+    :EXPORT? variableDeclarationKeyword name=identifier typeAnnotation? (EQUAL value=expression)? (AS castedType=identifier)? SEMI
     ;
 
     variableDeclarationKeyword:(CONST | LET | VAR);//done//

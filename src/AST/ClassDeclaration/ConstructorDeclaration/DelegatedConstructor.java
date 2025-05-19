@@ -18,7 +18,7 @@ private Args args;
     public String toString() {
         return "\nDelegatedConstructor{" +
                 "parameters=" + parameters +
-                ", args=" + args +
+                (args != null ? ", args=" + args : "") +
                 '}';
     }
 }

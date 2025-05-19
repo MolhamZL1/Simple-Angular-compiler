@@ -20,8 +20,8 @@ public class PropertyDeclaration implements ClassStatment{
     public String toString() {
         return "\nPropertyDeclaration{" +
                 "name=" + name +
-                ", type=" + type +
-                ", value=" + value +
+                (type != null ? ", type=" + type : "") +
+                (value != null ? ", value=" + value : "") +
                 '}';
     }
 }

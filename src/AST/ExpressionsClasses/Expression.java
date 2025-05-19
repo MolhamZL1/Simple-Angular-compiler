@@ -1,6 +1,7 @@
 package AST.ExpressionsClasses;
 
 import AST.ASTNode;
+import AST.Statement.Statement;
 
-public interface Expression extends ASTNode {
+public interface Expression extends Statement {
 }

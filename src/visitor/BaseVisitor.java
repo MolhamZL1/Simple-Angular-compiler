@@ -1,26 +1,46 @@
 package visitor;
 
 import AST.*;
+import AST.ClassDeclaration.*;
+import AST.ClassDeclaration.AngularSpecificMember.InputDeclaration;
+import AST.ClassDeclaration.AngularSpecificMember.OutputDeclaration;
+import AST.ClassDeclaration.AngularSpecificMember.ViewChildDeclaration;
+import AST.ClassDeclaration.ConstructorDeclaration.DeafultConstructor;
+import AST.ClassDeclaration.ConstructorDeclaration.DelegatedConstructor;
 import AST.ComponentClasses.*;
 import AST.ExpressionsClasses.*;
 import AST.ImportsClasses.*;
+import AST.MethodDeclaration.AnonymosMethod;
+import AST.MethodDeclaration.DeafultMethod;
 import AST.Number;
 import AST.Primary.*;
+import AST.Statement.BlockStatement;
+import AST.Statement.IfStatement.ElseIfSection;
+import AST.Statement.IfStatement.ElseSection;
+import AST.Statement.IfStatement.IfSection;
+import AST.Statement.IfStatement.IfStatement;
+import AST.Statement.LoopStatement.*;
+import AST.Statement.Statement;
 import AST.Statement.VariableDeclaration;
 import AST.Statement.VariableDeclarationKeyword;
+import SymbolTable.SemanticAnalyzer;
 import antlr.AngularParser;
 import antlr.AngularParserBaseVisitor;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BaseVisitor extends AngularParserBaseVisitor {
+    SemanticAnalyzer analyzer = new SemanticAnalyzer();
     @Override
-    public Object visitProgram(AngularParser.ProgramContext ctx) {
+    public Program visitProgram(AngularParser.ProgramContext ctx) {
+        analyzer.enterScope();
         Program program=new Program();
         for (int i = 0; i < ctx.children.size(); i++) {
             program.addChild((ASTNode) visit(ctx.getChild(i)));
         }
+        analyzer.exitScope();
         return program;
     }
 
@@ -112,42 +132,22 @@ public class BaseVisitor extends AngularParserBaseVisitor {
         ComponentDeclaration componentDeclaration=new ComponentDeclaration(metadataProperties);
         return componentDeclaration;
     }
-//    @Override
-//    public MetadataProperty visitMetadataProperty(AngularParser.MetadataPropertyContext ctx) {
-//
-//        if (ctx.selectorProperty() != null) {
-//            return (MetadataProperty) visit(ctx.selectorProperty());
-//        } else if (ctx.templateProperty() != null) {
-//            return (MetadataProperty) visit(ctx.templateProperty());
-//        } else if (ctx.stylesProperty() != null) {
-//            return(MetadataProperty) visit(ctx.stylesProperty());
-//        } else if (ctx.standalone() != null) {
-//            return(MetadataProperty) visit(ctx.standalone());
-//        } else if (ctx.imports() != null) {
-//            return(MetadataProperty) visit(ctx.imports());
-//        }
-//        throw new IllegalStateException("Unknown metadata property type");
-//    }
+
+    @Override
+    public StandaloneProperty visitStandalone(AngularParser.StandaloneContext ctx) {
+        boolean value = Boolean.parseBoolean(ctx.CompBool().getText());
+        return new StandaloneProperty(value);
+    }
+
 @Override
     public SelectorProperty visitSelectorProperty(AngularParser.SelectorPropertyContext ctx) {
-        String selector = ctx.STRING().getText();
+        String selector = ctx.CompString().getText();
         return new SelectorProperty(stripQuotes(selector));
-    }
-    @Override
-    public TemplateProperty visitTemplateProperty(AngularParser.TemplatePropertyContext ctx) {
-        if (ctx.templateUrl() != null) {
-            return (TemplateProperty) visit(ctx.templateUrl());
-
-        } else if(ctx.templetHTML()!=null) {
-            return (TemplateProperty) visit(ctx.templetHTML());
-        }
-        throw new IllegalStateException("Unknown template property type");
-
     }
 
     @Override
     public TemplateUrl visitTemplateUrl(AngularParser.TemplateUrlContext ctx) {
-        String url=ctx.STRING().getText();
+        String url=ctx.CompString().getText();
         return new TemplateUrl(url);
     }
 
@@ -159,30 +159,349 @@ public class BaseVisitor extends AngularParserBaseVisitor {
 
     @Override
     public HTML visitHtml(AngularParser.HtmlContext ctx) {
-       String html= ctx.STRING().getText();
+       String html= ctx.CompString().getText();
         return new HTML(html);
     }
 
     @Override
-    public StandaloneProperty visitStandalone(AngularParser.StandaloneContext ctx) {
-        boolean value = Boolean.parseBoolean(ctx.Boolean().getText());
-        return new StandaloneProperty(value);
+    public StyleUrls visitStyleUrls(AngularParser.StyleUrlsContext ctx) {
+        List<String> styles=new ArrayList<>();
+        for (TerminalNode style:  ctx.CompString()) {
+            styles.add(style.getText());
+        }
+        return new StyleUrls(styles);
+    }
+
+    @Override
+    public ImportsComponent visitImports(AngularParser.ImportsContext ctx) {
+
+        return new ImportsComponent((List<String>) visit(ctx.listOfId()));
+    }
+    @Override
+    public List<String> visitListOfId(AngularParser.ListOfIdContext ctx) {
+        List<String> identifiers = new ArrayList<>();
+
+        for (TerminalNode id : ctx.Comp_IDENTIFIER()) {
+            identifiers.add(id.getText());
+        }
+
+        return identifiers;
+    }
+
+    @Override
+    public ClassDeclaration visitClassDeclaration(AngularParser.ClassDeclarationContext ctx) {
+        boolean isExported = ctx.EXPORT() != null;
+        boolean isAbstract = ctx.ABSTRACT() != null;
+        Identifier name = (Identifier) visit(ctx.name);
+        List<GenericClassParameter> genericClassParameters = new ArrayList<>();
+        if(ctx.genericClassParameters()!=null){
+        for (AngularParser.GenericClassParametersContext genCtx : ctx.genericClassParameters()) {
+            GenericClassParameter genericClassParameter = (GenericClassParameter) visit(genCtx);
+            if (genericClassParameter != null) {
+                genericClassParameters.add(genericClassParameter);
+            }
+        }
+    }
+        Identifier parent=ctx.parent!=null?(Identifier)visit(ctx.parent):null;
+        List<Identifier> interfaces=new ArrayList<>();
+        if (ctx.identifier()!=null){
+        for (int i = 2; i <ctx.identifier().size() ; i++) {
+            interfaces.add((Identifier) visit(ctx.identifier(i)));
+        }}
+        ClassBody classBody=(ClassBody) visit(ctx.classBody());
+       return new ClassDeclaration(isExported,isAbstract,name,genericClassParameters,parent,interfaces,classBody);
+    }
+
+    @Override
+    public GenericClassParameter visitGenericClassParameters(AngularParser.GenericClassParametersContext ctx) {
+        return new GenericClassParameter((Identifier) visit(ctx.parameterid),(Identifier) visit(ctx.parent));//maybe null here add if else
+    }
+
+    @Override
+    public ClassBody visitClassBody(AngularParser.ClassBodyContext ctx) {
+        analyzer.enterScope();
+        List<ClassMember> classMembers=new ArrayList<>();
+        if (ctx.classMember()!=null){
+            for (AngularParser.ClassMemberContext classMemberContext: ctx.classMember() ) {
+                classMembers.add((ClassMember) visit(classMemberContext));
+            }
+        }
+        analyzer.exitScope();
+        return new ClassBody(classMembers);
+    }
+
+    @Override
+    public ClassMember visitClassMember(AngularParser.ClassMemberContext ctx) {
+        AccessModifier accessModifier=null;
+        if (ctx.accessModifier()!=null){
+            accessModifier=(AccessModifier) visit(ctx.accessModifier());
+        }
+        ClassMemberModifier classMemberModifier=null;
+        if(ctx.classMemberModifier()!=null){
+            classMemberModifier=(ClassMemberModifier) visit(ctx.classMemberModifier());
+        }
+        ClassStatment classStatment=(ClassStatment) visit(ctx.classStatment());
+        return new ClassMember(accessModifier,classMemberModifier,classStatment);
+    }
+
+    @Override
+    public ClassMemberModifier visitClassMemberModifier(AngularParser.ClassMemberModifierContext ctx) {
+        return new ClassMemberModifier(ctx.getText());
+    }
+
+    @Override
+    public AccessModifier visitAccessModifier(AngularParser.AccessModifierContext ctx) {
+        return new AccessModifier(ctx.getText());
+    }
+
+    @Override
+    public PropertyDeclaration visitPropertyDeclaration(AngularParser.PropertyDeclarationContext ctx) {
+        Identifier name=(Identifier) visit(ctx.name);
+        Type type=null;
+        if (ctx.typeAnnotation()!=null){
+         type=(Type) visit(ctx.typeAnnotation().type());
+        }
+        Expression value=null;
+        if (ctx.value!=null) {
+             value = (Expression) visit(ctx.value);
+        }
+        return new PropertyDeclaration(name,type,value);
     }
 
     @Override
     public VariableDeclaration visitVariableDeclaration(AngularParser.VariableDeclarationContext ctx) {
         boolean isExported=ctx.EXPORT()!=null;
         VariableDeclarationKeyword variableDeclarationKeyword=(VariableDeclarationKeyword)visit(ctx.variableDeclarationKeyword());
-        Type type=(Type) visit(ctx.typeAnnotation().type());
+        Type type=null;
+        if (ctx.typeAnnotation()!=null){
+            type=(Type) visit(ctx.typeAnnotation().type());
+        }
         Identifier name=(Identifier) visit(ctx.name);
-        Expression value=(Expression) visit(ctx.expression());
-        Identifier castedType=(Identifier) visit(ctx.castedType);
+        Expression value=null;
+        if (ctx.value!=null) {
+            value = (Expression) visit(ctx.value);
+        }
+        Identifier castedType=null;
+        if (ctx.castedType!=null) {
+            castedType = (Identifier) visit(ctx.castedType);
+        }
+        analyzer.defineVar(name.getIdentifier(), variableDeclarationKeyword.getKeyword(),ctx.getStart().getLine());
         return new VariableDeclaration(isExported,variableDeclarationKeyword,type,name,value,castedType);
     }
 
     @Override
     public VariableDeclarationKeyword visitVariableDeclarationKeyword(AngularParser.VariableDeclarationKeywordContext ctx) {
         return new VariableDeclarationKeyword(ctx.getText());
+    }
+
+    @Override
+    public DelegatedConstructor visitDelegatedConstructor(AngularParser.DelegatedConstructorContext ctx) {
+        List<Parameter> parameters=new ArrayList<>();
+        Args args=null;
+        if (ctx.args()!=null){
+            args=(Args) visit(ctx.args());
+        }
+        if (ctx.parameterList()!=null){
+            for (AngularParser.ParameterContext parameterCtx:ctx.parameterList().parameter()
+                 ) {
+                parameters.add((Parameter) visit(parameterCtx));
+            }
+        }
+        return new DelegatedConstructor(parameters,args);
+    }
+
+    @Override
+    public DeafultConstructor visitDeafultConstructor(AngularParser.DeafultConstructorContext ctx) {
+        List<Parameter> parameters=new ArrayList<>();
+        BlockStatement blockStatement=null;
+        if (ctx.blockStatement()!=null){
+            blockStatement=(BlockStatement) visit(ctx.blockStatement());
+        }
+        if (ctx.parameterList()!=null){
+            for (AngularParser.ParameterContext parameterCtx:ctx.parameterList().parameter()
+            ) {
+                parameters.add((Parameter) visit(parameterCtx));
+            }
+        }
+        return new DeafultConstructor(parameters,blockStatement);
+    }
+
+    @Override
+    public AccessorDeclaration visitAccessorDeclaration(AngularParser.AccessorDeclarationContext ctx) {
+        String accessor=ctx.getChild(0).getText();
+        DeafultMethod deafultMethod=(DeafultMethod) visit(ctx.deafultMethod());
+
+        return new AccessorDeclaration(accessor,deafultMethod);
+    }
+
+    @Override
+    public InputDeclaration visitInputDeclaration(AngularParser.InputDeclarationContext ctx) {
+        String alias = ctx.STRING() != null ? ctx.STRING().getText() : null;
+        ObjectLiteral config = ctx.objectLiteral() != null ? (ObjectLiteral) visit(ctx.objectLiteral()) : null;
+        Identifier identifier = (Identifier) visit(ctx.identifier());
+        Type type = ctx.typeAnnotation() != null ? (Type) visit(ctx.typeAnnotation().type()) : null;
+        Expression initializer = ctx.expression() != null ? (Expression) visit(ctx.expression()) : null;
+        return new InputDeclaration(alias, config, identifier, type, initializer);
+    }
+
+    @Override
+    public OutputDeclaration visitOutputDeclaration(AngularParser.OutputDeclarationContext ctx) {
+        String alias = ctx.STRING() != null ? ctx.STRING().getText() : null;
+        Identifier identifier = (Identifier) visit(ctx.identifier());
+        Type type = ctx.typeAnnotation() != null ? (Type) visit(ctx.typeAnnotation().type()) : null;
+         ObjectInit eventEmitter=(ObjectInit)visit(ctx.objectInit());
+        return new OutputDeclaration(alias, identifier, type,eventEmitter);
+    }
+
+    @Override
+    public ViewChildDeclaration visitViewChildDeclaration(AngularParser.ViewChildDeclarationContext ctx) {
+        String refrenceName = ctx.STRING().getText();
+        Identifier proparaty = (Identifier) visit(ctx.identifier());
+        ObjectLiteral metaData = ctx.objectLiteral() != null
+                ? (ObjectLiteral) visit(ctx.objectLiteral())
+                : null;
+        Type type = ctx.typeAnnotation() != null && ctx.typeAnnotation().type() != null
+                ? (Type) visit(ctx.typeAnnotation().type())
+                : null;
+        return new ViewChildDeclaration(refrenceName, metaData, proparaty, type);
+    }
+
+    @Override
+    public DeafultMethod visitDeafultMethod(AngularParser.DeafultMethodContext ctx) {
+        boolean isAsync=ctx.ASYNC()!=null;
+        Identifier name=(Identifier) visit(ctx.identifier());
+        List<Parameter> parameters=new ArrayList<>();
+        Args args=null;
+        if (ctx.parameterList()!=null){
+            for (AngularParser.ParameterContext parameterCtx:ctx.parameterList().parameter()
+            ) {
+                parameters.add((Parameter) visit(parameterCtx));
+            }
+        } else if (ctx.args()!=null) {
+            args=(Args) visit(ctx.args());
+        }
+        Type type = ctx.typeAnnotation() != null && ctx.typeAnnotation().type() != null
+                ? (Type) visit(ctx.typeAnnotation().type())
+                : null;
+        ASTNode body= (ASTNode) (ctx.blockStatement()!=null?visit(ctx.blockStatement()):visit(ctx.expressionStatement().expression()));
+        return new DeafultMethod(isAsync,name,parameters,args,type,body);
+    }
+
+    @Override
+    public AnonymosMethod visitAnonymosMethod(AngularParser.AnonymosMethodContext ctx) {
+        boolean isAsync=ctx.ASYNC()!=null;
+        List<Parameter> parameters=new ArrayList<>();
+        Args args=null;
+        if (ctx.parameterList()!=null){
+            for (AngularParser.ParameterContext parameterCtx:ctx.parameterList().parameter()
+            ) {
+                parameters.add((Parameter) visit(parameterCtx));
+            }
+        } else if (ctx.args()!=null) {
+            args=(Args) visit(ctx.args());
+        }
+        Type type = ctx.typeAnnotation() != null && ctx.typeAnnotation().type() != null
+                ? (Type) visit(ctx.typeAnnotation().type())
+                : null;
+        ASTNode body= (ASTNode) (ctx.blockStatement()!=null?visit(ctx.blockStatement()):visit(ctx.expressionStatement().expression()));
+        return new AnonymosMethod(isAsync,parameters,args,type,body);
+    }
+
+    @Override
+    public Parameter visitParameter(AngularParser.ParameterContext ctx) {
+        Identifier name=(Identifier) visit(ctx.identifier());
+        Type type = ctx.typeAnnotation() != null && ctx.typeAnnotation().type() != null
+                ? (Type) visit(ctx.typeAnnotation().type())
+                : null;
+        Literal literal=ctx.literal()!=null?(Literal) visit(ctx.literal()):null;
+        return new Parameter(name,type,literal);
+    }
+
+    @Override
+    public IfStatement visitIfStatement(AngularParser.IfStatementContext ctx) {
+        IfSection ifSection=(IfSection) visit(ctx.ifSection());
+        List<ElseIfSection> elseIfSections=new ArrayList<>();
+        if (ctx.elseIfSection()!=null){
+            for (AngularParser.ElseIfSectionContext elseIfSection:ctx.elseIfSection()
+            ) {
+                elseIfSections.add((ElseIfSection) visit(elseIfSection));
+            }
+        }
+        ElseSection elseSection=ctx.elseSection()!=null?(ElseSection) visit(ctx.elseSection()):null;
+        return new IfStatement(ifSection,elseIfSections,elseSection);
+    }
+
+    @Override
+    public IfSection visitIfSection(AngularParser.IfSectionContext ctx) {
+        Expression condition=(Expression) visit(ctx.expression());
+        Statement body=(Statement) visit(ctx.statement());
+        return new IfSection(condition,body);
+    }
+
+    @Override
+    public ElseIfSection visitElseIfSection(AngularParser.ElseIfSectionContext ctx) {
+        Expression condition=(Expression) visit(ctx.expression());
+        Statement body=(Statement) visit(ctx.statement());
+        return new ElseIfSection(condition,body);
+    }
+
+    @Override
+    public ElseSection visitElseSection(AngularParser.ElseSectionContext ctx) {
+        Statement body=(Statement) visit(ctx.statement());
+        return new ElseSection(body);
+    }
+
+    @Override
+    public BlockStatement visitBlockStatement(AngularParser.BlockStatementContext ctx) {
+        analyzer.enterScope();
+List<Statement> statements=new ArrayList<>();
+        if (ctx.statement()!=null){
+            for (AngularParser.StatementContext statementContext:ctx.statement()
+            ) {
+                statements.add((Statement) visit(statementContext));
+            }
+        }
+        analyzer.exitScope();
+        return new BlockStatement(statements);
+    }
+
+    @Override
+    public ForStatement visitForStatement(AngularParser.ForStatementContext ctx) {
+         ASTNode initialization=(ASTNode)visit(ctx.initialization!=null?ctx.initialization:ctx.variableDeclaration());
+         Expression update=ctx.update!=null?(Expression)visit(ctx.update):null;
+         Expression condition=ctx.condition!=null?(Expression)visit(ctx.condition):null;
+         Statement body=(Statement)visit(ctx.statement());
+        return new ForStatement(initialization,update,condition,body);
+    }
+
+    @Override
+    public WhileStatement visitWhileStatement(AngularParser.WhileStatementContext ctx) {
+        return new WhileStatement((Expression) visit(ctx.expression()),(Statement) visit(ctx.statement()));
+    }
+
+    @Override
+    public DoWhileStatement visitDoWhileStatement(AngularParser.DoWhileStatementContext ctx) {
+        return new DoWhileStatement((Expression) visit(ctx.expression()),(Statement) visit(ctx.statement()));
+    }
+
+    @Override
+    public ForOfStatement visitForOfStatement(AngularParser.ForOfStatementContext ctx) {
+        return new ForOfStatement(
+                (VariableDeclarationKeyword) visit(ctx.variableDeclarationKeyword()),
+                (Identifier) visit(ctx.identifier()),
+                (Expression) visit(ctx.expression()),
+                (Statement) visit(ctx.statement())
+        );
+    }
+
+    @Override
+    public LoopControlStatement visitLoopControlStatement(AngularParser.LoopControlStatementContext ctx) {
+        return new LoopControlStatement( ctx.getText());
+    }
+
+    @Override
+    public Expression visitExpressionStatemntLabel(AngularParser.ExpressionStatemntLabelContext ctx) {
+        return (Expression) visit(ctx.expressionStatement().expression());
     }
 
     @Override
@@ -202,7 +521,7 @@ public class BaseVisitor extends AngularParserBaseVisitor {
 
     @Override
     public CallExpr visitCallExpr(AngularParser.CallExprContext ctx) {
-        return new CallExpr((Expression) visit(ctx.expression()),(Args) visit(ctx.args()));
+        return new CallExpr((Expression) visit(ctx.expression()),ctx.args()!=null?(Args) visit(ctx.args()):null);
     }
 
     @Override
@@ -298,7 +617,7 @@ public class BaseVisitor extends AngularParserBaseVisitor {
     public ObjectInit visitObjectInit(AngularParser.ObjectInitContext ctx) {
         Identifier className= (Identifier) visit(ctx.identifier());
         Type type= (Type) visit(ctx.type());
-        Args args= (Args) visit(ctx.args());
+        Args args=ctx.args()!=null? (Args) visit(ctx.args()):null;
         return new ObjectInit(className,type,args);
     }
 
@@ -339,7 +658,8 @@ public class BaseVisitor extends AngularParserBaseVisitor {
     public Literal visitLiteral(AngularParser.LiteralContext ctx) {
         String literal;
         if(ctx.number()!=null){
-            literal= (String) visit(ctx.number());
+           Number number= (Number) visit(ctx.number());
+           literal=number.getNumber();
         }
         else{
             literal=ctx.getText();

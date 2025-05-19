@@ -19,11 +19,20 @@ public class ViewChildDeclaration implements AngularSpecificMember{
 
     @Override
     public String toString() {
-        return "\nViewChildDeclaration{" +
-                "refrenceName='" + refrenceName + '\'' +
-                ", metaData=" + metaData +
-                ", proparaty=" + proparaty +
-                ", type=" + type +
-                '}';
+        StringBuilder sb = new StringBuilder("\nViewChildDeclaration{");
+        sb.append("refrenceName='").append(refrenceName).append('\'');
+
+        if (metaData != null) {
+            sb.append(", metaData=").append(metaData);
+        }
+
+        sb.append(", proparaty=").append(proparaty);
+
+        if (type != null) {
+            sb.append(", type=").append(type);
+        }
+
+        sb.append('}');
+        return sb.toString();
     }
 }

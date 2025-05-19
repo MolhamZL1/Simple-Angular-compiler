@@ -125,11 +125,40 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitComponentMetadata(AngularParser.ComponentMetadataContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AngularParser#metadataProperty}.
+	 * Visit a parse tree produced by the {@code SelectorPropertyLabel}
+	 * labeled alternative in {@link AngularParser#metadataProperty}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMetadataProperty(AngularParser.MetadataPropertyContext ctx);
+	T visitSelectorPropertyLabel(AngularParser.SelectorPropertyLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TemplatePropertyLabel}
+	 * labeled alternative in {@link AngularParser#metadataProperty}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTemplatePropertyLabel(AngularParser.TemplatePropertyLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code StylesPropertyLabel}
+	 * labeled alternative in {@link AngularParser#metadataProperty}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStylesPropertyLabel(AngularParser.StylesPropertyLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code StandaloneLabel}
+	 * labeled alternative in {@link AngularParser#metadataProperty}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStandaloneLabel(AngularParser.StandaloneLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ImportsLabel}
+	 * labeled alternative in {@link AngularParser#metadataProperty}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitImportsLabel(AngularParser.ImportsLabelContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AngularParser#standalone}.
 	 * @param ctx the parse tree
@@ -143,17 +172,31 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitImports(AngularParser.ImportsContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AngularParser#listOfId}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitListOfId(AngularParser.ListOfIdContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AngularParser#selectorProperty}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitSelectorProperty(AngularParser.SelectorPropertyContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AngularParser#templateProperty}.
+	 * Visit a parse tree produced by the {@code TemplateUrlLabel}
+	 * labeled alternative in {@link AngularParser#templateProperty}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTemplateProperty(AngularParser.TemplatePropertyContext ctx);
+	T visitTemplateUrlLabel(AngularParser.TemplateUrlLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TemplateHTMLLabel}
+	 * labeled alternative in {@link AngularParser#templateProperty}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTemplateHTMLLabel(AngularParser.TemplateHTMLLabelContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AngularParser#templateUrl}.
 	 * @param ctx the parse tree
@@ -173,11 +216,12 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitHtml(AngularParser.HtmlContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AngularParser#stylesProperty}.
+	 * Visit a parse tree produced by the {@code StyleUrlsLabel}
+	 * labeled alternative in {@link AngularParser#stylesProperty}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStylesProperty(AngularParser.StylesPropertyContext ctx);
+	T visitStyleUrlsLabel(AngularParser.StyleUrlsLabelContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AngularParser#styleUrls}.
 	 * @param ctx the parse tree
@@ -215,17 +259,68 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitClassMemberModifier(AngularParser.ClassMemberModifierContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AngularParser#classStatment}.
+	 * Visit a parse tree produced by the {@code PropartyDeclerationLabel}
+	 * labeled alternative in {@link AngularParser#classStatment}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitClassStatment(AngularParser.ClassStatmentContext ctx);
+	T visitPropartyDeclerationLabel(AngularParser.PropartyDeclerationLabelContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AngularParser#angularSpecificMember}.
+	 * Visit a parse tree produced by the {@code MethodDeclerationLabel}
+	 * labeled alternative in {@link AngularParser#classStatment}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAngularSpecificMember(AngularParser.AngularSpecificMemberContext ctx);
+	T visitMethodDeclerationLabel(AngularParser.MethodDeclerationLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code VariableDeclerationLabel}
+	 * labeled alternative in {@link AngularParser#classStatment}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariableDeclerationLabel(AngularParser.VariableDeclerationLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ConstructorDeclerationLabel}
+	 * labeled alternative in {@link AngularParser#classStatment}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConstructorDeclerationLabel(AngularParser.ConstructorDeclerationLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AccessorDeclerationLabel}
+	 * labeled alternative in {@link AngularParser#classStatment}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAccessorDeclerationLabel(AngularParser.AccessorDeclerationLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AngularMemberLabel}
+	 * labeled alternative in {@link AngularParser#classStatment}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAngularMemberLabel(AngularParser.AngularMemberLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code InputDeclerationLabel}
+	 * labeled alternative in {@link AngularParser#angularSpecificMember}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInputDeclerationLabel(AngularParser.InputDeclerationLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code OutputDeclerationLabel}
+	 * labeled alternative in {@link AngularParser#angularSpecificMember}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOutputDeclerationLabel(AngularParser.OutputDeclerationLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ViewChildDeclerationLabel}
+	 * labeled alternative in {@link AngularParser#angularSpecificMember}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitViewChildDeclerationLabel(AngularParser.ViewChildDeclerationLabelContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AngularParser#inputDeclaration}.
 	 * @param ctx the parse tree
@@ -245,11 +340,19 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitViewChildDeclaration(AngularParser.ViewChildDeclarationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AngularParser#constructorDeclaration}.
+	 * Visit a parse tree produced by the {@code DeaafultContructorLabel}
+	 * labeled alternative in {@link AngularParser#constructorDeclaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitConstructorDeclaration(AngularParser.ConstructorDeclarationContext ctx);
+	T visitDeaafultContructorLabel(AngularParser.DeaafultContructorLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code DelegatedConstructorLabel}
+	 * labeled alternative in {@link AngularParser#constructorDeclaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDelegatedConstructorLabel(AngularParser.DelegatedConstructorLabelContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AngularParser#delegatedConstructor}.
 	 * @param ctx the parse tree
@@ -281,11 +384,19 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAccessModifier(AngularParser.AccessModifierContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AngularParser#methodDeclaration}.
+	 * Visit a parse tree produced by the {@code DeafultmethodLabel}
+	 * labeled alternative in {@link AngularParser#methodDeclaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMethodDeclaration(AngularParser.MethodDeclarationContext ctx);
+	T visitDeafultmethodLabel(AngularParser.DeafultmethodLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AnonymusMethodLabel}
+	 * labeled alternative in {@link AngularParser#methodDeclaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAnonymusMethodLabel(AngularParser.AnonymusMethodLabelContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AngularParser#deafultMethod}.
 	 * @param ctx the parse tree
@@ -311,11 +422,47 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParameter(AngularParser.ParameterContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AngularParser#statement}.
+	 * Visit a parse tree produced by the {@code VariableDeclerrationLabel}
+	 * labeled alternative in {@link AngularParser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStatement(AngularParser.StatementContext ctx);
+	T visitVariableDeclerrationLabel(AngularParser.VariableDeclerrationLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code IfStatmentLabel}
+	 * labeled alternative in {@link AngularParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfStatmentLabel(AngularParser.IfStatmentLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BlockStatmentLabel}
+	 * labeled alternative in {@link AngularParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBlockStatmentLabel(AngularParser.BlockStatmentLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code LoopStatmentLabel}
+	 * labeled alternative in {@link AngularParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLoopStatmentLabel(AngularParser.LoopStatmentLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code LoopControlStatmentLabel}
+	 * labeled alternative in {@link AngularParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLoopControlStatmentLabel(AngularParser.LoopControlStatmentLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ExpressionStatemntLabel}
+	 * labeled alternative in {@link AngularParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpressionStatemntLabel(AngularParser.ExpressionStatemntLabelContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AngularParser#loopControlStatement}.
 	 * @param ctx the parse tree
@@ -323,11 +470,33 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLoopControlStatement(AngularParser.LoopControlStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AngularParser#loopStatement}.
+	 * Visit a parse tree produced by the {@code ForStatementLabel}
+	 * labeled alternative in {@link AngularParser#loopStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLoopStatement(AngularParser.LoopStatementContext ctx);
+	T visitForStatementLabel(AngularParser.ForStatementLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code WhileStatementLabel}
+	 * labeled alternative in {@link AngularParser#loopStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhileStatementLabel(AngularParser.WhileStatementLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code DoWhileStatementLabel}
+	 * labeled alternative in {@link AngularParser#loopStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDoWhileStatementLabel(AngularParser.DoWhileStatementLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ForOfStatementLabel}
+	 * labeled alternative in {@link AngularParser#loopStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitForOfStatementLabel(AngularParser.ForOfStatementLabelContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AngularParser#forStatement}.
 	 * @param ctx the parse tree

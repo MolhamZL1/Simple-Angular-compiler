@@ -24,7 +24,6 @@ CONSTRUCTOR:'constructor';
 VAR: 'var';
 CLASS:'class';
 IMPORT: 'import';
-IMPORTS: 'imports';
 EXPORT: 'export';
 AS: 'as';
 FROM: 'from';
@@ -40,15 +39,11 @@ INPUT: '@Input';
 OUTPUT: '@Output';
 VIEWCHILD: '@ViewChild';
 //EVENT_EMITTER:'EventEmitter';
-COMPONENT: '@Component';
 //NGONINIT: 'ngOnInit';
 //NGONCHANGES: 'ngOnChanges';
-SELECTOR:'selector';
-STANDALONE:'standalone';
-STYLEURL:'styleUrl';
-TEMPLATEURL:'templateUrl';
-TEMPLATE:'template';
+
 NGFOR:'*ngFor';
+
 
 //MODIFIRES
 PUBLIC : 'public';
@@ -101,16 +96,44 @@ DOLLARSIGN:'$';
 // Literals
 Integer: [0]|([1-9][0-9]*);
 Float: [0-9]+ '.' [0-9]+;
-STRING: ('"' (~["\\])* '"') | ('\'' (~['\\])* '\'');
-Boolean: 'true' | 'false';
+fragment STRINGFrag: ('"' (~["\\])* '"') | ('\'' (~['\\])* '\'');
+fragment BooleanFrag: 'true' | 'false';
+Boolean:BooleanFrag;
+STRING:STRINGFrag;
 Undefined: 'undefined';
 Null: 'null';
-IDENTIFIER: [a-zA-Z_$][a-zA-Z0-9_$]*;
+fragment IDENTIFIERFrag: [a-zA-Z_$][a-zA-Z0-9_$]*;
+IDENTIFIER:IDENTIFIERFrag;
 
 // Comments
-SINGLE_LINE_COMMENT: '//' ~[\r\n]* ->skip;
-COMMENT_BLOCK: '/*' .*? '*/' -> skip;
-WS : [ \t\r\n]+ -> skip;
+fragment SINGLE_LINE_COMMENTFrag: '//' ~[\r\n]* ->skip;
+fragment COMMENT_BLOCKFrag: '/*' .*? '*/' -> skip;
+fragment WSFrag : [ \t\r\n]+ -> skip;
 
+SINGLE_LINE_COMMENT:SINGLE_LINE_COMMENTFrag -> skip;
+COMMENT_BLOCK: COMMENT_BLOCKFrag -> skip;
+WS : WSFrag -> skip;
 
+COMPONENT: '@Component'->pushMode(COMPONENT_MODE);
+mode COMPONENT_MODE;
+CompSINGLE_LINE_COMMENT:SINGLE_LINE_COMMENTFrag-> skip;
+CompCOMMENT_BLOCK: COMMENT_BLOCKFrag-> skip;
+CompWS : WSFrag-> skip;
+SELECTOR:'selector';
+STANDALONE:'standalone';
+STYLEURL:'styleUrl';
+TEMPLATEURL:'templateUrl';
+TEMPLATE:'template';
+IMPORTS: 'imports';
 
+CompString:STRINGFrag;
+CompBool:BooleanFrag;
+CompCOLON:':';
+Comp_COMMA: ',';
+Comp_LSBRACKET: '[';
+Comp_RSBRACKET: ']';
+Component_LCURLY: '{';
+Component_RCURLY: '}';
+Component_LPAREN: '(';
+Comp_IDENTIFIER:IDENTIFIERFrag;
+Component_RPAREN: ')'->popMode;

@@ -16,9 +16,9 @@ private ClassStatment classStatment;
     @Override
     public String toString() {
         return "\nClassMember{" +
-                "accessModifier=" + accessModifier +
-                ", classMemberModifier=" + classMemberModifier +
-                ", classStatment=" + classStatment +
+                (accessModifier != null ? "accessModifier=" + accessModifier + ", " : "") +
+                (classMemberModifier != null ? "classMemberModifier=" + classMemberModifier + ", " : "") +
+                "classStatement=" + classStatment +
                 '}';
     }
 }

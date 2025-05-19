@@ -1,4 +1,5 @@
 import AST.Program;
+import SymbolTable.ColorsConsole;
 import antlr.AngularLexer;
 import antlr.AngularParser;
 import org.antlr.v4.runtime.CharStream;
@@ -20,7 +21,7 @@ public class Main {
         AngularParser parser = new AngularParser(token);
         ParseTree tree = parser.program();
         Program program = (Program) new BaseVisitor().visit(tree);
-        System.out.println("The Parser Output for "+file.getName() +" :");
+        System.out.println(ColorsConsole.GREEN+"=================== The Parser Output for "+file.getName() +"==================="+ColorsConsole.RESET);
         System.out.println(program);
     }
     static void startProgram(String path)throws IOException {
@@ -47,6 +48,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        startTest("src/Tests/main.ts");
+        //startTest("src/Tests/main.ts");
+        startProgram("src/Tests/");
     }
 }

@@ -16,6 +16,6 @@ public class Program implements ASTNode {
                 program+="\t"+child.toString();
             }
         }
-        return "Program:{"+program+"\n}";
+        return "{"+program+"\n}";
     }
 }

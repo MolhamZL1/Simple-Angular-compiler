@@ -19,11 +19,21 @@ public class ForStatement implements LoopStatement{
 
     @Override
     public String toString() {
-        return "\nForStatement{" +
-                "initialization=" + initialization +
-                ", update=" + update +
-                ", condition=" + condition +
-                ", body=" + body +
-                '}';
+        StringBuilder sb = new StringBuilder("\nForStatement{")
+                .append("initialization=").append(initialization);
+
+        if (update != null) {
+            sb.append(", update=").append(update);
+        }
+
+        if (condition != null) {
+            sb.append(", condition=").append(condition);
+        }
+
+        sb.append(", body=").append(body)
+                .append('}');
+
+        return sb.toString();
     }
+
 }

@@ -200,15 +200,65 @@ public interface AngularParserListener extends ParseTreeListener {
 	 */
 	void exitComponentMetadata(AngularParser.ComponentMetadataContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AngularParser#metadataProperty}.
+	 * Enter a parse tree produced by the {@code SelectorPropertyLabel}
+	 * labeled alternative in {@link AngularParser#metadataProperty}.
 	 * @param ctx the parse tree
 	 */
-	void enterMetadataProperty(AngularParser.MetadataPropertyContext ctx);
+	void enterSelectorPropertyLabel(AngularParser.SelectorPropertyLabelContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AngularParser#metadataProperty}.
+	 * Exit a parse tree produced by the {@code SelectorPropertyLabel}
+	 * labeled alternative in {@link AngularParser#metadataProperty}.
 	 * @param ctx the parse tree
 	 */
-	void exitMetadataProperty(AngularParser.MetadataPropertyContext ctx);
+	void exitSelectorPropertyLabel(AngularParser.SelectorPropertyLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TemplatePropertyLabel}
+	 * labeled alternative in {@link AngularParser#metadataProperty}.
+	 * @param ctx the parse tree
+	 */
+	void enterTemplatePropertyLabel(AngularParser.TemplatePropertyLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TemplatePropertyLabel}
+	 * labeled alternative in {@link AngularParser#metadataProperty}.
+	 * @param ctx the parse tree
+	 */
+	void exitTemplatePropertyLabel(AngularParser.TemplatePropertyLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code StylesPropertyLabel}
+	 * labeled alternative in {@link AngularParser#metadataProperty}.
+	 * @param ctx the parse tree
+	 */
+	void enterStylesPropertyLabel(AngularParser.StylesPropertyLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code StylesPropertyLabel}
+	 * labeled alternative in {@link AngularParser#metadataProperty}.
+	 * @param ctx the parse tree
+	 */
+	void exitStylesPropertyLabel(AngularParser.StylesPropertyLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code StandaloneLabel}
+	 * labeled alternative in {@link AngularParser#metadataProperty}.
+	 * @param ctx the parse tree
+	 */
+	void enterStandaloneLabel(AngularParser.StandaloneLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code StandaloneLabel}
+	 * labeled alternative in {@link AngularParser#metadataProperty}.
+	 * @param ctx the parse tree
+	 */
+	void exitStandaloneLabel(AngularParser.StandaloneLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ImportsLabel}
+	 * labeled alternative in {@link AngularParser#metadataProperty}.
+	 * @param ctx the parse tree
+	 */
+	void enterImportsLabel(AngularParser.ImportsLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ImportsLabel}
+	 * labeled alternative in {@link AngularParser#metadataProperty}.
+	 * @param ctx the parse tree
+	 */
+	void exitImportsLabel(AngularParser.ImportsLabelContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AngularParser#standalone}.
 	 * @param ctx the parse tree
@@ -230,6 +280,16 @@ public interface AngularParserListener extends ParseTreeListener {
 	 */
 	void exitImports(AngularParser.ImportsContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AngularParser#listOfId}.
+	 * @param ctx the parse tree
+	 */
+	void enterListOfId(AngularParser.ListOfIdContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AngularParser#listOfId}.
+	 * @param ctx the parse tree
+	 */
+	void exitListOfId(AngularParser.ListOfIdContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AngularParser#selectorProperty}.
 	 * @param ctx the parse tree
 	 */
@@ -240,15 +300,29 @@ public interface AngularParserListener extends ParseTreeListener {
 	 */
 	void exitSelectorProperty(AngularParser.SelectorPropertyContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AngularParser#templateProperty}.
+	 * Enter a parse tree produced by the {@code TemplateUrlLabel}
+	 * labeled alternative in {@link AngularParser#templateProperty}.
 	 * @param ctx the parse tree
 	 */
-	void enterTemplateProperty(AngularParser.TemplatePropertyContext ctx);
+	void enterTemplateUrlLabel(AngularParser.TemplateUrlLabelContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AngularParser#templateProperty}.
+	 * Exit a parse tree produced by the {@code TemplateUrlLabel}
+	 * labeled alternative in {@link AngularParser#templateProperty}.
 	 * @param ctx the parse tree
 	 */
-	void exitTemplateProperty(AngularParser.TemplatePropertyContext ctx);
+	void exitTemplateUrlLabel(AngularParser.TemplateUrlLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TemplateHTMLLabel}
+	 * labeled alternative in {@link AngularParser#templateProperty}.
+	 * @param ctx the parse tree
+	 */
+	void enterTemplateHTMLLabel(AngularParser.TemplateHTMLLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TemplateHTMLLabel}
+	 * labeled alternative in {@link AngularParser#templateProperty}.
+	 * @param ctx the parse tree
+	 */
+	void exitTemplateHTMLLabel(AngularParser.TemplateHTMLLabelContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AngularParser#templateUrl}.
 	 * @param ctx the parse tree
@@ -280,15 +354,17 @@ public interface AngularParserListener extends ParseTreeListener {
 	 */
 	void exitHtml(AngularParser.HtmlContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AngularParser#stylesProperty}.
+	 * Enter a parse tree produced by the {@code StyleUrlsLabel}
+	 * labeled alternative in {@link AngularParser#stylesProperty}.
 	 * @param ctx the parse tree
 	 */
-	void enterStylesProperty(AngularParser.StylesPropertyContext ctx);
+	void enterStyleUrlsLabel(AngularParser.StyleUrlsLabelContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AngularParser#stylesProperty}.
+	 * Exit a parse tree produced by the {@code StyleUrlsLabel}
+	 * labeled alternative in {@link AngularParser#stylesProperty}.
 	 * @param ctx the parse tree
 	 */
-	void exitStylesProperty(AngularParser.StylesPropertyContext ctx);
+	void exitStyleUrlsLabel(AngularParser.StyleUrlsLabelContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AngularParser#styleUrls}.
 	 * @param ctx the parse tree
@@ -350,25 +426,113 @@ public interface AngularParserListener extends ParseTreeListener {
 	 */
 	void exitClassMemberModifier(AngularParser.ClassMemberModifierContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AngularParser#classStatment}.
+	 * Enter a parse tree produced by the {@code PropartyDeclerationLabel}
+	 * labeled alternative in {@link AngularParser#classStatment}.
 	 * @param ctx the parse tree
 	 */
-	void enterClassStatment(AngularParser.ClassStatmentContext ctx);
+	void enterPropartyDeclerationLabel(AngularParser.PropartyDeclerationLabelContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AngularParser#classStatment}.
+	 * Exit a parse tree produced by the {@code PropartyDeclerationLabel}
+	 * labeled alternative in {@link AngularParser#classStatment}.
 	 * @param ctx the parse tree
 	 */
-	void exitClassStatment(AngularParser.ClassStatmentContext ctx);
+	void exitPropartyDeclerationLabel(AngularParser.PropartyDeclerationLabelContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AngularParser#angularSpecificMember}.
+	 * Enter a parse tree produced by the {@code MethodDeclerationLabel}
+	 * labeled alternative in {@link AngularParser#classStatment}.
 	 * @param ctx the parse tree
 	 */
-	void enterAngularSpecificMember(AngularParser.AngularSpecificMemberContext ctx);
+	void enterMethodDeclerationLabel(AngularParser.MethodDeclerationLabelContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AngularParser#angularSpecificMember}.
+	 * Exit a parse tree produced by the {@code MethodDeclerationLabel}
+	 * labeled alternative in {@link AngularParser#classStatment}.
 	 * @param ctx the parse tree
 	 */
-	void exitAngularSpecificMember(AngularParser.AngularSpecificMemberContext ctx);
+	void exitMethodDeclerationLabel(AngularParser.MethodDeclerationLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code VariableDeclerationLabel}
+	 * labeled alternative in {@link AngularParser#classStatment}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariableDeclerationLabel(AngularParser.VariableDeclerationLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code VariableDeclerationLabel}
+	 * labeled alternative in {@link AngularParser#classStatment}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariableDeclerationLabel(AngularParser.VariableDeclerationLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ConstructorDeclerationLabel}
+	 * labeled alternative in {@link AngularParser#classStatment}.
+	 * @param ctx the parse tree
+	 */
+	void enterConstructorDeclerationLabel(AngularParser.ConstructorDeclerationLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ConstructorDeclerationLabel}
+	 * labeled alternative in {@link AngularParser#classStatment}.
+	 * @param ctx the parse tree
+	 */
+	void exitConstructorDeclerationLabel(AngularParser.ConstructorDeclerationLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AccessorDeclerationLabel}
+	 * labeled alternative in {@link AngularParser#classStatment}.
+	 * @param ctx the parse tree
+	 */
+	void enterAccessorDeclerationLabel(AngularParser.AccessorDeclerationLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AccessorDeclerationLabel}
+	 * labeled alternative in {@link AngularParser#classStatment}.
+	 * @param ctx the parse tree
+	 */
+	void exitAccessorDeclerationLabel(AngularParser.AccessorDeclerationLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AngularMemberLabel}
+	 * labeled alternative in {@link AngularParser#classStatment}.
+	 * @param ctx the parse tree
+	 */
+	void enterAngularMemberLabel(AngularParser.AngularMemberLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AngularMemberLabel}
+	 * labeled alternative in {@link AngularParser#classStatment}.
+	 * @param ctx the parse tree
+	 */
+	void exitAngularMemberLabel(AngularParser.AngularMemberLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code InputDeclerationLabel}
+	 * labeled alternative in {@link AngularParser#angularSpecificMember}.
+	 * @param ctx the parse tree
+	 */
+	void enterInputDeclerationLabel(AngularParser.InputDeclerationLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code InputDeclerationLabel}
+	 * labeled alternative in {@link AngularParser#angularSpecificMember}.
+	 * @param ctx the parse tree
+	 */
+	void exitInputDeclerationLabel(AngularParser.InputDeclerationLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code OutputDeclerationLabel}
+	 * labeled alternative in {@link AngularParser#angularSpecificMember}.
+	 * @param ctx the parse tree
+	 */
+	void enterOutputDeclerationLabel(AngularParser.OutputDeclerationLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code OutputDeclerationLabel}
+	 * labeled alternative in {@link AngularParser#angularSpecificMember}.
+	 * @param ctx the parse tree
+	 */
+	void exitOutputDeclerationLabel(AngularParser.OutputDeclerationLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ViewChildDeclerationLabel}
+	 * labeled alternative in {@link AngularParser#angularSpecificMember}.
+	 * @param ctx the parse tree
+	 */
+	void enterViewChildDeclerationLabel(AngularParser.ViewChildDeclerationLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ViewChildDeclerationLabel}
+	 * labeled alternative in {@link AngularParser#angularSpecificMember}.
+	 * @param ctx the parse tree
+	 */
+	void exitViewChildDeclerationLabel(AngularParser.ViewChildDeclerationLabelContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AngularParser#inputDeclaration}.
 	 * @param ctx the parse tree
@@ -400,15 +564,29 @@ public interface AngularParserListener extends ParseTreeListener {
 	 */
 	void exitViewChildDeclaration(AngularParser.ViewChildDeclarationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AngularParser#constructorDeclaration}.
+	 * Enter a parse tree produced by the {@code DeaafultContructorLabel}
+	 * labeled alternative in {@link AngularParser#constructorDeclaration}.
 	 * @param ctx the parse tree
 	 */
-	void enterConstructorDeclaration(AngularParser.ConstructorDeclarationContext ctx);
+	void enterDeaafultContructorLabel(AngularParser.DeaafultContructorLabelContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AngularParser#constructorDeclaration}.
+	 * Exit a parse tree produced by the {@code DeaafultContructorLabel}
+	 * labeled alternative in {@link AngularParser#constructorDeclaration}.
 	 * @param ctx the parse tree
 	 */
-	void exitConstructorDeclaration(AngularParser.ConstructorDeclarationContext ctx);
+	void exitDeaafultContructorLabel(AngularParser.DeaafultContructorLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code DelegatedConstructorLabel}
+	 * labeled alternative in {@link AngularParser#constructorDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void enterDelegatedConstructorLabel(AngularParser.DelegatedConstructorLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code DelegatedConstructorLabel}
+	 * labeled alternative in {@link AngularParser#constructorDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void exitDelegatedConstructorLabel(AngularParser.DelegatedConstructorLabelContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AngularParser#delegatedConstructor}.
 	 * @param ctx the parse tree
@@ -460,15 +638,29 @@ public interface AngularParserListener extends ParseTreeListener {
 	 */
 	void exitAccessModifier(AngularParser.AccessModifierContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AngularParser#methodDeclaration}.
+	 * Enter a parse tree produced by the {@code DeafultmethodLabel}
+	 * labeled alternative in {@link AngularParser#methodDeclaration}.
 	 * @param ctx the parse tree
 	 */
-	void enterMethodDeclaration(AngularParser.MethodDeclarationContext ctx);
+	void enterDeafultmethodLabel(AngularParser.DeafultmethodLabelContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AngularParser#methodDeclaration}.
+	 * Exit a parse tree produced by the {@code DeafultmethodLabel}
+	 * labeled alternative in {@link AngularParser#methodDeclaration}.
 	 * @param ctx the parse tree
 	 */
-	void exitMethodDeclaration(AngularParser.MethodDeclarationContext ctx);
+	void exitDeafultmethodLabel(AngularParser.DeafultmethodLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AnonymusMethodLabel}
+	 * labeled alternative in {@link AngularParser#methodDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void enterAnonymusMethodLabel(AngularParser.AnonymusMethodLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AnonymusMethodLabel}
+	 * labeled alternative in {@link AngularParser#methodDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void exitAnonymusMethodLabel(AngularParser.AnonymusMethodLabelContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AngularParser#deafultMethod}.
 	 * @param ctx the parse tree
@@ -510,15 +702,77 @@ public interface AngularParserListener extends ParseTreeListener {
 	 */
 	void exitParameter(AngularParser.ParameterContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AngularParser#statement}.
+	 * Enter a parse tree produced by the {@code VariableDeclerrationLabel}
+	 * labeled alternative in {@link AngularParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void enterStatement(AngularParser.StatementContext ctx);
+	void enterVariableDeclerrationLabel(AngularParser.VariableDeclerrationLabelContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AngularParser#statement}.
+	 * Exit a parse tree produced by the {@code VariableDeclerrationLabel}
+	 * labeled alternative in {@link AngularParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void exitStatement(AngularParser.StatementContext ctx);
+	void exitVariableDeclerrationLabel(AngularParser.VariableDeclerrationLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code IfStatmentLabel}
+	 * labeled alternative in {@link AngularParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterIfStatmentLabel(AngularParser.IfStatmentLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code IfStatmentLabel}
+	 * labeled alternative in {@link AngularParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitIfStatmentLabel(AngularParser.IfStatmentLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code BlockStatmentLabel}
+	 * labeled alternative in {@link AngularParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterBlockStatmentLabel(AngularParser.BlockStatmentLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code BlockStatmentLabel}
+	 * labeled alternative in {@link AngularParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitBlockStatmentLabel(AngularParser.BlockStatmentLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code LoopStatmentLabel}
+	 * labeled alternative in {@link AngularParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterLoopStatmentLabel(AngularParser.LoopStatmentLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code LoopStatmentLabel}
+	 * labeled alternative in {@link AngularParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitLoopStatmentLabel(AngularParser.LoopStatmentLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code LoopControlStatmentLabel}
+	 * labeled alternative in {@link AngularParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterLoopControlStatmentLabel(AngularParser.LoopControlStatmentLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code LoopControlStatmentLabel}
+	 * labeled alternative in {@link AngularParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitLoopControlStatmentLabel(AngularParser.LoopControlStatmentLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ExpressionStatemntLabel}
+	 * labeled alternative in {@link AngularParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpressionStatemntLabel(AngularParser.ExpressionStatemntLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ExpressionStatemntLabel}
+	 * labeled alternative in {@link AngularParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpressionStatemntLabel(AngularParser.ExpressionStatemntLabelContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AngularParser#loopControlStatement}.
 	 * @param ctx the parse tree
@@ -530,15 +784,53 @@ public interface AngularParserListener extends ParseTreeListener {
 	 */
 	void exitLoopControlStatement(AngularParser.LoopControlStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AngularParser#loopStatement}.
+	 * Enter a parse tree produced by the {@code ForStatementLabel}
+	 * labeled alternative in {@link AngularParser#loopStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterLoopStatement(AngularParser.LoopStatementContext ctx);
+	void enterForStatementLabel(AngularParser.ForStatementLabelContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AngularParser#loopStatement}.
+	 * Exit a parse tree produced by the {@code ForStatementLabel}
+	 * labeled alternative in {@link AngularParser#loopStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitLoopStatement(AngularParser.LoopStatementContext ctx);
+	void exitForStatementLabel(AngularParser.ForStatementLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code WhileStatementLabel}
+	 * labeled alternative in {@link AngularParser#loopStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterWhileStatementLabel(AngularParser.WhileStatementLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code WhileStatementLabel}
+	 * labeled alternative in {@link AngularParser#loopStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitWhileStatementLabel(AngularParser.WhileStatementLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code DoWhileStatementLabel}
+	 * labeled alternative in {@link AngularParser#loopStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterDoWhileStatementLabel(AngularParser.DoWhileStatementLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code DoWhileStatementLabel}
+	 * labeled alternative in {@link AngularParser#loopStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitDoWhileStatementLabel(AngularParser.DoWhileStatementLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ForOfStatementLabel}
+	 * labeled alternative in {@link AngularParser#loopStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterForOfStatementLabel(AngularParser.ForOfStatementLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ForOfStatementLabel}
+	 * labeled alternative in {@link AngularParser#loopStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitForOfStatementLabel(AngularParser.ForOfStatementLabelContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AngularParser#forStatement}.
 	 * @param ctx the parse tree

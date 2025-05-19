@@ -4,90 +4,94 @@ options { tokenVocab=AngularLexer; }
 
 program//done
     :(
-       expression
+              importStatement
+             |componentDeclaration
+             |classDeclaration
+             |statement
+             |methodDeclaration
      )* EOF;
 // functionDeclaration
 importStatement//done
-    : importDefault
-    | importNamespace
-    | importNamed
-    | importDefaultWithNamed
-    | importDefaultWithNamespace
-    | importSideEffect
+    : importDefault                   #ImportDefaultLabel
+    | importNamespace                 #ImportNamespaceLabel
+    | importNamed                     #ImportNamedLabel
+    | importDefaultWithNamed          #ImportDefaultWithNamedLabel
+    | importDefaultWithNamespace      #ImportDefaultWithNamespaceLabel
+    | importSideEffect                #ImportSideEffectLabel
     ;
 
 importSideEffect: IMPORT STRING eos;//done
 
-importDefault: IMPORT IDENTIFIER FROM STRING eos;//done
+importDefault: IMPORT identifier FROM STRING eos;//done
 
-importNamespace: IMPORT STAR AS IDENTIFIER FROM STRING eos;//done
+importNamespace: IMPORT STAR AS identifier FROM STRING eos;//done
 
 importNamed: IMPORT importSpecifier FROM STRING eos;//done
 
-importDefaultWithNamed: IMPORT IDENTIFIER COMMA importSpecifier FROM STRING eos;//done
+importDefaultWithNamed: IMPORT identifier COMMA importSpecifier FROM STRING eos;//done
 
-importDefaultWithNamespace: IMPORT IDENTIFIER COMMA STAR AS IDENTIFIER FROM STRING eos;//done
+importDefaultWithNamespace: IMPORT identifier COMMA STAR AS identifier FROM STRING eos;//done
 
 importSpecifier: LCURLY importList RCURLY;//no need
 
 importList: importItem (COMMA importItem)*;//no need
 
-importItem: IDENTIFIER (AS IDENTIFIER)?;//done
+importItem: original=identifier (AS alias=identifier)?;//done
 
 componentDeclaration//done
-    : COMPONENT LPAREN componentMetadata RPAREN
+    : COMPONENT Component_LPAREN componentMetadata Component_RPAREN
     ;
 
 componentMetadata//no need
-    : LCURLY metadataProperty (COMMA metadataProperty)* COMMA? RCURLY
+    : Component_LCURLY metadataProperty (Comp_COMMA metadataProperty)* Comp_COMMA? Component_RCURLY
     ;
 
 metadataProperty//done
-    : selectorProperty
-    | templateProperty
-    | stylesProperty
-    | standalone
-    | imports
+    : selectorProperty   #SelectorPropertyLabel
+    | templateProperty   #TemplatePropertyLabel
+    | stylesProperty     #StylesPropertyLabel
+    | standalone         #StandaloneLabel
+    | imports            #ImportsLabel
     ;
 
-    standalone:STANDALONE COLON Boolean;//done
+    standalone:STANDALONE CompCOLON CompBool;//done
 
-     imports:IMPORTS COLON arrayLiteral;//edit this to list of id
-
+     imports:IMPORTS CompCOLON listOfId;//edit this to list of id
+listOfId:Comp_LSBRACKET (Comp_IDENTIFIER (Comp_COMMA Comp_IDENTIFIER)*) Comp_RSBRACKET;
 selectorProperty//done
-    : SELECTOR COLON STRING
+    : SELECTOR CompCOLON CompString
     ;
 
 templateProperty//done
-    : templateUrl
-    | templetHTML
+    : templateUrl    #TemplateUrlLabel
+    | templetHTML    #TemplateHTMLLabel
     ;
 
-    templateUrl:TEMPLATEURL COLON STRING;//done
+    templateUrl:TEMPLATEURL CompCOLON CompString;//done
 
-    templetHTML:TEMPLATE COLON html;//done
+    templetHTML:TEMPLATE CompCOLON html;//done
 
-    html:STRING;//done
+    html:CompString;//done
 
 stylesProperty//done
-    : styleUrls
+    : styleUrls   #StyleUrlsLabel
  //   | stylesCss
     ;
 
-styleUrls:STYLEURL COLON LSBRACKET? (STRING (COMMA STRING)*) RSBRACKET?;//done
+styleUrls:STYLEURL CompCOLON Comp_LSBRACKET? (CompString (Comp_COMMA CompString)*) Comp_RSBRACKET?;//done
   //  stylesCss:TEMPLATE COLON STRING;
 
 classDeclaration//done
     : EXPORT?
       ABSTRACT?
-      CLASS identifier
+      CLASS name=identifier
       (LESS_THAN genericClassParameters(COMMA genericClassParameters)* GREATER_THAN)?
-      (EXTENDS identifier)?
+      (EXTENDS parent=identifier)?
       (IMPLEMENTS identifier (COMMA identifier)*)?
       classBody
-    ;
+    ;//edit to string for null
 
- genericClassParameters:identifier (EXTENDS identifier)?;//done
+ genericClassParameters:parameterid=identifier (EXTENDS parent=identifier)?;//done
 
 classBody//done
     : LCURLY classMember* RCURLY
@@ -102,18 +106,18 @@ classMember//done
 classMemberModifier:(STATIC | READONLY | ABSTRACT | OVERRIDE);//done
 
     classStatment:
-          propertyDeclaration//
-        | methodDeclaration//
-        | variableDeclaration//
-        | constructorDeclaration//
-        | accessorDeclaration//
-        | angularSpecificMember//
+          propertyDeclaration            #PropartyDeclerationLabel//
+        | methodDeclaration              #MethodDeclerationLabel//
+        | variableDeclaration            #VariableDeclerationLabel//
+        | constructorDeclaration         #ConstructorDeclerationLabel//
+        | accessorDeclaration            #AccessorDeclerationLabel//
+        | angularSpecificMember          #AngularMemberLabel//
         ;
 
     angularSpecificMember//done
-        : inputDeclaration//
-        | outputDeclaration//
-        | viewChildDeclaration//
+        : inputDeclaration               #InputDeclerationLabel
+        | outputDeclaration              #OutputDeclerationLabel
+        | viewChildDeclaration           #ViewChildDeclerationLabel
         ;
 
     inputDeclaration//done
@@ -132,16 +136,16 @@ classMemberModifier:(STATIC | READONLY | ABSTRACT | OVERRIDE);//done
         ;
 
 constructorDeclaration//done
-    : deafultConstructor
-    | delegatedConstructor
+    : deafultConstructor       #DeaafultContructorLabel
+    | delegatedConstructor     #DelegatedConstructorLabel
     ;
 
-    delegatedConstructor://done
+    delegatedConstructor://done//
     CONSTRUCTOR LPAREN parameterList? RPAREN
                                COLON THIS LPAREN args? RPAREN
                              ;
 
-    deafultConstructor://done
+    deafultConstructor://done//
     CONSTRUCTOR LPAREN parameterList? RPAREN
                               blockStatement
                            ;
@@ -150,21 +154,21 @@ accessorDeclaration//done
     : (GET | SET) deafultMethod
     ;
 
- propertyDeclaration//done
-        : identifier typeAnnotation? (EQUAL expression)? SEMI
+ propertyDeclaration//done//
+        : name=identifier typeAnnotation? (EQUAL value=expression)? SEMI
         ;
 
-      accessModifier//done
+      accessModifier//done//
             : PUBLIC | PRIVATE | PROTECTED
             ;
 
 methodDeclaration//done
-    :deafultMethod
-    |anonymosMethod
+    :deafultMethod       #DeafultmethodLabel
+    |anonymosMethod      #AnonymusMethodLabel
     ;
 
     deafultMethod://done
-     ASYNC? identifier LPAREN (parameterList | args)? RPAREN
+     ASYNC? FUNCTION? identifier LPAREN (parameterList | args)? RPAREN
                    typeAnnotation? (blockStatement | ARROW expressionStatement);
 
     anonymosMethod://done
@@ -174,18 +178,15 @@ methodDeclaration//done
                (parameter (COMMA parameter)*)? ;
 
               parameter://done
-              IDENTIFIER (typeAnnotation  (EQUAL literal)?)?;
-
-
-
+              identifier (typeAnnotation  (EQUAL literal)?)?;
 
 statement//done
-       : variableDeclaration//
-       | ifStatement//
-       | blockStatement//
-       | loopStatement//
-       | loopControlStatement//
-       | expressionStatement//
+       : variableDeclaration        #VariableDeclerrationLabel//
+       | ifStatement                #IfStatmentLabel//
+       | blockStatement             #BlockStatmentLabel//
+       | loopStatement              #LoopStatmentLabel
+       | loopControlStatement       #LoopControlStatmentLabel//
+       | expressionStatement        #ExpressionStatemntLabel
        ;
 
 loopControlStatement//done
@@ -194,18 +195,18 @@ loopControlStatement//done
     ;
 
 loopStatement//done
-            : forStatement
-            | whileStatement
-            | doWhileStatement
-            | forOfStatement
+            : forStatement       #ForStatementLabel
+            | whileStatement     #WhileStatementLabel
+            | doWhileStatement   #DoWhileStatementLabel
+            | forOfStatement     #ForOfStatementLabel
            // | angularForStatement
             ;
 
 forStatement//done
     : FOR LPAREN
-      (variableDeclaration | expression? SEMI)//Initialization
-      expression? SEMI//condition
-      expression?//update
+      (variableDeclaration | initialization=expression? SEMI)//Initialization
+      condition=expression? SEMI//condition
+      update=expression?//update
       RPAREN statement
     ;
 
@@ -242,44 +243,44 @@ forStatement//done
             : LCURLY statement* RCURLY
             ;
 
-variableDeclaration//done
-    :EXPORT? variableDeclarationKeyword identifier typeAnnotation? (EQUAL expression)? (AS identifier)? SEMI
+variableDeclaration//done//
+    :EXPORT? variableDeclarationKeyword name=identifier typeAnnotation? (EQUAL value=expression)? (AS castedType=identifier)? SEMI
     ;
 
-    variableDeclarationKeyword:(CONST | LET | VAR);//done
+    variableDeclarationKeyword:(CONST | LET | VAR);//done//
 
-expressionStatement: expression eos;//no need
+expressionStatement: expression eos;//no need//noneed
 
 expression//done
-    : anonymosMethod                                                                          # AnounymusMethodExpr
-    | THIS                                                                                    # ThisExpr
-    | expression DOT expression                                                               # MemberDotExpr
-    | expression LSBRACKET expression RSBRACKET                                               # MemberIndexExpr
-    | expression LPAREN args? RPAREN                                                          # CallExpr
-    | expression QUESITIONMARK DOT IDENTIFIER                                                 # SafeNavExpr
-    | expression QUESITIONMARK RSBRACKET expression RSBRACKET                                 # SafeIndexExpr
-    | (MINUS|PLUS|NOT) expression                                                             # UnaryExpr
-    | expression (STAR|DIVIDE|MODULO|PLUS|MINUS) expression                                   # ArthmaticOpExpr
-    | expression (LESS_THAN|GREATER_THAN|LESS_THAN_OR_EQUAL|GREATER_THAN_OR_EQUAL) expression # RelationalExpr
-    | expression (EQUAL_TO|NOT_EQUAL|EQUAL_TO3|NOT_EQUAL2) expression                         # EqualityExpr
-    | expression (AND|OR) expression                                                          # LogicalExpr
-    | expression EQUAL expression                                                             # AssignmentExpr
-    | expression (PLUS|MINUS) EQUAL expression                                                # AdditionAssignmentExpr
-    | expression QUESITIONMARK expression COLON expression                                    # TernaryExpr
-    | LPAREN expression RPAREN                                                                # ParenthesizedExpr
-    | expression ((MINUS MINUS)|(PLUS PLUS))                                                  # PostFixExpr
-    | ((MINUS MINUS)|(PLUS PLUS)) expression                                                  # PreFixExpr
-    | primary                                                                                 # PrimaryExpr
+    : anonymosMethod                                                                          # AnounymusMethodExpr//noneed
+    | THIS                                                                                    # ThisExpr//
+    | left=expression DOT right=expression                                                    # MemberDotExpr//
+    | member=expression LSBRACKET index=expression RSBRACKET                                  # MemberIndexExpr//
+    | expression LPAREN args? RPAREN                                                          # CallExpr//
+    | expression QUESITIONMARK DOT identifier                                                 # SafeNavExpr//
+    | baseObject=expression QUESITIONMARK RSBRACKET indexObject=expression RSBRACKET          # SafeIndexExpr//
+    | op=(MINUS|PLUS|NOT) expression                                                          # UnaryExpr//
+    | left=expression op=(STAR|DIVIDE|MODULO|PLUS|MINUS) right=expression                     # ArthmaticOpExpr//
+    | left=expression op=(LESS_THAN|GREATER_THAN|LESS_THAN_OR_EQUAL|GREATER_THAN_OR_EQUAL) right=expression # RelationalExpr//
+    | left=expression op=(EQUAL_TO|NOT_EQUAL|EQUAL_TO3|NOT_EQUAL2)right=expression            # EqualityExpr//
+    | left=expression op=(AND|OR) right=expression                                            # LogicalExpr//
+    | variable=expression EQUAL value=expression                                              # AssignmentExpr//
+    | variable=expression op=(PLUS|MINUS) EQUAL value=expression                              # AdditionAssignmentExpr//
+    | condition=expression QUESITIONMARK true=expression COLON false=expression               # TernaryExpr//
+    | LPAREN expression RPAREN                                                                # ParenthesizedExpr//
+    | expression ((MINUS MINUS)|(PLUS PLUS))                                                  # PostFixExpr//
+    | ((MINUS MINUS)|(PLUS PLUS)) expression                                                  # PreFixExpr//
+    | primary                                                                                 # PrimaryExpr//noneed
    // | templateLiteral                                                                         # TemplateExpr
     ;
 
     primary//done//noneed
-        : literal
-        | identifier
-        | arrayLiteral
-        | mapLitral
-        | objectLiteral
-        | objectInit
+        : literal                            # Literalprimary
+        | identifier                         # Identifierprimary
+        | arrayLiteral                       # ArrayLiteralprimary
+        | mapLitral                          # MapLiteralprimary
+        | objectLiteral                      # ObjectLiteralprimary
+        | objectInit                         # Objectinitprimary
         ;
 
 arrayLiteral : LSBRACKET (expression (COMMA expression)*)? COMMA? RSBRACKET;//done//
