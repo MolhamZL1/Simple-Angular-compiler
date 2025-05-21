@@ -210,11 +210,61 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTempletHTML(AngularParser.TempletHTMLContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AngularParser#html}.
+	 * Visit a parse tree produced by {@link AngularParser#template}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitHtml(AngularParser.HtmlContext ctx);
+	T visitTemplate(AngularParser.TemplateContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AngularParser#element}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElement(AngularParser.ElementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AngularParser#attribute}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAttribute(AngularParser.AttributeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code NgIfDirective}
+	 * labeled alternative in {@link AngularParser#directive}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNgIfDirective(AngularParser.NgIfDirectiveContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code NgForDirective}
+	 * labeled alternative in {@link AngularParser#directive}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNgForDirective(AngularParser.NgForDirectiveContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AngularParser#propertyBinding}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPropertyBinding(AngularParser.PropertyBindingContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AngularParser#eventBinding}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEventBinding(AngularParser.EventBindingContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AngularParser#normalAttribute}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNormalAttribute(AngularParser.NormalAttributeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AngularParser#interpolation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInterpolation(AngularParser.InterpolationContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code StyleUrlsLabel}
 	 * labeled alternative in {@link AngularParser#stylesProperty}.

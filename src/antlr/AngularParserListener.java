@@ -344,15 +344,99 @@ public interface AngularParserListener extends ParseTreeListener {
 	 */
 	void exitTempletHTML(AngularParser.TempletHTMLContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AngularParser#html}.
+	 * Enter a parse tree produced by {@link AngularParser#template}.
 	 * @param ctx the parse tree
 	 */
-	void enterHtml(AngularParser.HtmlContext ctx);
+	void enterTemplate(AngularParser.TemplateContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AngularParser#html}.
+	 * Exit a parse tree produced by {@link AngularParser#template}.
 	 * @param ctx the parse tree
 	 */
-	void exitHtml(AngularParser.HtmlContext ctx);
+	void exitTemplate(AngularParser.TemplateContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AngularParser#element}.
+	 * @param ctx the parse tree
+	 */
+	void enterElement(AngularParser.ElementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AngularParser#element}.
+	 * @param ctx the parse tree
+	 */
+	void exitElement(AngularParser.ElementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AngularParser#attribute}.
+	 * @param ctx the parse tree
+	 */
+	void enterAttribute(AngularParser.AttributeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AngularParser#attribute}.
+	 * @param ctx the parse tree
+	 */
+	void exitAttribute(AngularParser.AttributeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code NgIfDirective}
+	 * labeled alternative in {@link AngularParser#directive}.
+	 * @param ctx the parse tree
+	 */
+	void enterNgIfDirective(AngularParser.NgIfDirectiveContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NgIfDirective}
+	 * labeled alternative in {@link AngularParser#directive}.
+	 * @param ctx the parse tree
+	 */
+	void exitNgIfDirective(AngularParser.NgIfDirectiveContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code NgForDirective}
+	 * labeled alternative in {@link AngularParser#directive}.
+	 * @param ctx the parse tree
+	 */
+	void enterNgForDirective(AngularParser.NgForDirectiveContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NgForDirective}
+	 * labeled alternative in {@link AngularParser#directive}.
+	 * @param ctx the parse tree
+	 */
+	void exitNgForDirective(AngularParser.NgForDirectiveContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AngularParser#propertyBinding}.
+	 * @param ctx the parse tree
+	 */
+	void enterPropertyBinding(AngularParser.PropertyBindingContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AngularParser#propertyBinding}.
+	 * @param ctx the parse tree
+	 */
+	void exitPropertyBinding(AngularParser.PropertyBindingContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AngularParser#eventBinding}.
+	 * @param ctx the parse tree
+	 */
+	void enterEventBinding(AngularParser.EventBindingContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AngularParser#eventBinding}.
+	 * @param ctx the parse tree
+	 */
+	void exitEventBinding(AngularParser.EventBindingContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AngularParser#normalAttribute}.
+	 * @param ctx the parse tree
+	 */
+	void enterNormalAttribute(AngularParser.NormalAttributeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AngularParser#normalAttribute}.
+	 * @param ctx the parse tree
+	 */
+	void exitNormalAttribute(AngularParser.NormalAttributeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AngularParser#interpolation}.
+	 * @param ctx the parse tree
+	 */
+	void enterInterpolation(AngularParser.InterpolationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AngularParser#interpolation}.
+	 * @param ctx the parse tree
+	 */
+	void exitInterpolation(AngularParser.InterpolationContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code StyleUrlsLabel}
 	 * labeled alternative in {@link AngularParser#stylesProperty}.

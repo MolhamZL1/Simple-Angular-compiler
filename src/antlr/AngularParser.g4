@@ -69,9 +69,47 @@ templateProperty//done
 
     templateUrl:TEMPLATEURL CompCOLON CompString;//done
 
-    templetHTML:TEMPLATE CompCOLON html;//done
+    templetHTML:TEMPLATE CompCOLON BACKTICK template BACKTICK;//done
 
-    html:CompString;//done
+
+   templateContent
+       : (htmlElement | interpolation | binding | textNode)* ;
+
+   htmlElement
+       : TAG_OPEN tagName=identifier attribute* (TAG_CLOSE templateContent TAG_OPEN TAG_SLASH IDENTIFIER TAG_CLOSE
+                                                 | TAG_SLASH_CLOSE)
+       ;
+
+   attribute
+       : binding
+       | directive
+       | htmlAttribute
+       ;
+
+   binding
+       : LSBRACKET IDENTIFIER RSBRACKET EQUAL attributeValue #PropertyBinding
+       | LPAREN IDENTIFIER RPAREN EQUAL attributeValue       #EventBinding
+       | LSBRACKET LPAREN IDENTIFIER RPAREN RSBRACKET EQUAL attributeValue #TwoWayBinding
+       ;
+
+   directive
+       : NG_IF EQUAL attributeValue      #NgIfDirective
+       | NG_FOR EQUAL attributeValue     #NgForDirective
+       ;
+
+   htmlAttribute
+       : IDENTIFIER EQUAL attributeValue ;
+
+   attributeValue
+       : STRING | INTERPOLATION_OPEN expression INTERPOLATION_CLOSE ;
+
+   interpolation
+       : INTERPOLATION_OPEN expression INTERPOLATION_CLOSE ;
+
+   textNode
+       : ~[<{}]+ ; // أي نص عادي
+
+
 
 stylesProperty//done
     : styleUrls   #StyleUrlsLabel
@@ -247,7 +285,7 @@ variableDeclaration//done//
     :EXPORT? variableDeclarationKeyword name=identifier typeAnnotation? (EQUAL value=expression)? (AS castedType=identifier)? SEMI
     ;
 
-    variableDeclarationKeyword:(CONST | LET | VAR);//done//
+    variableDeclarationKeyword:(CONST | LET | VAR|TYPE);//done//
 
 expressionStatement: expression eos;//no need//noneed
 
