@@ -389,25 +389,25 @@ public class AngularParserBaseListener implements AngularParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTemplate(AngularParser.TemplateContext ctx) { }
+	@Override public void enterTemplateContent(AngularParser.TemplateContentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTemplate(AngularParser.TemplateContext ctx) { }
+	@Override public void exitTemplateContent(AngularParser.TemplateContentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterElement(AngularParser.ElementContext ctx) { }
+	@Override public void enterHtmlElement(AngularParser.HtmlElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitElement(AngularParser.ElementContext ctx) { }
+	@Override public void exitHtmlElement(AngularParser.HtmlElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -420,30 +420,6 @@ public class AngularParserBaseListener implements AngularParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAttribute(AngularParser.AttributeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterNgIfDirective(AngularParser.NgIfDirectiveContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitNgIfDirective(AngularParser.NgIfDirectiveContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterNgForDirective(AngularParser.NgForDirectiveContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitNgForDirective(AngularParser.NgForDirectiveContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -473,13 +449,61 @@ public class AngularParserBaseListener implements AngularParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNormalAttribute(AngularParser.NormalAttributeContext ctx) { }
+	@Override public void enterTwoWayBinding(AngularParser.TwoWayBindingContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNormalAttribute(AngularParser.NormalAttributeContext ctx) { }
+	@Override public void exitTwoWayBinding(AngularParser.TwoWayBindingContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNgIfDirective(AngularParser.NgIfDirectiveContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNgIfDirective(AngularParser.NgIfDirectiveContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNgForDirective(AngularParser.NgForDirectiveContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNgForDirective(AngularParser.NgForDirectiveContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHtmlAttribute(AngularParser.HtmlAttributeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHtmlAttribute(AngularParser.HtmlAttributeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAttributeValue(AngularParser.AttributeValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAttributeValue(AngularParser.AttributeValueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

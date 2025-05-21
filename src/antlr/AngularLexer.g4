@@ -43,7 +43,6 @@ VIEWCHILD: '@ViewChild';
 //NGONINIT: 'ngOnInit';
 //NGONCHANGES: 'ngOnChanges';
 
-NGFOR:'*ngFor';
 
 
 //MODIFIRES
@@ -93,7 +92,6 @@ DOT: '.';
 
 DOUBLEQUTATION:'"';
 QUESITIONMARK: '?';
-DOLLARSIGN:'$';
 
 // Literals
 Integer: [0]|([1-9][0-9]*);
@@ -104,23 +102,22 @@ Boolean:BooleanFrag;
 STRING:STRINGFrag;
 Undefined: 'undefined';
 Null: 'null';
-fragment IDENTIFIERFrag: [a-zA-Z_$][a-zA-Z0-9_$]*;
-IDENTIFIER:IDENTIFIERFrag;
+fragment IDENTIFIERFrag: [a-zA-Z_$][a-zA-Z0-9_$-]*;
+
 
 // Comments
 fragment SINGLE_LINE_COMMENTFrag: '//' ~[\r\n]* ->skip;
 fragment COMMENT_BLOCKFrag: '/*' .*? '*/' -> skip;
 fragment WSFrag : [ \t\r\n]+ -> skip;
+HTML_COMMENT
+    : '<!--' .*? '-->' -> skip
+    ;
 
 SINGLE_LINE_COMMENT:SINGLE_LINE_COMMENTFrag -> skip;
 COMMENT_BLOCK: COMMENT_BLOCKFrag -> skip;
 WS : WSFrag -> skip;
 
-COMPONENT: '@Component'->pushMode(COMPONENT_MODE);
-mode COMPONENT_MODE;
-CompSINGLE_LINE_COMMENT:SINGLE_LINE_COMMENTFrag-> skip;
-CompCOMMENT_BLOCK: COMMENT_BLOCKFrag-> skip;
-CompWS : WSFrag-> skip;
+COMPONENT: '@Component';
 SELECTOR:'selector';
 STANDALONE:'standalone';
 STYLEURL:'styleUrl';
@@ -128,23 +125,11 @@ TEMPLATEURL:'templateUrl';
 TEMPLATE:'template';
 IMPORTS: 'imports';
 
-CompString:STRINGFrag;
-CompBool:BooleanFrag;
-CompCOLON:':';
-Comp_COMMA: ',';
 BACKTICK:'`';
-TAG_OPEN: '<';
-TAG_CLOSE: '>';
-TAG_SLASH: '/';
 TAG_SLASH_CLOSE: '/>';
 NG_IF: '*ngIf';
 NG_FOR: '*ngFor';
 INTERPOLATION_OPEN: '{{';
 INTERPOLATION_CLOSE: '}}';
-Comp_LSBRACKET: '[';
-Comp_RSBRACKET: ']';
-Component_LCURLY: '{';
-Component_RCURLY: '}';
-Component_LPAREN: '(';
-Comp_IDENTIFIER:IDENTIFIERFrag;
-Component_RPAREN: ')'->popMode;
+IDENTIFIER:IDENTIFIERFrag;
+//TEXT:(~[<>{}`])+;

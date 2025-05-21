@@ -39,11 +39,11 @@ importList: importItem (COMMA importItem)*;//no need
 importItem: original=identifier (AS alias=identifier)?;//done
 
 componentDeclaration//done
-    : COMPONENT Component_LPAREN componentMetadata Component_RPAREN
+    : COMPONENT LPAREN componentMetadata RPAREN
     ;
 
 componentMetadata//no need
-    : Component_LCURLY metadataProperty (Comp_COMMA metadataProperty)* Comp_COMMA? Component_RCURLY
+    : LCURLY metadataProperty (COMMA metadataProperty)* COMMA? RCURLY
     ;
 
 metadataProperty//done
@@ -54,12 +54,12 @@ metadataProperty//done
     | imports            #ImportsLabel
     ;
 
-    standalone:STANDALONE CompCOLON CompBool;//done
+    standalone:STANDALONE COLON Boolean;//done
 
-     imports:IMPORTS CompCOLON listOfId;//edit this to list of id
-listOfId:Comp_LSBRACKET (Comp_IDENTIFIER (Comp_COMMA Comp_IDENTIFIER)*) Comp_RSBRACKET;
+     imports:IMPORTS COLON listOfId;
+listOfId:LSBRACKET (identifier (COMMA identifier)*) RSBRACKET;
 selectorProperty//done
-    : SELECTOR CompCOLON CompString
+    : SELECTOR COLON STRING
     ;
 
 templateProperty//done
@@ -67,17 +67,19 @@ templateProperty//done
     | templetHTML    #TemplateHTMLLabel
     ;
 
-    templateUrl:TEMPLATEURL CompCOLON CompString;//done
+    templateUrl:TEMPLATEURL COLON STRING;//done
 
-    templetHTML:TEMPLATE CompCOLON BACKTICK template BACKTICK;//done
+    templetHTML:TEMPLATE COLON BACKTICK templateContent BACKTICK;//done
 
 
    templateContent
-       : (htmlElement | interpolation | binding | textNode)* ;
+       : (htmlElement | interpolation | binding
+        | identifier
+       )* ;
 
    htmlElement
-       : TAG_OPEN tagName=identifier attribute* (TAG_CLOSE templateContent TAG_OPEN TAG_SLASH IDENTIFIER TAG_CLOSE
-                                                 | TAG_SLASH_CLOSE)
+       : LESS_THAN tagName=identifier attribute* (GREATER_THAN templateContent LESS_THAN DIVIDE IDENTIFIER GREATER_THAN
+                                                 | TAG_SLASH_CLOSE|GREATER_THAN)
        ;
 
    attribute
@@ -87,9 +89,9 @@ templateProperty//done
        ;
 
    binding
-       : LSBRACKET IDENTIFIER RSBRACKET EQUAL attributeValue #PropertyBinding
-       | LPAREN IDENTIFIER RPAREN EQUAL attributeValue       #EventBinding
-       | LSBRACKET LPAREN IDENTIFIER RPAREN RSBRACKET EQUAL attributeValue #TwoWayBinding
+       : LSBRACKET identifier RSBRACKET EQUAL attributeValue #PropertyBinding
+       | LPAREN identifier RPAREN EQUAL attributeValue       #EventBinding
+       | LSBRACKET LPAREN identifier RPAREN RSBRACKET EQUAL attributeValue #TwoWayBinding
        ;
 
    directive
@@ -98,16 +100,16 @@ templateProperty//done
        ;
 
    htmlAttribute
-       : IDENTIFIER EQUAL attributeValue ;
+       : (identifier|CLASS|TYPE) EQUAL attributeValue ;
 
    attributeValue
-       : STRING | INTERPOLATION_OPEN expression INTERPOLATION_CLOSE ;
+       : STRING | (INTERPOLATION_OPEN expression INTERPOLATION_CLOSE) ;
 
    interpolation
        : INTERPOLATION_OPEN expression INTERPOLATION_CLOSE ;
 
-   textNode
-       : ~[<{}]+ ; // أي نص عادي
+//   textNode
+//       : ~[<{}]+ ; // أي نص عادي
 
 
 
@@ -116,7 +118,7 @@ stylesProperty//done
  //   | stylesCss
     ;
 
-styleUrls:STYLEURL CompCOLON Comp_LSBRACKET? (CompString (Comp_COMMA CompString)*) Comp_RSBRACKET?;//done
+styleUrls:STYLEURL COLON LSBRACKET? (STRING (COMMA STRING)*) RSBRACKET?;//done
   //  stylesCss:TEMPLATE COLON STRING;
 
 classDeclaration//done
@@ -327,7 +329,7 @@ objectLiteral : LCURLY (propertyAssignment (COMMA propertyAssignment)*)? COMMA? 
 
 objectInit : NEW identifier (LESS_THAN type GREATER_THAN)? LPAREN args? RPAREN;//done//
 
-propertyAssignment : identifier COLON expression;//done//
+propertyAssignment : (identifier|IMPORTS) COLON expression;//done//
 
 mapLitral : LCURLY (mapmember (COMMA mapmember)*)? COMMA? RCURLY;//done//
 

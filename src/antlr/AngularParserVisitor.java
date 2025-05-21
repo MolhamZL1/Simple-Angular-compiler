@@ -210,23 +210,44 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTempletHTML(AngularParser.TempletHTMLContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AngularParser#template}.
+	 * Visit a parse tree produced by {@link AngularParser#templateContent}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTemplate(AngularParser.TemplateContext ctx);
+	T visitTemplateContent(AngularParser.TemplateContentContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AngularParser#element}.
+	 * Visit a parse tree produced by {@link AngularParser#htmlElement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitElement(AngularParser.ElementContext ctx);
+	T visitHtmlElement(AngularParser.HtmlElementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AngularParser#attribute}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitAttribute(AngularParser.AttributeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code PropertyBinding}
+	 * labeled alternative in {@link AngularParser#binding}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPropertyBinding(AngularParser.PropertyBindingContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code EventBinding}
+	 * labeled alternative in {@link AngularParser#binding}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEventBinding(AngularParser.EventBindingContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TwoWayBinding}
+	 * labeled alternative in {@link AngularParser#binding}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTwoWayBinding(AngularParser.TwoWayBindingContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code NgIfDirective}
 	 * labeled alternative in {@link AngularParser#directive}.
@@ -242,23 +263,17 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitNgForDirective(AngularParser.NgForDirectiveContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AngularParser#propertyBinding}.
+	 * Visit a parse tree produced by {@link AngularParser#htmlAttribute}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPropertyBinding(AngularParser.PropertyBindingContext ctx);
+	T visitHtmlAttribute(AngularParser.HtmlAttributeContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AngularParser#eventBinding}.
+	 * Visit a parse tree produced by {@link AngularParser#attributeValue}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitEventBinding(AngularParser.EventBindingContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AngularParser#normalAttribute}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNormalAttribute(AngularParser.NormalAttributeContext ctx);
+	T visitAttributeValue(AngularParser.AttributeValueContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AngularParser#interpolation}.
 	 * @param ctx the parse tree
