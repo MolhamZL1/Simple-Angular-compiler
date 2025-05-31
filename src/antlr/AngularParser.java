@@ -2196,6 +2196,46 @@ public class AngularParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class BindingContext extends ParserRuleContext {
+		public BindingContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_binding; }
+	 
+		public BindingContext() { }
+		public void copyFrom(BindingContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class TwoWayBindingContext extends BindingContext {
+		public TerminalNode LSBRACKET() { return getToken(AngularParser.LSBRACKET, 0); }
+		public TerminalNode LPAREN() { return getToken(AngularParser.LPAREN, 0); }
+		public IdentifierContext identifier() {
+			return getRuleContext(IdentifierContext.class,0);
+		}
+		public TerminalNode RPAREN() { return getToken(AngularParser.RPAREN, 0); }
+		public TerminalNode RSBRACKET() { return getToken(AngularParser.RSBRACKET, 0); }
+		public TerminalNode EQUAL() { return getToken(AngularParser.EQUAL, 0); }
+		public AttributeValueContext attributeValue() {
+			return getRuleContext(AttributeValueContext.class,0);
+		}
+		public TwoWayBindingContext(BindingContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterTwoWayBinding(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitTwoWayBinding(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitTwoWayBinding(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class PropertyBindingContext extends BindingContext {
 		public TerminalNode LSBRACKET() { return getToken(AngularParser.LSBRACKET, 0); }
 		public IdentifierContext identifier() {
 			return getRuleContext(IdentifierContext.class,0);
@@ -2205,23 +2245,44 @@ public class AngularParser extends Parser {
 		public AttributeValueContext attributeValue() {
 			return getRuleContext(AttributeValueContext.class,0);
 		}
-		public TerminalNode LPAREN() { return getToken(AngularParser.LPAREN, 0); }
-		public TerminalNode RPAREN() { return getToken(AngularParser.RPAREN, 0); }
-		public BindingContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_binding; }
+		public PropertyBindingContext(BindingContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterBinding(this);
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterPropertyBinding(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitBinding(this);
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitPropertyBinding(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitBinding(this);
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitPropertyBinding(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class EventBindingContext extends BindingContext {
+		public TerminalNode LPAREN() { return getToken(AngularParser.LPAREN, 0); }
+		public IdentifierContext identifier() {
+			return getRuleContext(IdentifierContext.class,0);
+		}
+		public TerminalNode RPAREN() { return getToken(AngularParser.RPAREN, 0); }
+		public TerminalNode EQUAL() { return getToken(AngularParser.EQUAL, 0); }
+		public AttributeValueContext attributeValue() {
+			return getRuleContext(AttributeValueContext.class,0);
+		}
+		public EventBindingContext(BindingContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterEventBinding(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitEventBinding(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitEventBinding(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2234,6 +2295,7 @@ public class AngularParser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,18,_ctx) ) {
 			case 1:
+				_localctx = new PropertyBindingContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(359);
@@ -2249,6 +2311,7 @@ public class AngularParser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new EventBindingContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(365);
@@ -2264,6 +2327,7 @@ public class AngularParser extends Parser {
 				}
 				break;
 			case 3:
+				_localctx = new TwoWayBindingContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(371);

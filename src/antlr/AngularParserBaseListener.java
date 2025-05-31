@@ -449,13 +449,37 @@ public class AngularParserBaseListener implements AngularParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBinding(AngularParser.BindingContext ctx) { }
+	@Override public void enterPropertyBinding(AngularParser.PropertyBindingContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBinding(AngularParser.BindingContext ctx) { }
+	@Override public void exitPropertyBinding(AngularParser.PropertyBindingContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterEventBinding(AngularParser.EventBindingContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitEventBinding(AngularParser.EventBindingContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTwoWayBinding(AngularParser.TwoWayBindingContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTwoWayBinding(AngularParser.TwoWayBindingContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

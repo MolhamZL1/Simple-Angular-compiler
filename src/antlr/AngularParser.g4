@@ -91,9 +91,9 @@ templateProperty//done
        ;
 
    binding//
-       : LSBRACKET identifier RSBRACKET EQUAL attributeValue               //#PropertyBinding
-       | LPAREN identifier RPAREN EQUAL attributeValue                    // #EventBinding
-       | LSBRACKET LPAREN identifier RPAREN RSBRACKET EQUAL attributeValue// #TwoWayBinding
+       : LSBRACKET identifier RSBRACKET EQUAL attributeValue               #PropertyBinding
+       | LPAREN identifier RPAREN EQUAL attributeValue                     #EventBinding
+       | LSBRACKET LPAREN identifier RPAREN RSBRACKET EQUAL attributeValue #TwoWayBinding
        ;
 
    directive//

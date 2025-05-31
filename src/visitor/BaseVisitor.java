@@ -211,8 +211,33 @@ if(pathFile.contains(templatePath)){
     }
 
     @Override
-    public Binding visitBinding(AngularParser.BindingContext ctx) {
-        return new Binding((Identifier) visit(ctx.identifier()),(AttributeValue) visit(ctx.attributeValue()));
+    public PropertyBinding visitPropertyBinding(AngularParser.PropertyBindingContext ctx) {
+        return new PropertyBinding((Identifier) visit(ctx.identifier()),(AttributeValue) visit(ctx.attributeValue()));
+
+    }
+
+    @Override
+    public EventBinding visitEventBinding(AngularParser.EventBindingContext ctx) {
+
+        for (ComponentSymbol componentSymbol:componentsSymboleTable.getSymbols().values()) {
+            int index=componentSymbol.getTemplatePath().lastIndexOf("/");
+            String templatePath=componentSymbol.getTemplatePath().substring(index+1).replaceAll("'","");
+            if(pathFile.contains(templatePath)){
+
+                String name=ctx.attributeValue().STRING().getText();
+                if(name.contains("(")&&name.contains(")")){
+                int end=name.indexOf("(");
+                String methodName=name.substring(0,end).replaceAll("\"","");
+                componentSymbol.getMethods().check(methodName,pathFile);
+                }
+            }
+        }
+        return new EventBinding((Identifier) visit(ctx.identifier()),(AttributeValue) visit(ctx.attributeValue()));
+    }
+
+    @Override
+    public TwoWayBinding visitTwoWayBinding(AngularParser.TwoWayBindingContext ctx) {
+        return new TwoWayBinding((Identifier) visit(ctx.identifier()),(AttributeValue) visit(ctx.attributeValue()));
     }
 
     @Override

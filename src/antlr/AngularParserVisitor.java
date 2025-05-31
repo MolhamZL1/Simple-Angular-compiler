@@ -243,11 +243,26 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitHtmlAttrLabel(AngularParser.HtmlAttrLabelContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AngularParser#binding}.
+	 * Visit a parse tree produced by the {@code PropertyBinding}
+	 * labeled alternative in {@link AngularParser#binding}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBinding(AngularParser.BindingContext ctx);
+	T visitPropertyBinding(AngularParser.PropertyBindingContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code EventBinding}
+	 * labeled alternative in {@link AngularParser#binding}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEventBinding(AngularParser.EventBindingContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TwoWayBinding}
+	 * labeled alternative in {@link AngularParser#binding}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTwoWayBinding(AngularParser.TwoWayBindingContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code NgIfDirective}
 	 * labeled alternative in {@link AngularParser#directive}.

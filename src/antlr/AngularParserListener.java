@@ -400,15 +400,41 @@ public interface AngularParserListener extends ParseTreeListener {
 	 */
 	void exitHtmlAttrLabel(AngularParser.HtmlAttrLabelContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AngularParser#binding}.
+	 * Enter a parse tree produced by the {@code PropertyBinding}
+	 * labeled alternative in {@link AngularParser#binding}.
 	 * @param ctx the parse tree
 	 */
-	void enterBinding(AngularParser.BindingContext ctx);
+	void enterPropertyBinding(AngularParser.PropertyBindingContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AngularParser#binding}.
+	 * Exit a parse tree produced by the {@code PropertyBinding}
+	 * labeled alternative in {@link AngularParser#binding}.
 	 * @param ctx the parse tree
 	 */
-	void exitBinding(AngularParser.BindingContext ctx);
+	void exitPropertyBinding(AngularParser.PropertyBindingContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code EventBinding}
+	 * labeled alternative in {@link AngularParser#binding}.
+	 * @param ctx the parse tree
+	 */
+	void enterEventBinding(AngularParser.EventBindingContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code EventBinding}
+	 * labeled alternative in {@link AngularParser#binding}.
+	 * @param ctx the parse tree
+	 */
+	void exitEventBinding(AngularParser.EventBindingContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TwoWayBinding}
+	 * labeled alternative in {@link AngularParser#binding}.
+	 * @param ctx the parse tree
+	 */
+	void enterTwoWayBinding(AngularParser.TwoWayBindingContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TwoWayBinding}
+	 * labeled alternative in {@link AngularParser#binding}.
+	 * @param ctx the parse tree
+	 */
+	void exitTwoWayBinding(AngularParser.TwoWayBindingContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code NgIfDirective}
 	 * labeled alternative in {@link AngularParser#directive}.
