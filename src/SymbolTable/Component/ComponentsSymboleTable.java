@@ -57,7 +57,7 @@ public class ComponentsSymboleTable {
             System.out.println(  " ------- " + s.getName()  + "-component (line " + s.getLine() + ") ---------------");
             s.getProperties().print();
             s.getMethods().print();
-
+            s.getInputs().print();
         }
     }
 }

@@ -67,7 +67,7 @@ public class ProparatyDecSymbolTable {
     public void print() {
         System.out.println(  ColorsConsole.GREEN +"========== Property Declaration Symbol Table =========="+ColorsConsole.RESET );
         for (ProparatyDecSymbol s : symbols.values()) {
-            System.out.println(  " - " + s.getName()  + ": type :"+s.getType()+ " : value :"+ s.getValue() +" (line " + s.getLine() + ")");
+            System.out.println(  " - " + s.getName()  + ": type :"+s.getType()+ " (line " + s.getLine() + ")");
         }
     }
 }

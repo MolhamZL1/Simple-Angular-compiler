@@ -55,6 +55,7 @@ public class MethodDecSymbolTable {
         System.out.println(  ColorsConsole.GREEN +"========== Method Declaration Symbol Table =========="+ColorsConsole.RESET );
         for (MethodDecSymbol s : symbols.values()) {
             System.out.println(  " - " + s.getName()  + " (line " + s.getLine() + ")");
+            s.getArgsMethodSymbolTable().print();
         }
     }
 }

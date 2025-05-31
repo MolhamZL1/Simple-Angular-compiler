@@ -57,5 +57,6 @@ public class ArgsMethodSymbolTable {
         for (ArgsMethodSymbol s : symbols.values()) {
             System.out.println(  " - " + s.getName()  + " (line " + s.getLine() + ")");
         }
+        System.out.println(  ColorsConsole.GREEN +"--------------------"+ColorsConsole.RESET );
     }
 }
