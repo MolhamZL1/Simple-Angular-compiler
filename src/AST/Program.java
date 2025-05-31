@@ -10,10 +10,10 @@ public class Program implements ASTNode {
     }
     @Override
     public String toString(){
-        String program="";
+        StringBuilder program= new StringBuilder();
         for (ASTNode child:children ) {
             if(child!=null){
-                program+="\t"+child.toString();
+                program.append("\t").append(child.toString());
             }
         }
         return "{"+program+"\n}";

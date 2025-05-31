@@ -110,9 +110,6 @@ templateProperty//done
    interpolation//
        : INTERPOLATION_OPEN expression INTERPOLATION_CLOSE ;
 
-//   textNode
-//       : ~[<{}]+ ; // أي نص عادي
-
 
 
 stylesProperty//done
@@ -313,7 +310,6 @@ expression//done
     | expression ((MINUS MINUS)|(PLUS PLUS))                                                  # PostFixExpr//
     | ((MINUS MINUS)|(PLUS PLUS)) expression                                                  # PreFixExpr//
     | primary                                                                                 # PrimaryExpr//noneed
-   // | templateLiteral                                                                         # TemplateExpr
     ;
 
     primary//done//noneed
@@ -339,17 +335,11 @@ mapmember:STRING COLON expression;//done//
 
 identifier:IDENTIFIER;//done//
 
-
-
-
 args : expression (COMMA expression)*;//done//
 
 literal : number | STRING | Boolean | Null | Undefined; //done//
 
 number: Integer | Float; //done//
-
-//modifier : PUBLIC | PRIVATE | PROTECTED | READONLY | STATIC | ABSTRACT | FINAL | ASYNC|EXPORT;
-
 
 typeAnnotation//no need
     : COLON type

@@ -1,14 +1,15 @@
 import AST.Program;
-import SymbolTable.*;
+import SymbolTable.Component.ComponentSymbol;
+import SymbolTable.Component.ComponentsSymboleTable;
 import antlr.AngularLexer;
 import antlr.AngularParser;
-import loghandler.ColorsConsole;
-import loghandler.LogHandler;
+import LogHandler.ColorsConsole;
+import LogHandler.LogHandler;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import visitor.BaseVisitor;
-import visitor.SettingSymbolTable;
+import visitor.SymbolTableInitializerVisitor;
 
 
 import java.io.File;
@@ -29,7 +30,7 @@ public class Main {
        ParseTree tree = parser.program();
        if(file.getName().contains(".component.ts")){
            ComponentSymbol componentSymbol=new ComponentSymbol();
-           new SettingSymbolTable(componentSymbol,source).visit(tree);
+           new SymbolTableInitializerVisitor(componentSymbol,source).visit(tree);
            componentsSymboleTable.setSymbol(componentSymbol,source);
        }
    }

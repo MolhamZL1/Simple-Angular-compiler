@@ -1,11 +1,10 @@
-the Proparaty (qty) at file(src\Tests\app\components\header\header.component.ts) at line(17) is defined
+the Proparaty (qty)  is defined at file(src\Tests\app\components\header\header.component.ts) at line(17)
 The method (receiveProduct) at file(src\Tests\app\components\header\header.component.ts) at line(35) is defined
-The method (deleteProduct) at file(src\Tests\app\components\header\header.component.ts) at line(50) is defined
-The Property (id) is defined at Method (deleteProduct) at src\Tests\app\components\header\header.component.ts at line(50)
-the Component (app-header) at file(src\Tests\app\components\header\header.component.ts) at line(0) is defined
-the Proparaty (product) at file(src\Tests\app\components\product-popup\product-popup.component.ts) at line(17) is defined
+The Property (id) is defined at Method (deleteProduct) at src\Tests\app\components\header\header.component.ts at line(46)
+the Component (app-header) is defined at file(src\Tests\app\components\header\header.component.ts) at line(0)
+the Proparaty (product)  is defined at file(src\Tests\app\components\product-popup\product-popup.component.ts) at line(17)
 The Input Property(product) is defined at file(src\Tests\app\components\product-popup\product-popup.component.ts) at line(17)
-Cannot find module app-heaer at file(src\Tests\app\app.component.html
+Cannot find module (app-heaer) at file(src\Tests\app\app.component.html)
 Property produc at src\Tests\app\components\header\header.component.html does not exist on its Component
-Method addToCat at src\Tests\app\components\product\product.component.html does not exist on its Component
-Input Property produt at src\Tests\app\components\product\product.component.html does not exist on its Component
+Method (addToCat) at (src\Tests\app\components\product\product.component.html) does not exist on its Component
+Input Property (produt) at (src\Tests\app\components\product\product.component.html) does not exist on its Component
