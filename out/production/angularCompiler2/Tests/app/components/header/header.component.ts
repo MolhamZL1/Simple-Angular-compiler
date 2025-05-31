@@ -43,7 +43,7 @@ export class HeaderComponent {
       this.totalPriceOfCheckout();
     }
   }
-  public deleteProduct(id:number){
+  public deleteProduct(id:number,id:number){
     this.products = this.products.filter((productItem: any) => productItem.id !== id);
     this.totalPriceOfCheckout();
   }

@@ -12,12 +12,12 @@ import java.util.Map;
 public class ComponentsSymboleTable {
     private final Map<String, ComponentSymbol> symbols = new LinkedHashMap<>();
 
-    public boolean setSymbol(ComponentSymbol symbol) {
+    public boolean setSymbol(ComponentSymbol symbol,String fileName) {
         if (lookup(symbol.getName())) {
             Map errdata=new HashMap();
             errdata.put("name",symbol.getName());
             errdata.put("line",symbol.getLine());
-            errdata.put("fileName","fileName");
+            errdata.put("fileName",fileName);
             String errMessage=LogHandler.getErrmessage(ErrorType.ComponentDefined,errdata);
             RuntimeException exception=new SemanticException(errMessage);
             LogHandler.log(exception);

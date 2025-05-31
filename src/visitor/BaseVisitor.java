@@ -29,6 +29,7 @@ import SymbolTable.ProparatyDecSymbol;
 import antlr.AngularParser;
 import antlr.AngularParserBaseVisitor;
 import loghandler.ColorsConsole;
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
@@ -212,6 +213,29 @@ if(pathFile.contains(templatePath)){
 
     @Override
     public PropertyBinding visitPropertyBinding(AngularParser.PropertyBindingContext ctx) {
+        ParserRuleContext current = ctx;
+        String tagName="" ;
+        while (current != null && !(current instanceof AngularParser.HtmlElementContext)) {
+            current = current.getParent();
+        }
+
+        if (current instanceof AngularParser.HtmlElementContext htmlElementCtx) {
+             tagName = htmlElementCtx.tagName.IDENTIFIER().getText();
+        } else {
+            System.out.println("can not find");
+        }
+        if(tagName.startsWith("app-")){
+            for (ComponentSymbol componentSymbol:componentsSymboleTable.getSymbols().values()) {
+                int index=componentSymbol.getTemplatePath().lastIndexOf("/");
+                String templatePath=componentSymbol.getTemplatePath().substring(index+1).replaceAll("'","");
+                if(componentSymbol.getName().equals(tagName)){
+                    String name=ctx.identifier().IDENTIFIER().getText();
+                    componentSymbol.getInputs().check(name,pathFile);
+
+                }
+            }
+        }
+
         return new PropertyBinding((Identifier) visit(ctx.identifier()),(AttributeValue) visit(ctx.attributeValue()));
 
     }
@@ -250,7 +274,7 @@ if(pathFile.contains(templatePath)){
                 int start=value.indexOf("let");
                 int end=value.indexOf("of");
                 String prop=value.substring(start+3,end).trim();
-                componentSymbol.getProperties().setSymbol(new ProparatyDecSymbol(prop,"ngfor item name",ctx.getStart().getLine()));
+                componentSymbol.getProperties().setSymbol(new ProparatyDecSymbol(prop,"ngfor item name",ctx.getStart().getLine()),pathFile);
             }
         }
         return new NgForDirective((AttributeValue) visit(ctx.attributeValue()));

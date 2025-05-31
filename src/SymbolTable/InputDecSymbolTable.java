@@ -9,16 +9,16 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class MethodDecSymbolTable {
-    private final Map<String, MethodDecSymbol> symbols = new LinkedHashMap<>();
+public class InputDecSymbolTable {
+    private final Map<String, InputDecSymbol> symbols = new LinkedHashMap<>();
 
-    public boolean setSymbol(MethodDecSymbol symbol,String fileName) {
+    public boolean setSymbol(InputDecSymbol symbol,String fileName) {
         if (lookup(symbol.getName())) {
             Map errdata=new HashMap();
             errdata.put("name",symbol.getName());
             errdata.put("line",symbol.getLine());
             errdata.put("fileName",fileName);
-            String errMessage= LogHandler.getErrmessage(ErrorType.MethodDefined,errdata);
+            String errMessage= LogHandler.getErrmessage(ErrorType.InputDefined,errdata);
             RuntimeException exception=new SemanticException(errMessage);
             LogHandler.log(exception);
             //  throw exception;
@@ -31,7 +31,7 @@ public class MethodDecSymbolTable {
             Map errdata=new HashMap();
             errdata.put("name",name);
             errdata.put("fileName",path);
-            String errMessage=LogHandler.getErrmessage(ErrorType.MethodNotFound,errdata);
+            String errMessage=LogHandler.getErrmessage(ErrorType.InputNotFound,errdata);
             RuntimeException exception=new SemanticException(errMessage);
             LogHandler.log(exception);
             //  throw exception;
@@ -47,13 +47,13 @@ public class MethodDecSymbolTable {
         return false;
     }
 
-    public Map<String, MethodDecSymbol> getSymbols() {
+    public Map<String, InputDecSymbol> getSymbols() {
         return symbols;
     }
 
     public void print() {
-        System.out.println(  ColorsConsole.GREEN +"========== Method Declaration Symbol Table =========="+ColorsConsole.RESET );
-        for (MethodDecSymbol s : symbols.values()) {
+        System.out.println(  ColorsConsole.GREEN +"========== Input Declaration Symbol Table =========="+ColorsConsole.RESET );
+        for (InputDecSymbol s : symbols.values()) {
             System.out.println(  " - " + s.getName()  + " (line " + s.getLine() + ")");
         }
     }

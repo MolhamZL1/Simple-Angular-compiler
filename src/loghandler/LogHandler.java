@@ -1,7 +1,5 @@
 package loghandler;
 
-import SymbolTable.Symbol;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
@@ -11,21 +9,28 @@ public class LogHandler {
 
     static public String getErrmessage(ErrorType errorType, Map data){
         if (errorType == ErrorType.PrparetyDefined) {
-            return "the Proparaty (" + data.get("name") + ") at file(" + data.get("fileName") + ") at line(" + data.get("line") + ") is defined";
+            return "the Proparaty (" + data.get("name") + ")  is defined at file(" + data.get("fileName") + ") at line(" + data.get("line") + ")";
         } else if (errorType == ErrorType.PrparetyNotFound) {
             return "Property " +  data.get("name") + " at " + data.get("fileName")+" does not exist on its Component";
         } else if (errorType == ErrorType.ComponentDefined) {
-            return "the Component (" +  data.get("name")  + ") at file(" +  data.get("fileName")  + ") at line(" +data.get("line") + ") is defined";
+            return "the Component (" +  data.get("name")  + ") is defined at file(" +  data.get("fileName")  + ") at line(" +data.get("line") + ")";
         }
         else if (errorType == ErrorType.ComponentNotFound) {
-            return "Cannot find module " +  data.get("name")  + " at file(" +  data.get("fileName") ;
+            return "Cannot find module (" +  data.get("name")  + ") at file(" +  data.get("fileName")+")" ;
         }
         else if (errorType == ErrorType.MethodDefined) {
             return "The method (" +  data.get("name")  + ") at file(" +  data.get("fileName")  + ") at line(" +data.get("line") + ") is defined";
         } else if (errorType == ErrorType.MethodNotFound) {
-            return "Method " +  data.get("name") + " at " + data.get("fileName")+" does not exist on its Component";
+            return "Method (" +  data.get("name") + ") at (" + data.get("fileName")+") does not exist on its Component";
         }
-
+        else if (errorType == ErrorType.InputDefined) {
+            return "The Input Property(" +  data.get("name")  + ") is defined at file(" +  data.get("fileName")  + ") at line(" +data.get("line") + ")";
+        } else if (errorType == ErrorType.InputNotFound) {
+            return "Input Property (" +  data.get("name") + ") at (" + data.get("fileName")+") does not exist on its Component";
+        }
+        else if (errorType == ErrorType.ArgsMethodDefined) {
+            return "The Property (" +  data.get("name")  + ") is defined at Method (" +  data.get("methodName")  +  ") at " + data.get("fileName")+ " at line(" +data.get("line") + ")";
+        }
         else{
             return "Not detected";
         }

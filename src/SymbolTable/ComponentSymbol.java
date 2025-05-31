@@ -10,11 +10,17 @@ public class ComponentSymbol implements Symbol{
     private List<String> imports;
     private ProparatyDecSymbolTable properties;
     private MethodDecSymbolTable methods;
+    private InputDecSymbolTable inputs;
     private int line;
 
     public ComponentSymbol() {
         this.properties =new ProparatyDecSymbolTable();
         this.methods =new MethodDecSymbolTable();
+        this.inputs=new InputDecSymbolTable();
+    }
+
+    public InputDecSymbolTable getInputs() {
+        return inputs;
     }
 
     public ProparatyDecSymbolTable getProperties() {

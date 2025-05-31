@@ -12,11 +12,11 @@ import java.util.Map;
 public class ProparatyDecSymbolTable {
     private final Map<String, ProparatyDecSymbol> symbols = new LinkedHashMap<>();
 
-    public boolean setSymbol(ProparatyDecSymbol symbol) {
+    public boolean setSymbol(ProparatyDecSymbol symbol,String fileName) {
         if (lookup(symbol.getName())) {
             Map errdata=new HashMap();
             errdata.put("name",symbol.getName());
-            errdata.put("fileName","fileName");
+            errdata.put("fileName",fileName);
             errdata.put("line",symbol.getLine());
             String errMessage=LogHandler.getErrmessage(ErrorType.PrparetyDefined,errdata);
             RuntimeException exception=new SemanticException(errMessage);

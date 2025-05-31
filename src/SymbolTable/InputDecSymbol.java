@@ -2,24 +2,17 @@ package SymbolTable;
 
 import AST.ExpressionsClasses.Expression;
 
-public class MethodDecSymbol implements Symbol{
+public class InputDecSymbol implements Symbol{
     private String name;
     private String type;
     private Expression value;
     private int line;
-    private ArgsMethodSymbolTable argsMethodSymbolTable;
 
-    public MethodDecSymbol(String name, String type, int line) {
+    public InputDecSymbol(String name, String type, int line) {
         this.name = name;
         this.type = type;
         this.line = line;
-        this.argsMethodSymbolTable=new ArgsMethodSymbolTable();
     }
-
-    public ArgsMethodSymbolTable getArgsMethodSymbolTable() {
-        return argsMethodSymbolTable;
-    }
-
     @Override
     public String getName() {
         return name;
@@ -39,5 +32,4 @@ public class MethodDecSymbol implements Symbol{
     public int getLine() {
         return line;
     }
-
 }

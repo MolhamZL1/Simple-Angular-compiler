@@ -29,8 +29,8 @@ public class Main {
        ParseTree tree = parser.program();
        if(file.getName().contains(".component.ts")){
            ComponentSymbol componentSymbol=new ComponentSymbol();
-           new SettingSymbolTable(componentSymbol).visit(tree);
-           componentsSymboleTable.setSymbol(componentSymbol);
+           new SettingSymbolTable(componentSymbol,source).visit(tree);
+           componentsSymboleTable.setSymbol(componentSymbol,source);
        }
    }
     static void setSymbolTables(String path)throws IOException {

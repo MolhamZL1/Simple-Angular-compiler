@@ -1,21 +1,26 @@
 package visitor;
 
 
+import AST.Args;
 import AST.ExpressionsClasses.Expression;
 import AST.Identifier;
+import AST.Parameter;
 import AST.Type;
-import SymbolTable.ComponentSymbol;
-import SymbolTable.MethodDecSymbol;
-import SymbolTable.ProparatyDecSymbol;
+import SymbolTable.*;
 import antlr.AngularParser;
 import antlr.AngularParserBaseVisitor;
 import loghandler.ColorsConsole;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SettingSymbolTable extends AngularParserBaseVisitor {
     ComponentSymbol componentSymbol;
+    String pathFile;
 
-    public SettingSymbolTable(ComponentSymbol componentSymbol){
+    public SettingSymbolTable(ComponentSymbol componentSymbol,String pathFile){
         this.componentSymbol=componentSymbol;
+        this.pathFile=pathFile;
     }
 
     @Override
@@ -34,22 +39,31 @@ public class SettingSymbolTable extends AngularParserBaseVisitor {
     @Override
     public Void visitPropertyDeclaration(AngularParser.PropertyDeclarationContext ctx) {
 
-        componentSymbol.getProperties().setSymbol(new ProparatyDecSymbol(ctx.name.IDENTIFIER().getText(),ctx.typeAnnotation()==null?"any": ctx.typeAnnotation().type().getText(),ctx.getStart().getLine()));
+        componentSymbol.getProperties().setSymbol(new ProparatyDecSymbol(ctx.name.IDENTIFIER().getText(),ctx.typeAnnotation()==null?"any": ctx.typeAnnotation().type().getText(),ctx.getStart().getLine()),pathFile);
         return null;
     }
 
     @Override
     public Void visitInputDeclaration(AngularParser.InputDeclarationContext ctx) {
-        componentSymbol.getProperties().setSymbol(new ProparatyDecSymbol(ctx.identifier().IDENTIFIER().getText(),ctx.typeAnnotation()==null?"any": ctx.typeAnnotation().type().getText(),ctx.getStart().getLine()));
-
+        componentSymbol.getProperties().setSymbol(new ProparatyDecSymbol(ctx.identifier().IDENTIFIER().getText(),ctx.typeAnnotation()==null?"any": ctx.typeAnnotation().type().getText(),ctx.getStart().getLine()),pathFile);
+        componentSymbol.getInputs().setSymbol(new InputDecSymbol(ctx.identifier().IDENTIFIER().getText(),ctx.typeAnnotation()==null?"any": ctx.typeAnnotation().type().getText(),ctx.getStart().getLine()),pathFile);
         return null;
     }
 
     @Override
     public Void visitDeafultMethod(AngularParser.DeafultMethodContext ctx) {
-componentSymbol.getMethods().setSymbol(new MethodDecSymbol(ctx.identifier().IDENTIFIER().getText(),ctx.typeAnnotation()==null?"any": ctx.typeAnnotation().type().getText(),ctx.getStart().getLine()));
+      MethodDecSymbol methodDecSymbol=  new MethodDecSymbol(ctx.identifier().IDENTIFIER().getText(),ctx.typeAnnotation()==null?"any": ctx.typeAnnotation().type().getText(),ctx.getStart().getLine());
+componentSymbol.getMethods().setSymbol(methodDecSymbol,pathFile);
+
+        if (ctx.parameterList()!=null){
+            for (AngularParser.ParameterContext parameterCtx:ctx.parameterList().parameter()
+            ) {
+               methodDecSymbol.getArgsMethodSymbolTable().setSymbol(new ArgsMethodSymbol(parameterCtx.identifier().IDENTIFIER().getText(),parameterCtx.typeAnnotation()==null?"any":parameterCtx.typeAnnotation().type().getText(),ctx.getStart().getLine()),methodDecSymbol.getName(),pathFile);
+            }
+        }
         return null;
     }
+    
     // @Override
 //    public Void visitImports(AngularParser.ImportsContext ctx) {
 //        List<String> identifiers = new ArrayList<>();
