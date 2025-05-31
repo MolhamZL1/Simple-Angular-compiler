@@ -3,13 +3,14 @@ parser grammar AngularParser;
 options { tokenVocab=AngularLexer; }
 
 program//done
-    :(
+    :((
               importStatement
              |componentDeclaration
              |classDeclaration
              |statement
              |methodDeclaration
-     )* EOF;
+     )*)
+     |templateContent EOF;
 // functionDeclaration
 importStatement//done
     : importDefault                   #ImportDefaultLabel
@@ -39,11 +40,11 @@ importList: importItem (COMMA importItem)*;//no need
 importItem: original=identifier (AS alias=identifier)?;//done
 
 componentDeclaration//done
-    : COMPONENT Component_LPAREN componentMetadata Component_RPAREN
+    : COMPONENT LPAREN componentMetadata RPAREN
     ;
 
 componentMetadata//no need
-    : Component_LCURLY metadataProperty (Comp_COMMA metadataProperty)* Comp_COMMA? Component_RCURLY
+    : LCURLY metadataProperty (COMMA metadataProperty)* COMMA? RCURLY
     ;
 
 metadataProperty//done
@@ -54,12 +55,12 @@ metadataProperty//done
     | imports            #ImportsLabel
     ;
 
-    standalone:STANDALONE CompCOLON CompBool;//done
+    standalone:STANDALONE COLON Boolean;//done
 
-     imports:IMPORTS CompCOLON listOfId;//edit this to list of id
-listOfId:Comp_LSBRACKET (Comp_IDENTIFIER (Comp_COMMA Comp_IDENTIFIER)*) Comp_RSBRACKET;
+     imports:IMPORTS COLON listOfId;
+listOfId:LSBRACKET (identifier (COMMA identifier)*) RSBRACKET;
 selectorProperty//done
-    : SELECTOR CompCOLON CompString
+    : SELECTOR COLON STRING
     ;
 
 templateProperty//done
@@ -67,18 +68,59 @@ templateProperty//done
     | templetHTML    #TemplateHTMLLabel
     ;
 
-    templateUrl:TEMPLATEURL CompCOLON CompString;//done
+    templateUrl:TEMPLATEURL COLON STRING;//done
 
-    templetHTML:TEMPLATE CompCOLON html;//done
+    templetHTML:TEMPLATE COLON BACKTICK templateContent BACKTICK;//done
 
-    html:CompString;//done
+
+   templateContent
+       :( htmlElement
+       | interpolation
+       | binding
+       | identifier )*
+       ;
+   htmlElement//
+       :   LESS_THAN tagName=identifier attribute* GREATER_THAN templateContent LESS_THAN DIVIDE identifier GREATER_THAN
+         | LESS_THAN tagName=identifier attribute* TAG_SLASH_CLOSE
+         | LESS_THAN tagName=identifier attribute* GREATER_THAN
+       ;
+   attribute
+       : binding              #BiningAttrLabel
+       | directive            #DirectiveAttrLabel
+       | htmlAttribute        #HtmlAttrLabel
+       ;
+
+   binding//
+       : LSBRACKET identifier RSBRACKET EQUAL attributeValue               //#PropertyBinding
+       | LPAREN identifier RPAREN EQUAL attributeValue                    // #EventBinding
+       | LSBRACKET LPAREN identifier RPAREN RSBRACKET EQUAL attributeValue// #TwoWayBinding
+       ;
+
+   directive//
+       : NG_IF EQUAL attributeValue      #NgIfDirective
+       | NG_FOR EQUAL attributeValue     #NgForDirective
+       ;
+
+   htmlAttribute//
+       : (identifier|CLASS|TYPE) EQUAL attributeValue ;
+
+   attributeValue//
+       : STRING | interpolation ;
+
+   interpolation//
+       : INTERPOLATION_OPEN expression INTERPOLATION_CLOSE ;
+
+//   textNode
+//       : ~[<{}]+ ; // أي نص عادي
+
+
 
 stylesProperty//done
     : styleUrls   #StyleUrlsLabel
  //   | stylesCss
     ;
 
-styleUrls:STYLEURL CompCOLON Comp_LSBRACKET? (CompString (Comp_COMMA CompString)*) Comp_RSBRACKET?;//done
+styleUrls:STYLEURL COLON LSBRACKET? (STRING (COMMA STRING)*) RSBRACKET?;//done
   //  stylesCss:TEMPLATE COLON STRING;
 
 classDeclaration//done
@@ -247,7 +289,7 @@ variableDeclaration//done//
     :EXPORT? variableDeclarationKeyword name=identifier typeAnnotation? (EQUAL value=expression)? (AS castedType=identifier)? SEMI
     ;
 
-    variableDeclarationKeyword:(CONST | LET | VAR);//done//
+    variableDeclarationKeyword:(CONST | LET | VAR|TYPE);//done//
 
 expressionStatement: expression eos;//no need//noneed
 
@@ -289,7 +331,7 @@ objectLiteral : LCURLY (propertyAssignment (COMMA propertyAssignment)*)? COMMA? 
 
 objectInit : NEW identifier (LESS_THAN type GREATER_THAN)? LPAREN args? RPAREN;//done//
 
-propertyAssignment : identifier COLON expression;//done//
+propertyAssignment : (identifier|IMPORTS) COLON expression;//done//
 
 mapLitral : LCURLY (mapmember (COMMA mapmember)*)? COMMA? RCURLY;//done//
 

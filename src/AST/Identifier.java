@@ -16,7 +16,7 @@ public class Identifier implements Primary {
     @Override
     public String toString() {
         return "\nidentifier{" +
-               identifier + '\'' +
+               identifier  +
                 '}';
     }
 }

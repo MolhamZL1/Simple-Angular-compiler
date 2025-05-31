@@ -413,49 +413,49 @@ public class AngularParserBaseListener implements AngularParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAttribute(AngularParser.AttributeContext ctx) { }
+	@Override public void enterBiningAttrLabel(AngularParser.BiningAttrLabelContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAttribute(AngularParser.AttributeContext ctx) { }
+	@Override public void exitBiningAttrLabel(AngularParser.BiningAttrLabelContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPropertyBinding(AngularParser.PropertyBindingContext ctx) { }
+	@Override public void enterDirectiveAttrLabel(AngularParser.DirectiveAttrLabelContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPropertyBinding(AngularParser.PropertyBindingContext ctx) { }
+	@Override public void exitDirectiveAttrLabel(AngularParser.DirectiveAttrLabelContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEventBinding(AngularParser.EventBindingContext ctx) { }
+	@Override public void enterHtmlAttrLabel(AngularParser.HtmlAttrLabelContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitEventBinding(AngularParser.EventBindingContext ctx) { }
+	@Override public void exitHtmlAttrLabel(AngularParser.HtmlAttrLabelContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTwoWayBinding(AngularParser.TwoWayBindingContext ctx) { }
+	@Override public void enterBinding(AngularParser.BindingContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTwoWayBinding(AngularParser.TwoWayBindingContext ctx) { }
+	@Override public void exitBinding(AngularParser.BindingContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -10,18 +10,22 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './product-popup.component.html',
   styleUrl: './product-popup.component.scss'
 })
+
 export class ProductPopupComponent implements OnInit {
 
   @Input() product:any = null;
-  public selectedImage:any;
+  public selectedImage:any ;
+
   public selectedMaterial:any;
   public selectedColor:any;
+  
 
   constructor(){
     console.log("hi");
   }
 
   ngOnInit(): void {
+
 
   }
 

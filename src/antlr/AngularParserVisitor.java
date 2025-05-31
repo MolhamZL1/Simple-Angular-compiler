@@ -222,32 +222,32 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitHtmlElement(AngularParser.HtmlElementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AngularParser#attribute}.
+	 * Visit a parse tree produced by the {@code BiningAttrLabel}
+	 * labeled alternative in {@link AngularParser#attribute}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAttribute(AngularParser.AttributeContext ctx);
+	T visitBiningAttrLabel(AngularParser.BiningAttrLabelContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code PropertyBinding}
-	 * labeled alternative in {@link AngularParser#binding}.
+	 * Visit a parse tree produced by the {@code DirectiveAttrLabel}
+	 * labeled alternative in {@link AngularParser#attribute}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPropertyBinding(AngularParser.PropertyBindingContext ctx);
+	T visitDirectiveAttrLabel(AngularParser.DirectiveAttrLabelContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code EventBinding}
-	 * labeled alternative in {@link AngularParser#binding}.
+	 * Visit a parse tree produced by the {@code HtmlAttrLabel}
+	 * labeled alternative in {@link AngularParser#attribute}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitEventBinding(AngularParser.EventBindingContext ctx);
+	T visitHtmlAttrLabel(AngularParser.HtmlAttrLabelContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code TwoWayBinding}
-	 * labeled alternative in {@link AngularParser#binding}.
+	 * Visit a parse tree produced by {@link AngularParser#binding}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTwoWayBinding(AngularParser.TwoWayBindingContext ctx);
+	T visitBinding(AngularParser.BindingContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code NgIfDirective}
 	 * labeled alternative in {@link AngularParser#directive}.

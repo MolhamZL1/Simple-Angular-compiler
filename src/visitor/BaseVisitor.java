@@ -23,24 +23,33 @@ import AST.Statement.LoopStatement.*;
 import AST.Statement.Statement;
 import AST.Statement.VariableDeclaration;
 import AST.Statement.VariableDeclarationKeyword;
-import SymbolTable.SemanticAnalyzer;
+import SymbolTable.ComponentSymbol;
+import SymbolTable.ComponentsSymboleTable;
 import antlr.AngularParser;
 import antlr.AngularParserBaseVisitor;
+import loghandler.ColorsConsole;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BaseVisitor extends AngularParserBaseVisitor {
-    SemanticAnalyzer analyzer = new SemanticAnalyzer();
+  private ComponentsSymboleTable componentsSymboleTable ;
+  private String pathFile;
+
+    public BaseVisitor(ComponentsSymboleTable componentsSymboleTable,String pathFile) {
+        this.componentsSymboleTable = componentsSymboleTable;
+        this.pathFile=pathFile;
+    }
+
     @Override
     public Program visitProgram(AngularParser.ProgramContext ctx) {
-        analyzer.enterScope();
+
         Program program=new Program();
         for (int i = 0; i < ctx.children.size(); i++) {
             program.addChild((ASTNode) visit(ctx.getChild(i)));
         }
-        analyzer.exitScope();
+
         return program;
     }
 
@@ -135,38 +144,96 @@ public class BaseVisitor extends AngularParserBaseVisitor {
 
     @Override
     public StandaloneProperty visitStandalone(AngularParser.StandaloneContext ctx) {
-        boolean value = Boolean.parseBoolean(ctx.CompBool().getText());
+        boolean value = Boolean.parseBoolean(ctx.Boolean().getText());
         return new StandaloneProperty(value);
     }
 
 @Override
     public SelectorProperty visitSelectorProperty(AngularParser.SelectorPropertyContext ctx) {
-        String selector = ctx.CompString().getText();
+        String selector = ctx.STRING().getText();
         return new SelectorProperty(stripQuotes(selector));
     }
 
     @Override
     public TemplateUrl visitTemplateUrl(AngularParser.TemplateUrlContext ctx) {
-        String url=ctx.CompString().getText();
+        String url=ctx.STRING().getText();
         return new TemplateUrl(url);
     }
 
     @Override
-    public TempletHTML visitTempletHTML(AngularParser.TempletHTMLContext ctx) {
-        HTML html=(HTML) visit(ctx.html());
-        return new TempletHTML(html);
+    public TemplateContent visitTemplateContent(AngularParser.TemplateContentContext ctx) {
+        List<ASTNode>  templateContents=new ArrayList<>();
+        for (int i = 0; i <ctx.getChildCount() ; i++) {
+            templateContents.add( (ASTNode) visit(ctx.getChild(i)));
+        }
+        return new TemplateContent(templateContents);
     }
 
     @Override
-    public HTML visitHtml(AngularParser.HtmlContext ctx) {
-       String html= ctx.CompString().getText();
-        return new HTML(html);
+    public TempletHTML visitTempletHTML(AngularParser.TempletHTMLContext ctx) {
+
+        return new TempletHTML((TemplateContent) visit(ctx.templateContent()));
+    }
+
+    @Override
+    public HtmlElement visitHtmlElement(AngularParser.HtmlElementContext ctx) {
+         Identifier tagname =(Identifier) visit(ctx.tagName);
+         if(tagname.getIdentifier().startsWith("app-")){
+          componentsSymboleTable.check(tagname.getIdentifier(),pathFile);
+         }
+
+         List<Attribute> attributes=new ArrayList<>();
+        for (AngularParser.AttributeContext atrctx: ctx.attribute() ) {
+            attributes.add((Attribute)visit(atrctx));
+        }
+         TemplateContent templateContent=ctx.templateContent()!=null?(TemplateContent) visit(ctx.templateContent()):null;
+        return new HtmlElement(tagname,attributes,templateContent);
+    }
+
+    @Override
+    public Interpolation visitInterpolation(AngularParser.InterpolationContext ctx) {
+        Interpolation interpolation=   new Interpolation((Expression) visit(ctx.expression()));
+
+
+        for (ComponentSymbol componentSymbol:componentsSymboleTable.getSymbols().values()) {
+            int index=componentSymbol.getTemplatePath().lastIndexOf("/");
+           String templatePath=componentSymbol.getTemplatePath().substring(index+1).replaceAll("'","");
+if(pathFile.contains(templatePath)){
+    componentSymbol.getProperties().check(interpolation.getExpression().toString(),pathFile);
+}
+        }
+        return interpolation ;
+    }
+
+    @Override
+    public Binding visitBinding(AngularParser.BindingContext ctx) {
+        return new Binding((Identifier) visit(ctx.identifier()),(AttributeValue) visit(ctx.attributeValue()));
+    }
+
+    @Override
+    public NgForDirective visitNgForDirective(AngularParser.NgForDirectiveContext ctx) {
+        return new NgForDirective((AttributeValue) visit(ctx.attributeValue()));
+    }
+
+    @Override
+    public NgIfDirective visitNgIfDirective(AngularParser.NgIfDirectiveContext ctx) {
+        return new NgIfDirective((AttributeValue) visit(ctx.attributeValue()));
+    }
+
+    @Override
+    public AttributeValue visitAttributeValue(AngularParser.AttributeValueContext ctx) {
+        return new AttributeValue(ctx.interpolation()!=null?(Interpolation) visit(ctx.interpolation()):null,ctx.STRING()!=null?ctx.STRING().getText():null);
+    }
+
+    @Override
+    public HtmlAttribute visitHtmlAttribute(AngularParser.HtmlAttributeContext ctx) {
+        return new HtmlAttribute((AttributeValue)visit(ctx.attributeValue()),ctx.identifier()!=null?((Identifier)visit(ctx.identifier())).getIdentifier():ctx.getChild(0).getText());
     }
 
     @Override
     public StyleUrls visitStyleUrls(AngularParser.StyleUrlsContext ctx) {
         List<String> styles=new ArrayList<>();
-        for (TerminalNode style:  ctx.CompString()) {
+        for (TerminalNode style:  ctx.STRING()) {
             styles.add(style.getText());
         }
         return new StyleUrls(styles);
@@ -181,8 +248,9 @@ public class BaseVisitor extends AngularParserBaseVisitor {
     public List<String> visitListOfId(AngularParser.ListOfIdContext ctx) {
         List<String> identifiers = new ArrayList<>();
 
-        for (TerminalNode id : ctx.Comp_IDENTIFIER()) {
-            identifiers.add(id.getText());
+        for (AngularParser.IdentifierContext idctx : ctx.identifier()) {
+            Identifier id=(Identifier) visit(idctx);
+            identifiers.add(id.getIdentifier());
         }
 
         return identifiers;
@@ -219,14 +287,13 @@ public class BaseVisitor extends AngularParserBaseVisitor {
 
     @Override
     public ClassBody visitClassBody(AngularParser.ClassBodyContext ctx) {
-        analyzer.enterScope();
+
         List<ClassMember> classMembers=new ArrayList<>();
         if (ctx.classMember()!=null){
             for (AngularParser.ClassMemberContext classMemberContext: ctx.classMember() ) {
                 classMembers.add((ClassMember) visit(classMemberContext));
             }
         }
-        analyzer.exitScope();
         return new ClassBody(classMembers);
     }
 
@@ -240,6 +307,7 @@ public class BaseVisitor extends AngularParserBaseVisitor {
         if(ctx.classMemberModifier()!=null){
             classMemberModifier=(ClassMemberModifier) visit(ctx.classMemberModifier());
         }
+
         ClassStatment classStatment=(ClassStatment) visit(ctx.classStatment());
         return new ClassMember(accessModifier,classMemberModifier,classStatment);
     }
@@ -285,7 +353,7 @@ public class BaseVisitor extends AngularParserBaseVisitor {
         if (ctx.castedType!=null) {
             castedType = (Identifier) visit(ctx.castedType);
         }
-        analyzer.defineVar(name.getIdentifier(), variableDeclarationKeyword.getKeyword(),ctx.getStart().getLine());
+       // varDecSymbolTable.set(new VarDecSymbol(name.getIdentifier(),type==null?"not specified":type.getType(),ctx.getStart().getLine()));
         return new VariableDeclaration(isExported,variableDeclarationKeyword,type,name,value,castedType);
     }
 
@@ -453,7 +521,7 @@ public class BaseVisitor extends AngularParserBaseVisitor {
 
     @Override
     public BlockStatement visitBlockStatement(AngularParser.BlockStatementContext ctx) {
-        analyzer.enterScope();
+
 List<Statement> statements=new ArrayList<>();
         if (ctx.statement()!=null){
             for (AngularParser.StatementContext statementContext:ctx.statement()
@@ -461,7 +529,7 @@ List<Statement> statements=new ArrayList<>();
                 statements.add((Statement) visit(statementContext));
             }
         }
-        analyzer.exitScope();
+
         return new BlockStatement(statements);
     }
 
@@ -623,7 +691,7 @@ List<Statement> statements=new ArrayList<>();
 
     @Override
     public PropertyAssignment visitPropertyAssignment(AngularParser.PropertyAssignmentContext ctx) {
-        Identifier proparty= (Identifier) visit(ctx.identifier());
+        Identifier proparty= ctx.identifier()!=null?(Identifier) visit(ctx.identifier()):new Identifier(ctx.IMPORTS().getText());
         Expression expression=(Expression) visit(ctx.expression());
         return new PropertyAssignment(proparty,expression);
     }

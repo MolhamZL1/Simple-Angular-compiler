@@ -3,13 +3,14 @@ parser grammar AngularParser;
 options { tokenVocab=AngularLexer; }
 
 program//done
-    :(
+    :((
               importStatement
              |componentDeclaration
              |classDeclaration
              |statement
              |methodDeclaration
-     )* EOF;
+     )*)
+     |templateContent EOF;
 // functionDeclaration
 importStatement//done
     : importDefault                   #ImportDefaultLabel
@@ -73,39 +74,40 @@ templateProperty//done
 
 
    templateContent
-       : (htmlElement | interpolation | binding
-        | identifier
-       )* ;
-
-   htmlElement
-       : LESS_THAN tagName=identifier attribute* (GREATER_THAN templateContent LESS_THAN DIVIDE IDENTIFIER GREATER_THAN
-                                                 | TAG_SLASH_CLOSE|GREATER_THAN)
+       :( htmlElement
+       | interpolation
+       | binding
+       | identifier )*
        ;
-
+   htmlElement//
+       :   LESS_THAN tagName=identifier attribute* GREATER_THAN templateContent LESS_THAN DIVIDE identifier GREATER_THAN
+         | LESS_THAN tagName=identifier attribute* TAG_SLASH_CLOSE
+         | LESS_THAN tagName=identifier attribute* GREATER_THAN
+       ;
    attribute
-       : binding
-       | directive
-       | htmlAttribute
+       : binding              #BiningAttrLabel
+       | directive            #DirectiveAttrLabel
+       | htmlAttribute        #HtmlAttrLabel
        ;
 
-   binding
-       : LSBRACKET identifier RSBRACKET EQUAL attributeValue #PropertyBinding
-       | LPAREN identifier RPAREN EQUAL attributeValue       #EventBinding
-       | LSBRACKET LPAREN identifier RPAREN RSBRACKET EQUAL attributeValue #TwoWayBinding
+   binding//
+       : LSBRACKET identifier RSBRACKET EQUAL attributeValue               //#PropertyBinding
+       | LPAREN identifier RPAREN EQUAL attributeValue                    // #EventBinding
+       | LSBRACKET LPAREN identifier RPAREN RSBRACKET EQUAL attributeValue// #TwoWayBinding
        ;
 
-   directive
+   directive//
        : NG_IF EQUAL attributeValue      #NgIfDirective
        | NG_FOR EQUAL attributeValue     #NgForDirective
        ;
 
-   htmlAttribute
+   htmlAttribute//
        : (identifier|CLASS|TYPE) EQUAL attributeValue ;
 
-   attributeValue
-       : STRING | (INTERPOLATION_OPEN expression INTERPOLATION_CLOSE) ;
+   attributeValue//
+       : STRING | interpolation ;
 
-   interpolation
+   interpolation//
        : INTERPOLATION_OPEN expression INTERPOLATION_CLOSE ;
 
 //   textNode

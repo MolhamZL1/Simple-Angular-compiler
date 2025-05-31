@@ -1,16 +1,20 @@
 package AST.ComponentClasses;
 
-public class TempletHTML implements TemplateProperty{
-    HTML html;
+import AST.ASTNode;
 
-    public TempletHTML(HTML html) {
-        this.html = html;
+import java.util.List;
+
+public class TempletHTML implements TemplateProperty{
+  TemplateContent templateContent;
+
+    public TempletHTML( TemplateContent templateContent) {
+        this.templateContent = templateContent;
     }
 
     @Override
     public String toString() {
         return "templetHTML{" +
-                html +
+                templateContent +
                 '}';
     }
 }

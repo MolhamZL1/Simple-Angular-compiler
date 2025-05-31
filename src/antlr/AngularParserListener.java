@@ -364,51 +364,51 @@ public interface AngularParserListener extends ParseTreeListener {
 	 */
 	void exitHtmlElement(AngularParser.HtmlElementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AngularParser#attribute}.
+	 * Enter a parse tree produced by the {@code BiningAttrLabel}
+	 * labeled alternative in {@link AngularParser#attribute}.
 	 * @param ctx the parse tree
 	 */
-	void enterAttribute(AngularParser.AttributeContext ctx);
+	void enterBiningAttrLabel(AngularParser.BiningAttrLabelContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AngularParser#attribute}.
+	 * Exit a parse tree produced by the {@code BiningAttrLabel}
+	 * labeled alternative in {@link AngularParser#attribute}.
 	 * @param ctx the parse tree
 	 */
-	void exitAttribute(AngularParser.AttributeContext ctx);
+	void exitBiningAttrLabel(AngularParser.BiningAttrLabelContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code PropertyBinding}
-	 * labeled alternative in {@link AngularParser#binding}.
+	 * Enter a parse tree produced by the {@code DirectiveAttrLabel}
+	 * labeled alternative in {@link AngularParser#attribute}.
 	 * @param ctx the parse tree
 	 */
-	void enterPropertyBinding(AngularParser.PropertyBindingContext ctx);
+	void enterDirectiveAttrLabel(AngularParser.DirectiveAttrLabelContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code PropertyBinding}
-	 * labeled alternative in {@link AngularParser#binding}.
+	 * Exit a parse tree produced by the {@code DirectiveAttrLabel}
+	 * labeled alternative in {@link AngularParser#attribute}.
 	 * @param ctx the parse tree
 	 */
-	void exitPropertyBinding(AngularParser.PropertyBindingContext ctx);
+	void exitDirectiveAttrLabel(AngularParser.DirectiveAttrLabelContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code EventBinding}
-	 * labeled alternative in {@link AngularParser#binding}.
+	 * Enter a parse tree produced by the {@code HtmlAttrLabel}
+	 * labeled alternative in {@link AngularParser#attribute}.
 	 * @param ctx the parse tree
 	 */
-	void enterEventBinding(AngularParser.EventBindingContext ctx);
+	void enterHtmlAttrLabel(AngularParser.HtmlAttrLabelContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code EventBinding}
-	 * labeled alternative in {@link AngularParser#binding}.
+	 * Exit a parse tree produced by the {@code HtmlAttrLabel}
+	 * labeled alternative in {@link AngularParser#attribute}.
 	 * @param ctx the parse tree
 	 */
-	void exitEventBinding(AngularParser.EventBindingContext ctx);
+	void exitHtmlAttrLabel(AngularParser.HtmlAttrLabelContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code TwoWayBinding}
-	 * labeled alternative in {@link AngularParser#binding}.
+	 * Enter a parse tree produced by {@link AngularParser#binding}.
 	 * @param ctx the parse tree
 	 */
-	void enterTwoWayBinding(AngularParser.TwoWayBindingContext ctx);
+	void enterBinding(AngularParser.BindingContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code TwoWayBinding}
-	 * labeled alternative in {@link AngularParser#binding}.
+	 * Exit a parse tree produced by {@link AngularParser#binding}.
 	 * @param ctx the parse tree
 	 */
-	void exitTwoWayBinding(AngularParser.TwoWayBindingContext ctx);
+	void exitBinding(AngularParser.BindingContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code NgIfDirective}
 	 * labeled alternative in {@link AngularParser#directive}.

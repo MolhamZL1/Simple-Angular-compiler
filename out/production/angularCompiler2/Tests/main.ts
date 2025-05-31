@@ -1,12 +1,6 @@
-class molham{
-    constructor() {
-        var x=3;
-        if(x==3){
-            var i=4;
-
-
-        }
-        var i=4;
-    }
-
-}
+// import { bootstrapApplication } from '@angular/platform-browser';
+// import { appConfig } from './app/app.config';
+// import { AppComponent } from './app/app.component';
+//
+// bootstrapApplication(AppComponent, appConfig)
+//     .catch((err) => console.error(err));

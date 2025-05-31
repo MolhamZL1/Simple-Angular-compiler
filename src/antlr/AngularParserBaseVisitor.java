@@ -249,28 +249,28 @@ public class AngularParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> imp
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAttribute(AngularParser.AttributeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitBiningAttrLabel(AngularParser.BiningAttrLabelContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPropertyBinding(AngularParser.PropertyBindingContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDirectiveAttrLabel(AngularParser.DirectiveAttrLabelContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitEventBinding(AngularParser.EventBindingContext ctx) { return visitChildren(ctx); }
+	@Override public T visitHtmlAttrLabel(AngularParser.HtmlAttrLabelContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitTwoWayBinding(AngularParser.TwoWayBindingContext ctx) { return visitChildren(ctx); }
+	@Override public T visitBinding(AngularParser.BindingContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
