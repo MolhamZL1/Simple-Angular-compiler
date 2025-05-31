@@ -4,7 +4,7 @@ import AST.ExpressionsClasses.Expression;
 
 import java.util.List;
 
-public class ComponentSymbol {
+public class ComponentSymbol implements Symbol{
     private String name;
     private String templatePath;
     private List<String> imports;

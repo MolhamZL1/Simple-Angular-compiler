@@ -3,14 +3,14 @@ parser grammar AngularParser;
 options { tokenVocab=AngularLexer; }
 
 program//done
-    :((
+    :templateContent|(
               importStatement
              |componentDeclaration
              |classDeclaration
              |statement
              |methodDeclaration
-     )*)
-     |templateContent EOF;
+     )*
+      EOF;
 // functionDeclaration
 importStatement//done
     : importDefault                   #ImportDefaultLabel

@@ -26,16 +26,25 @@ public class SettingSymbolTable extends AngularParserBaseVisitor {
     @Override
     public Void visitTemplateUrl(AngularParser.TemplateUrlContext ctx) {
         componentSymbol.setTemplatePath(ctx.STRING().getText());
+
         return null;
     }
 
     @Override
     public Void visitPropertyDeclaration(AngularParser.PropertyDeclarationContext ctx) {
 
-        componentSymbol.getProperties().setSymbol(new ProparatyDecSymbol(ctx.name.IDENTIFIER().getText(),ctx.typeAnnotation()==null?"Not spcified": ctx.typeAnnotation().type().getText(),ctx.getStart().getLine()));
+        componentSymbol.getProperties().setSymbol(new ProparatyDecSymbol(ctx.name.IDENTIFIER().getText(),ctx.typeAnnotation()==null?"any": ctx.typeAnnotation().type().getText(),ctx.getStart().getLine()));
         return null;
     }
-    // @Override
+
+    @Override
+    public Void visitInputDeclaration(AngularParser.InputDeclarationContext ctx) {
+        componentSymbol.getProperties().setSymbol(new ProparatyDecSymbol(ctx.identifier().IDENTIFIER().getText(),ctx.typeAnnotation()==null?"any": ctx.typeAnnotation().type().getText(),ctx.getStart().getLine()));
+
+        return null;
+    }
+
+// @Override
 //    public Void visitImports(AngularParser.ImportsContext ctx) {
 //        List<String> identifiers = new ArrayList<>();
 //

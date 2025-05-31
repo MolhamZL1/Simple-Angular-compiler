@@ -1,9 +1,11 @@
 package SymbolTable;
 
 import loghandler.ColorsConsole;
+import loghandler.ErrorType;
 import loghandler.LogHandler;
 import loghandler.SemanticException;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -12,7 +14,11 @@ public class ProparatyDecSymbolTable {
 
     public boolean setSymbol(ProparatyDecSymbol symbol) {
         if (lookup(symbol.getName())) {
-            String errMessage="the Proparaty (" + symbol.getName() + ") at file(" + symbol.getLine() + ") at line(" + symbol.getLine() + ") is defined";
+            Map errdata=new HashMap();
+            errdata.put("name",symbol.getName());
+            errdata.put("fileName","fileName");
+            errdata.put("line",symbol.getLine());
+            String errMessage=LogHandler.getErrmessage(ErrorType.PrparetyDefined,errdata);
             RuntimeException exception=new SemanticException(errMessage);
             LogHandler.log(exception);
             //  throw exception;
@@ -23,7 +29,10 @@ public class ProparatyDecSymbolTable {
     public boolean check(String expr,String path){
         String name=findPropertyfromExpression(expr);
         if (!lookup(name)) {
-            String errMessage="Property " + name + " at " + path+" does not exist on type "+path;
+            Map errdata=new HashMap();
+            errdata.put("name",name);
+            errdata.put("fileName",path);
+            String errMessage=LogHandler.getErrmessage(ErrorType.PrparetyNotFound,errdata);
             RuntimeException exception=new SemanticException(errMessage);
             LogHandler.log(exception);
             //  throw exception;

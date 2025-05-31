@@ -1,0 +1,5 @@
+package loghandler;
+
+public enum ErrorType {
+    PrparetyNotFound,PrparetyDefined,ComponentDefined,ComponentNotFound
+}

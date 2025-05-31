@@ -25,6 +25,7 @@ import AST.Statement.VariableDeclaration;
 import AST.Statement.VariableDeclarationKeyword;
 import SymbolTable.ComponentSymbol;
 import SymbolTable.ComponentsSymboleTable;
+import SymbolTable.ProparatyDecSymbol;
 import antlr.AngularParser;
 import antlr.AngularParserBaseVisitor;
 import loghandler.ColorsConsole;
@@ -46,8 +47,12 @@ public class BaseVisitor extends AngularParserBaseVisitor {
     public Program visitProgram(AngularParser.ProgramContext ctx) {
 
         Program program=new Program();
+        if(ctx.templateContent()!=null){
+            program.addChild((ASTNode) visit(ctx.templateContent()));
+        }else{
         for (int i = 0; i < ctx.children.size(); i++) {
             program.addChild((ASTNode) visit(ctx.getChild(i)));
+        }
         }
 
         return program;
@@ -212,6 +217,17 @@ if(pathFile.contains(templatePath)){
 
     @Override
     public NgForDirective visitNgForDirective(AngularParser.NgForDirectiveContext ctx) {
+        for (ComponentSymbol componentSymbol:componentsSymboleTable.getSymbols().values()) {
+            int index=componentSymbol.getTemplatePath().lastIndexOf("/");
+            String templatePath=componentSymbol.getTemplatePath().substring(index+1).replaceAll("'","");
+            if(pathFile.contains(templatePath)){
+                String value=ctx.attributeValue().STRING().getText();
+                int start=value.indexOf("let");
+                int end=value.indexOf("of");
+                String prop=value.substring(start+3,end).trim();
+                componentSymbol.getProperties().setSymbol(new ProparatyDecSymbol(prop,"ngfor item name",ctx.getStart().getLine()));
+            }
+        }
         return new NgForDirective((AttributeValue) visit(ctx.attributeValue()));
     }
 

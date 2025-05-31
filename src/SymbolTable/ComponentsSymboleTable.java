@@ -1,9 +1,11 @@
 package SymbolTable;
 
 import loghandler.ColorsConsole;
+import loghandler.ErrorType;
 import loghandler.LogHandler;
 import loghandler.SemanticException;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -12,7 +14,11 @@ public class ComponentsSymboleTable {
 
     public boolean setSymbol(ComponentSymbol symbol) {
         if (lookup(symbol.getName())) {
-            String errMessage="the Component (" + symbol.getName() + ") at file(" + symbol.getLine() + ") at line(" + symbol.getLine() + ") is defined";
+            Map errdata=new HashMap();
+            errdata.put("name",symbol.getName());
+            errdata.put("line",symbol.getLine());
+            errdata.put("fileName","fileName");
+            String errMessage=LogHandler.getErrmessage(ErrorType.ComponentDefined,errdata);
             RuntimeException exception=new SemanticException(errMessage);
             LogHandler.log(exception);
             //  throw exception;
@@ -22,7 +28,10 @@ public class ComponentsSymboleTable {
     }
     public boolean check(String name,String path){
         if (!lookup(name)) {
-            String errMessage="Cannot find module " + name + " at " + path;
+            Map errdata=new HashMap();
+            errdata.put("name",name);
+            errdata.put("fileName",path);
+            String errMessage=LogHandler.getErrmessage(ErrorType.ComponentNotFound,errdata);
             RuntimeException exception=new SemanticException(errMessage);
             LogHandler.log(exception);
             //  throw exception;

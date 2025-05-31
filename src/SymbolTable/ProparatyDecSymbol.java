@@ -2,7 +2,7 @@ package SymbolTable;
 
 import AST.ExpressionsClasses.Expression;
 
-public class ProparatyDecSymbol {
+public class ProparatyDecSymbol implements Symbol{
     private String name;
     private String type;
     private Expression value;
@@ -13,7 +13,7 @@ public class ProparatyDecSymbol {
         this.type = type;
         this.line = line;
     }
-
+@Override
     public String getName() {
         return name;
     }
@@ -28,7 +28,7 @@ public class ProparatyDecSymbol {
     public void setValue(Expression value) {
         this.value = value;
     }
-
+    @Override
     public int getLine() {
         return line;
     }

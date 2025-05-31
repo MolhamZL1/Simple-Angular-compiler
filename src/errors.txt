@@ -1,0 +1,4 @@
+the Proparaty (qty) at file(fileName) at line(17) is defined
+the Component (app-header) at file(fileName) at line(0) is defined
+Cannot find module app-heaer at file(src\Tests\app\app.component.html
+Property produc at src\Tests\app\components\header\header.component.html does not exist on its Component
