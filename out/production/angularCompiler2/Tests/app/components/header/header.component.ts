@@ -32,7 +32,17 @@ export class HeaderComponent {
       this.totalPriceOfCheckout();
     }
   }
-
+  public receiveProduct(product:any){
+    const isAdded = this.products.some((productItem: any) => productItem.id === product.id);
+    if(isAdded){
+      window.alert("item already added")
+    }else{
+      product['qty'] = 1;
+      product['total'] = product.price;
+      this.products.push(product);
+      this.totalPriceOfCheckout();
+    }
+  }
   public deleteProduct(id:number){
     this.products = this.products.filter((productItem: any) => productItem.id !== id);
     this.totalPriceOfCheckout();

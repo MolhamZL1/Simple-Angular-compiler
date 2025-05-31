@@ -20,6 +20,12 @@ public class LogHandler {
         else if (errorType == ErrorType.ComponentNotFound) {
             return "Cannot find module " +  data.get("name")  + " at file(" +  data.get("fileName") ;
         }
+        else if (errorType == ErrorType.MethodDefined) {
+            return "The method (" +  data.get("name")  + ") at file(" +  data.get("fileName")  + ") at line(" +data.get("line") + ") is defined";
+        } else if (errorType == ErrorType.MethodNotFound) {
+            return "Method " +  data.get("name") + " at " + data.get("fileName")+" does not exist on its Component";
+        }
+
         else{
             return "Not detected";
         }

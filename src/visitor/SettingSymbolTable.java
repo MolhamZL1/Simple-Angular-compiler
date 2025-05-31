@@ -5,6 +5,7 @@ import AST.ExpressionsClasses.Expression;
 import AST.Identifier;
 import AST.Type;
 import SymbolTable.ComponentSymbol;
+import SymbolTable.MethodDecSymbol;
 import SymbolTable.ProparatyDecSymbol;
 import antlr.AngularParser;
 import antlr.AngularParserBaseVisitor;
@@ -44,7 +45,12 @@ public class SettingSymbolTable extends AngularParserBaseVisitor {
         return null;
     }
 
-// @Override
+    @Override
+    public Void visitDeafultMethod(AngularParser.DeafultMethodContext ctx) {
+componentSymbol.getMethods().setSymbol(new MethodDecSymbol(ctx.identifier().IDENTIFIER().getText(),ctx.typeAnnotation()==null?"any": ctx.typeAnnotation().type().getText(),ctx.getStart().getLine()));
+        return null;
+    }
+    // @Override
 //    public Void visitImports(AngularParser.ImportsContext ctx) {
 //        List<String> identifiers = new ArrayList<>();
 //

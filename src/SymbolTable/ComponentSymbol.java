@@ -9,14 +9,20 @@ public class ComponentSymbol implements Symbol{
     private String templatePath;
     private List<String> imports;
     private ProparatyDecSymbolTable properties;
+    private MethodDecSymbolTable methods;
     private int line;
 
     public ComponentSymbol() {
         this.properties =new ProparatyDecSymbolTable();
+        this.methods =new MethodDecSymbolTable();
     }
 
     public ProparatyDecSymbolTable getProperties() {
         return properties;
+    }
+
+    public MethodDecSymbolTable getMethods() {
+        return methods;
     }
 
     public String getName() {

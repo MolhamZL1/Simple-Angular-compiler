@@ -9,16 +9,16 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ComponentsSymboleTable {
-    private final Map<String, ComponentSymbol> symbols = new LinkedHashMap<>();
+public class MethodDecSymbolTable {
+    private final Map<String, MethodDecSymbol> symbols = new LinkedHashMap<>();
 
-    public boolean setSymbol(ComponentSymbol symbol) {
+    public boolean setSymbol(MethodDecSymbol symbol) {
         if (lookup(symbol.getName())) {
             Map errdata=new HashMap();
             errdata.put("name",symbol.getName());
             errdata.put("line",symbol.getLine());
             errdata.put("fileName","fileName");
-            String errMessage=LogHandler.getErrmessage(ErrorType.ComponentDefined,errdata);
+            String errMessage= LogHandler.getErrmessage(ErrorType.MethodDefined,errdata);
             RuntimeException exception=new SemanticException(errMessage);
             LogHandler.log(exception);
             //  throw exception;
@@ -31,7 +31,7 @@ public class ComponentsSymboleTable {
             Map errdata=new HashMap();
             errdata.put("name",name);
             errdata.put("fileName",path);
-            String errMessage=LogHandler.getErrmessage(ErrorType.ComponentNotFound,errdata);
+            String errMessage=LogHandler.getErrmessage(ErrorType.MethodNotFound,errdata);
             RuntimeException exception=new SemanticException(errMessage);
             LogHandler.log(exception);
             //  throw exception;
@@ -47,17 +47,14 @@ public class ComponentsSymboleTable {
         return false;
     }
 
-    public Map<String, ComponentSymbol> getSymbols() {
+    public Map<String, MethodDecSymbol> getSymbols() {
         return symbols;
     }
 
     public void print() {
-        System.out.println(  ColorsConsole.GREEN +"========== Component Declaration Symbol Table =========="+ColorsConsole.RESET );
-        for (ComponentSymbol s : symbols.values()) {
-            System.out.println(  " ------- " + s.getName()  + "-component (line " + s.getLine() + ") ---------------");
-            s.getProperties().print();
-            s.getMethods().print();
-
+        System.out.println(  ColorsConsole.GREEN +"========== Method Declaration Symbol Table =========="+ColorsConsole.RESET );
+        for (MethodDecSymbol s : symbols.values()) {
+            System.out.println(  " - " + s.getName()  + " (line " + s.getLine() + ")");
         }
     }
 }
