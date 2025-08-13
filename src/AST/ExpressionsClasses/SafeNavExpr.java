@@ -1,6 +1,7 @@
 package AST.ExpressionsClasses;
 
 import AST.Identifier;
+import Code_Generation.CodeResult;
 
 public class SafeNavExpr implements Expression{
     private Expression baseObject;
@@ -17,5 +18,10 @@ public class SafeNavExpr implements Expression{
                 "baseObject=" + baseObject +
                 ", id='" + id + '\'' +
                 '}';
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return new CodeResult("","");
     }
 }

@@ -5,7 +5,7 @@ import { ProductComponent } from './components/product/product.component';
 import { ProductPopupComponent } from './components/product-popup/product-popup.component';
 
 @Component({
-  selector: 'app-header',
+  selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet,HeaderComponent],
   templateUrl: './app.component.html',

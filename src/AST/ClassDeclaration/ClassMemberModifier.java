@@ -1,6 +1,7 @@
 package AST.ClassDeclaration;
 
 import AST.ASTNode;
+import Code_Generation.CodeResult;
 
 public class ClassMemberModifier implements ASTNode {
     private String modifier;
@@ -14,5 +15,10 @@ public class ClassMemberModifier implements ASTNode {
         return "\nClassMemberModifier{" +
                 "modifier='" + modifier + '\'' +
                 '}';
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
     }
 }

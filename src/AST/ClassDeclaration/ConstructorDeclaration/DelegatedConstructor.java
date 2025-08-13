@@ -2,12 +2,18 @@ package AST.ClassDeclaration.ConstructorDeclaration;
 
 import AST.Args;
 import AST.Parameter;
+import Code_Generation.CodeResult;
 
 import java.util.List;
 
 public class DelegatedConstructor implements ConstructorDeclaration{
     private List<Parameter> parameters;
 private Args args;
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
+    }
 
     public DelegatedConstructor(List<Parameter> parameters, Args args) {
         this.parameters = parameters;

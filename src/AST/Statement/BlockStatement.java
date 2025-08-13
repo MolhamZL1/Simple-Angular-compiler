@@ -1,5 +1,7 @@
 package AST.Statement;
 
+import Code_Generation.CodeResult;
+
 import java.util.List;
 
 public class BlockStatement implements Statement{
@@ -14,5 +16,10 @@ public class BlockStatement implements Statement{
         return "\nBlockStatement{" +
                 "statements=" + statements +
                 '}';
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
     }
 }

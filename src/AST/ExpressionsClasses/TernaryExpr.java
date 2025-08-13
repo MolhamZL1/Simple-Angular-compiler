@@ -1,5 +1,7 @@
 package AST.ExpressionsClasses;
 
+import Code_Generation.CodeResult;
+
 public class TernaryExpr implements Expression{
     private Expression conditionExpr;
     private Expression trueExpr;
@@ -18,5 +20,10 @@ public class TernaryExpr implements Expression{
                 ", trueExpr=" + trueExpr +
                 ", falseExpr=" + falseExpr +
                 '}';
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return new CodeResult("","");
     }
 }

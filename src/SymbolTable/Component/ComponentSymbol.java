@@ -10,6 +10,7 @@ import java.util.List;
 public class ComponentSymbol implements Symbol {
     private String name;
     private String templatePath;
+    private String stylePath;
     private List<String> imports;
     private ProparatyDecSymbolTable properties;
     private MethodDecSymbolTable methods;
@@ -20,6 +21,14 @@ public class ComponentSymbol implements Symbol {
         this.properties =new ProparatyDecSymbolTable();
         this.methods =new MethodDecSymbolTable();
         this.inputs=new InputDecSymbolTable();
+    }
+
+    public String getStylePath() {
+        return stylePath;
+    }
+
+    public void setStylePath(String stylePath) {
+        this.stylePath = stylePath;
     }
 
     public InputDecSymbolTable getInputs() {

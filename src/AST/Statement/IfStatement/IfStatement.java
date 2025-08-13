@@ -1,6 +1,7 @@
 package AST.Statement.IfStatement;
 
 import AST.Statement.Statement;
+import Code_Generation.CodeResult;
 
 import java.util.List;
 
@@ -30,4 +31,8 @@ private ElseSection elseSection;
         return sb.append('}').toString();
     }
 
+    @Override
+    public CodeResult generateCode() {
+        return null;
+    }
 }

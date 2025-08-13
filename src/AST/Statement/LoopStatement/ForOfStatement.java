@@ -4,6 +4,7 @@ import AST.ExpressionsClasses.Expression;
 import AST.Identifier;
 import AST.Statement.Statement;
 import AST.Statement.VariableDeclarationKeyword;
+import Code_Generation.CodeResult;
 
 public class ForOfStatement implements LoopStatement{
     private VariableDeclarationKeyword variableDeclarationKeyword;
@@ -26,5 +27,10 @@ public class ForOfStatement implements LoopStatement{
                 ", items=" + items +
                 ", body=" + body +
                 '}';
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
     }
 }

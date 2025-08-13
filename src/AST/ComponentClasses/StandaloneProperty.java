@@ -1,5 +1,7 @@
 package AST.ComponentClasses;
 
+import Code_Generation.CodeResult;
+
 public class StandaloneProperty implements MetadataProperty{
     boolean standalone;
 
@@ -12,5 +14,10 @@ public class StandaloneProperty implements MetadataProperty{
         return "standalone{" +
                  standalone +
                 '}';
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
     }
 }

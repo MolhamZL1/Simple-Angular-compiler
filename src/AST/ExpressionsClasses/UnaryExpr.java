@@ -1,5 +1,7 @@
 package AST.ExpressionsClasses;
 
+import Code_Generation.CodeResult;
+
 public class UnaryExpr implements Expression{
     private Expression expression;
     private String op;
@@ -15,5 +17,10 @@ public class UnaryExpr implements Expression{
                 "\nexpression=" + expression +
                 ", op='" + op + '\'' +
                 "\n}";
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return new CodeResult("","");
     }
 }

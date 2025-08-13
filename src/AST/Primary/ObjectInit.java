@@ -3,6 +3,7 @@ package AST.Primary;
 import AST.Args;
 import AST.Identifier;
 import AST.Type;
+import Code_Generation.CodeResult;
 
 public class ObjectInit implements  Primary {
 private Identifier className;
@@ -22,5 +23,10 @@ private Args args;
                 ", type=" + type +
                 ", args=" + args +
                 '}';
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
     }
 }

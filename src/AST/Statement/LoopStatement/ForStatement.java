@@ -3,6 +3,7 @@ package AST.Statement.LoopStatement;
 import AST.ASTNode;
 import AST.ExpressionsClasses.Expression;
 import AST.Statement.Statement;
+import Code_Generation.CodeResult;
 
 public class ForStatement implements LoopStatement{
     private ASTNode initialization;
@@ -36,4 +37,8 @@ public class ForStatement implements LoopStatement{
         return sb.toString();
     }
 
+    @Override
+    public CodeResult generateCode() {
+        return null;
+    }
 }

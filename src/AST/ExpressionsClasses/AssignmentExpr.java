@@ -1,5 +1,7 @@
 package AST.ExpressionsClasses;
 
+import Code_Generation.CodeResult;
+
 public class AssignmentExpr implements Expression{
     private Expression variableExpression;
     private Expression valueExpression;
@@ -15,5 +17,10 @@ public class AssignmentExpr implements Expression{
                 "variableExpression=" + variableExpression +
                 ", valueExpression=" + valueExpression +
                 '}';
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return new CodeResult("","");
     }
 }

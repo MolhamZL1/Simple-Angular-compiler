@@ -5,6 +5,7 @@ import AST.Identifier;
 import AST.Primary.ObjectInit;
 import AST.Primary.ObjectLiteral;
 import AST.Type;
+import Code_Generation.CodeResult;
 
 public class InputDeclaration implements AngularSpecificMember{
     private String alias;
@@ -42,5 +43,10 @@ public class InputDeclaration implements AngularSpecificMember{
 
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
     }
 }

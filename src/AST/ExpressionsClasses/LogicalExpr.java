@@ -1,5 +1,7 @@
 package AST.ExpressionsClasses;
 
+import Code_Generation.CodeResult;
+
 public class LogicalExpr implements Expression{
     private Expression leftExpression;
     private Expression rightExpression;
@@ -18,5 +20,10 @@ public class LogicalExpr implements Expression{
                 "\n, op='" + op + '\'' +
                 "\n, rightExpression=" + rightExpression +
                 "\n}";
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return new CodeResult("","");
     }
 }

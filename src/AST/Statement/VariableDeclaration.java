@@ -4,6 +4,7 @@ import AST.ClassDeclaration.ClassStatment;
 import AST.ExpressionsClasses.Expression;
 import AST.Identifier;
 import AST.Type;
+import Code_Generation.CodeResult;
 
 public class VariableDeclaration implements Statement , ClassStatment {
     private boolean isExported;
@@ -41,5 +42,10 @@ public class VariableDeclaration implements Statement , ClassStatment {
 
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
     }
 }

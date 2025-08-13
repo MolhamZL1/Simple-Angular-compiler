@@ -32,6 +32,13 @@ public class SymbolTableInitializerVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
+    public Void visitStyleUrls(AngularParser.StyleUrlsContext ctx) {
+        componentSymbol.setStylePath(ctx.STRING().get(0).getText());
+
+        return  null;
+    }
+
+    @Override
     public Void visitPropertyDeclaration(AngularParser.PropertyDeclarationContext ctx) {
 
         componentSymbol.getProperties().setSymbol(new ProparatyDecSymbol(ctx.name.IDENTIFIER().getText(),ctx.typeAnnotation()==null?"any": ctx.typeAnnotation().type().getText(),ctx.getStart().getLine()),pathFile);

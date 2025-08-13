@@ -3,11 +3,18 @@ package AST.ClassDeclaration.AngularSpecificMember;
 import AST.Identifier;
 import AST.Primary.ObjectLiteral;
 import AST.Type;
+import Code_Generation.CodeResult;
 
 public class ViewChildDeclaration implements AngularSpecificMember{
     private String refrenceName;
     private ObjectLiteral metaData;
     private Identifier proparaty;
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
+    }
+
     private Type type;
 
     public ViewChildDeclaration(String refrenceName, ObjectLiteral metaData, Identifier proparaty, Type type) {

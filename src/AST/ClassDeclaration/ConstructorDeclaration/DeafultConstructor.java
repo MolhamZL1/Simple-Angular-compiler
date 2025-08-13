@@ -2,6 +2,7 @@ package AST.ClassDeclaration.ConstructorDeclaration;
 
 import AST.Parameter;
 import AST.Statement.BlockStatement;
+import Code_Generation.CodeResult;
 
 import java.util.List;
 
@@ -9,7 +10,12 @@ public class DeafultConstructor implements ConstructorDeclaration{
     private BlockStatement body;
     private List<Parameter> parameters;
 
-    public DeafultConstructor( List<Parameter> parameters,BlockStatement body) {
+    @Override
+    public CodeResult generateCode() {
+        return null;
+    }
+
+    public DeafultConstructor(List<Parameter> parameters, BlockStatement body) {
         this.body = body;
         this.parameters = parameters;
     }

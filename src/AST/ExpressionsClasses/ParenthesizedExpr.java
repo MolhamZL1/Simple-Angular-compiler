@@ -1,5 +1,7 @@
 package AST.ExpressionsClasses;
 
+import Code_Generation.CodeResult;
+
 public class ParenthesizedExpr implements Expression{
    private Expression expression;
 
@@ -13,4 +15,13 @@ public class ParenthesizedExpr implements Expression{
                 "expression=" + expression +
                 '}';
     }
+
+    @Override
+    public CodeResult generateCode() {
+        CodeResult c = expression.generateCode();
+        String v = c.js.isEmpty()?c.html:c.js;
+        String js = "(" + v + ")";
+        return new CodeResult(js, js);
+    }
+
 }

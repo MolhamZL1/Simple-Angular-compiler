@@ -1,5 +1,7 @@
 package AST.ExpressionsClasses;
 
+import Code_Generation.CodeResult;
+
 public class ArthmaticOpExpr implements Expression{
     private Expression leftExpression;
     private Expression rightExpression;
@@ -19,4 +21,14 @@ public class ArthmaticOpExpr implements Expression{
                 "\n, rightExpression=" + rightExpression +
                 "\n}";
     }
+
+    @Override
+    public CodeResult generateCode() {
+        CodeResult L = leftExpression.generateCode(), R = rightExpression.generateCode();
+        String a = L.js.isEmpty()?L.html:L.js;
+        String b = R.js.isEmpty()?R.html:R.js;
+        String js = a + " " + op + " " + b;
+        return new CodeResult(js, js);
+    }
+
 }

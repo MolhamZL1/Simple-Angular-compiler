@@ -1,5 +1,7 @@
 package AST;
 
+import Code_Generation.CodeResult;
+
 public class Number implements ASTNode{
    private String number;
 
@@ -16,5 +18,10 @@ public class Number implements ASTNode{
         return "number{" +
                  number +
                 '}';
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
     }
 }

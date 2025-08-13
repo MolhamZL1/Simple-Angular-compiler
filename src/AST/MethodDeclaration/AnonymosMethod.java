@@ -5,6 +5,7 @@ import AST.Args;
 import AST.ExpressionsClasses.Expression;
 import AST.Parameter;
 import AST.Type;
+import Code_Generation.CodeResult;
 
 import java.util.List;
 
@@ -13,7 +14,13 @@ private boolean isAsync;
 private List<Parameter> parameters;
 private Args args;
 private Type type;
-private ASTNode body;
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
+    }
+
+    private ASTNode body;
 
     public AnonymosMethod(boolean isAsync, List<Parameter> parameters,Args args,Type type, ASTNode body) {
         this.isAsync = isAsync;

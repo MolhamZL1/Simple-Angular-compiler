@@ -1,6 +1,7 @@
 package AST.Primary;
 
 import AST.PropertyAssignment;
+import Code_Generation.CodeResult;
 
 import java.util.List;
 
@@ -16,5 +17,10 @@ public class ObjectLiteral implements Primary{
         return "\nObjectLiteral{" +
                 "properties=" + properties +
                 '}';
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
     }
 }

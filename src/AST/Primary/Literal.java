@@ -1,5 +1,7 @@
 package AST.Primary;
 
+import Code_Generation.CodeResult;
+
 public class Literal implements Primary{
 private String literal;
 
@@ -12,5 +14,10 @@ private String literal;
         return "Literal{" +
                literal +
                 '}';
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
     }
 }

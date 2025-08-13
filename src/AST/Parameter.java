@@ -1,6 +1,7 @@
 package AST;
 
 import AST.Primary.Literal;
+import Code_Generation.CodeResult;
 
 public class Parameter implements ASTNode{
    private Identifier id;
@@ -20,5 +21,10 @@ public class Parameter implements ASTNode{
                 (type != null ? ", type=" + type : "") +
                 (value != null ? ", value=" + value : "") +
                 '}';
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
     }
 }

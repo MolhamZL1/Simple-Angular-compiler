@@ -4,6 +4,7 @@ import AST.ASTNode;
 import AST.ExpressionsClasses.Expression;
 import AST.Identifier;
 import AST.Type;
+import Code_Generation.CodeResult;
 
 public class PropertyDeclaration implements ClassStatment{
     private Identifier name;
@@ -23,5 +24,10 @@ public class PropertyDeclaration implements ClassStatment{
                 (type != null ? ", type=" + type : "") +
                 (value != null ? ", value=" + value : "") +
                 '}';
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
     }
 }

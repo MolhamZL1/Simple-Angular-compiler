@@ -3,11 +3,18 @@ package AST.ClassDeclaration.AngularSpecificMember;
 import AST.Identifier;
 import AST.Primary.ObjectInit;
 import AST.Type;
+import Code_Generation.CodeResult;
 
 public class OutputDeclaration implements AngularSpecificMember{
     private String alias;
     private Identifier identifier;
     private Type type;
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
+    }
+
     private ObjectInit eventEmitter;
 
     public OutputDeclaration(String alias, Identifier identifier, Type type, ObjectInit eventEmitter) {

@@ -1,6 +1,7 @@
 package AST.ClassDeclaration;
 
 import AST.MethodDeclaration.DeafultMethod;
+import Code_Generation.CodeResult;
 
 public class AccessorDeclaration implements ClassStatment{
     private String accessor;
@@ -17,5 +18,10 @@ public class AccessorDeclaration implements ClassStatment{
                 "accessor='" + accessor + '\'' +
                 ", method=" + method +
                 '}';
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
     }
 }

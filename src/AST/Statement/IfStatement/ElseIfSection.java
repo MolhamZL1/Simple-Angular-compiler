@@ -3,6 +3,7 @@ package AST.Statement.IfStatement;
 import AST.ASTNode;
 import AST.ExpressionsClasses.Expression;
 import AST.Statement.Statement;
+import Code_Generation.CodeResult;
 
 public class ElseIfSection implements ASTNode {
     private Expression condition;
@@ -19,5 +20,10 @@ public class ElseIfSection implements ASTNode {
                 "condition=" + condition +
                 ", body=" + body +
                 '}';
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
     }
 }

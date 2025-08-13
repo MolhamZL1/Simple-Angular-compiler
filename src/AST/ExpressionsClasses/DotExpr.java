@@ -1,5 +1,7 @@
 package AST.ExpressionsClasses;
 
+import Code_Generation.CodeResult;
+
 public class DotExpr implements Expression{
     private Expression left;
     private Expression right;
@@ -16,4 +18,12 @@ public class DotExpr implements Expression{
                 "\n, right=" + right +
                 "\n}";
     }
+
+    @Override
+    public CodeResult generateCode() {
+        CodeResult L = left.generateCode(), R = right.generateCode();
+        String js = (L.js.isEmpty()?L.html:L.js) + "." + (R.js.isEmpty()?R.html:R.js);
+        return new CodeResult(js, js);
+    }
+
 }

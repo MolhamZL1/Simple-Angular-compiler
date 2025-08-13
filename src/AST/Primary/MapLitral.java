@@ -1,5 +1,7 @@
 package AST.Primary;
 
+import Code_Generation.CodeResult;
+
 import java.util.List;
 
 public class MapLitral implements Primary{
@@ -14,5 +16,10 @@ public class MapLitral implements Primary{
         return "\nMapLitral{" +
                 "items=" + items +
                 '}';
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
     }
 }

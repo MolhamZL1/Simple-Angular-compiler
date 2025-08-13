@@ -1,6 +1,7 @@
 package AST.ClassDeclaration;
 
 import AST.ASTNode;
+import Code_Generation.CodeResult;
 
 public class ClassMember implements ASTNode {
 private AccessModifier accessModifier;
@@ -20,5 +21,10 @@ private ClassStatment classStatment;
                 (classMemberModifier != null ? "classMemberModifier=" + classMemberModifier + ", " : "") +
                 "classStatement=" + classStatment +
                 '}';
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
     }
 }

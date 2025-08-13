@@ -2,6 +2,7 @@ package AST.ClassDeclaration;
 
 import AST.ASTNode;
 import AST.Identifier;
+import Code_Generation.CodeResult;
 
 import java.util.List;
 
@@ -36,5 +37,10 @@ public class ClassDeclaration implements ASTNode {
                 (interfaces != null ? ", interfaces=" + interfaces : "") +
                 ", classBody=" + classBody +
                 '}';
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
     }
 }

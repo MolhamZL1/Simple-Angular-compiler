@@ -1,5 +1,7 @@
 package AST.ExpressionsClasses;
 
+import Code_Generation.CodeResult;
+
 public class EqualityExpr implements Expression{
     private Expression leftExpression;
     private Expression rightExpression;
@@ -18,5 +20,10 @@ public class EqualityExpr implements Expression{
                 "\n, rightExpression=" + rightExpression +
 
                 "\n}";
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return new CodeResult("","");
     }
 }

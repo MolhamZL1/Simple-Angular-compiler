@@ -2,6 +2,7 @@ package AST.Statement.LoopStatement;
 
 import AST.Identifier;
 import AST.Statement.Statement;
+import Code_Generation.CodeResult;
 
 public class LoopControlStatement implements Statement {
 private String controlKeyword;
@@ -17,5 +18,10 @@ private String controlKeyword;
         return "\nLoopControlStatement{" +
                 "controlKeyword='" + controlKeyword + '\'' +
                 '}';
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
     }
 }

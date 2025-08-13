@@ -2,6 +2,7 @@ package AST.Statement.IfStatement;
 
 import AST.ASTNode;
 import AST.Statement.Statement;
+import Code_Generation.CodeResult;
 
 public class ElseSection implements ASTNode {
     private Statement body;
@@ -15,5 +16,10 @@ public class ElseSection implements ASTNode {
         return "\nelseSection{" +
                 "body=" + body +
                 '}';
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
     }
 }

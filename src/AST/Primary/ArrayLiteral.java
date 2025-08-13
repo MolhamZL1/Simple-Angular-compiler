@@ -1,6 +1,7 @@
 package AST.Primary;
 
 import AST.ExpressionsClasses.Expression;
+import Code_Generation.CodeResult;
 
 import java.util.List;
 
@@ -16,5 +17,10 @@ public class ArrayLiteral implements Primary{
         return "ArrayLiteral{" +
                 "items=" + items +
                 '}';
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
     }
 }

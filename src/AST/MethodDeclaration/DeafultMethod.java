@@ -2,6 +2,7 @@ package AST.MethodDeclaration;
 
 import AST.*;
 import AST.ExpressionsClasses.Expression;
+import Code_Generation.CodeResult;
 
 import java.util.List;
 
@@ -11,6 +12,12 @@ public class DeafultMethod implements MethodDeclaration {
     private List<Parameter> parameters;
 
     private Args args;
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
+    }
+
     private Type type;
     private ASTNode body;
 

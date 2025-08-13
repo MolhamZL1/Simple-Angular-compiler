@@ -1,6 +1,7 @@
 package AST.ClassDeclaration;
 
 import AST.ASTNode;
+import Code_Generation.CodeResult;
 
 import java.util.List;
 
@@ -16,5 +17,10 @@ public class ClassBody implements ASTNode {
         return "\nClassBody{" +
                 "classMembers=" + classMembers +
                 '}';
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
     }
 }

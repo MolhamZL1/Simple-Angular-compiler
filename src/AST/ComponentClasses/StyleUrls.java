@@ -1,5 +1,7 @@
 package AST.ComponentClasses;
 
+import Code_Generation.CodeResult;
+
 import java.util.List;
 
 public class StyleUrls implements StylesProperty{
@@ -14,5 +16,10 @@ public class StyleUrls implements StylesProperty{
         return "StyleUrls{" +
                  urls +
                 '}';
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
     }
 }

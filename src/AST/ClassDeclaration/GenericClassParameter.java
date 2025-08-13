@@ -2,6 +2,7 @@ package AST.ClassDeclaration;
 
 import AST.ASTNode;
 import AST.Identifier;
+import Code_Generation.CodeResult;
 
 public class GenericClassParameter implements ASTNode {
 private Identifier parameter;
@@ -18,5 +19,10 @@ private Identifier parent;
                 "parameter=" + parameter +
                 ", parent=" + parent +
                 '}';
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
     }
 }

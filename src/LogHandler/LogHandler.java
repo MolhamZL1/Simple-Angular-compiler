@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Map;
 
 public class LogHandler {
-   static public String filename = "C://Users//USER//Desktop//New folder//angularCompiler2//src//errors.txt";
+   static public String filename = "src/errors.txt";
 
     static public String getErrMessage(ErrorType errorType, Map data){
         if (errorType == ErrorType.PrparetyDefined) {

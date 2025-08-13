@@ -1,6 +1,7 @@
 package AST.Statement;
 
 import AST.ASTNode;
+import Code_Generation.CodeResult;
 
 public class VariableDeclarationKeyword implements ASTNode {
     private String keyword;
@@ -18,5 +19,10 @@ public class VariableDeclarationKeyword implements ASTNode {
         return "VariableDeclarationKeyword{" +
                 "keyword='" + keyword + '\'' +
                 '}';
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        return null;
     }
 }
