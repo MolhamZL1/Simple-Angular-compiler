@@ -22,6 +22,7 @@ public class AccessorDeclaration implements ClassStatment{
 
     @Override
     public CodeResult generateCode() {
-        return null;
+        // نولّدها كـ function عادي باسمها (الـ accessor لا يغيّر شيء هنا)
+        return method != null ? method.generateCode() : new CodeResult("", "");
     }
 }

@@ -37,8 +37,24 @@ public class ForStatement implements LoopStatement{
         return sb.toString();
     }
 
+
     @Override
     public CodeResult generateCode() {
-        return null;
+        CodeResult init = initialization!=null ? initialization.generateCode() : new CodeResult("", "");
+        CodeResult cond = condition!=null ? condition.generateCode() : new CodeResult("", "");
+        CodeResult upd  = update!=null ? update.generateCode() : new CodeResult("", "");
+        CodeResult b    = body!=null ? body.generateCode() : new CodeResult("", "");
+
+        // إن كان init رجّع سطر let ...; خليه قبل اللوب
+        String initStmt = init.js==null? "" : init.js;
+        String head = "for (" +
+                (init.html!=null && !init.html.isBlank() ? init.html : "") +
+                (init.html!=null && !init.html.isBlank() ? ";" : "") +
+                (cond.html==null? "" : cond.html) + ";" +
+                (upd.html==null? "" : upd.html) +
+                ") {\n" + safe(b.js) + "}\n";
+
+        return new CodeResult("", safe(initStmt) + safe(cond.js) + safe(upd.js) + head);
     }
+    private static String safe(String s){ return s==null? "": s; }
 }

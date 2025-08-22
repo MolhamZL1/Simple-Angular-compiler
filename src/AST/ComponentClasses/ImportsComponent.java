@@ -1,6 +1,5 @@
 package AST.ComponentClasses;
 
-import AST.Primary.ArrayLiteral;
 import Code_Generation.CodeResult;
 
 import java.util.List;
@@ -19,8 +18,10 @@ public class ImportsComponent implements MetadataProperty{
                 '}';
     }
 
+
     @Override
     public CodeResult generateCode() {
-        return null;
+        // ميتاداتا فقط — ما في HTML/JS وقت التشغيل
+        return new CodeResult("", "");
     }
 }

@@ -41,6 +41,8 @@ public class ClassDeclaration implements ASTNode {
 
     @Override
     public CodeResult generateCode() {
-        return null;
+        // حالياً: منفلّت أعضاء الكلاس كـ JS فوقاني (Global) لحتى تشتغل ال-events بالتمپليت
+        CodeResult body = classBody != null ? classBody.generateCode() : new CodeResult("","");
+        return new CodeResult("", body.js);
     }
 }

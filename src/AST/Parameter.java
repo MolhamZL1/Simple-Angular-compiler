@@ -23,8 +23,23 @@ public class Parameter implements ASTNode{
                 '}';
     }
 
+    public Identifier getId() {
+        return id;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public Literal getValue() {
+        return value;
+    }
+
+    public String getName() { return id == null ? "_" : id.getIdentifier(); }
+
     @Override
     public CodeResult generateCode() {
-        return null;
+        // المعامل يُستخدم كاسم فقط وقت بناء الدوال
+        return new CodeResult(getName(), "");
     }
 }

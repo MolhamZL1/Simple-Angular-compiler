@@ -24,6 +24,10 @@ public class ElseIfSection implements ASTNode {
 
     @Override
     public CodeResult generateCode() {
-        return null;
+        CodeResult c = condition!=null ? condition.generateCode() : new CodeResult("false","");
+        CodeResult b = body!=null ? body.generateCode() : new CodeResult("","");
+        String js = "else if ("+c.html+") {\n" + safe(b.js) + "}\n";
+        return new CodeResult("", safe(c.js)+js);
     }
+    private static String safe(String s){ return s==null? "": s; }
 }

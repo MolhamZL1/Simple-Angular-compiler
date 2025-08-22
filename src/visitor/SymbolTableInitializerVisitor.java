@@ -9,6 +9,9 @@ import SymbolTable.Properaty.ProparatyDecSymbol;
 import antlr.AngularParser;
 import antlr.AngularParserBaseVisitor;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class SymbolTableInitializerVisitor extends AngularParserBaseVisitor {
     ComponentSymbol componentSymbol;
     String pathFile;
@@ -18,23 +21,37 @@ public class SymbolTableInitializerVisitor extends AngularParserBaseVisitor {
         this.pathFile=pathFile;
     }
 
+    private static String stripQuotes(String s){
+        if (s == null) return null;
+        s = s.trim();
+        if ((s.startsWith("'") && s.endsWith("'")) || (s.startsWith("\"") && s.endsWith("\"")))
+            return s.substring(1, s.length()-1);
+        return s;
+    }
+
     @Override
     public Void visitSelectorProperty(AngularParser.SelectorPropertyContext ctx) {
-        componentSymbol.setName(ctx.STRING().getText());
+        componentSymbol.setName(stripQuotes(ctx.STRING().getText()));
         return null;
     }
 
     @Override
     public Void visitTemplateUrl(AngularParser.TemplateUrlContext ctx) {
-        componentSymbol.setTemplatePath(ctx.STRING().getText());
+        String raw = ctx.STRING().getText();
+        String rel = stripQuotes(raw);
+        Path base = Paths.get(pathFile).getParent();             // مسار مجلد الملف الحالي
+        String resolved = base.resolve(rel).normalize().toString();
+        componentSymbol.setTemplatePath(resolved);
 
         return null;
     }
 
     @Override
     public Void visitStyleUrls(AngularParser.StyleUrlsContext ctx) {
-        componentSymbol.setStylePath(ctx.STRING().get(0).getText());
-
+        String rel = stripQuotes(ctx.STRING().get(0).getText());
+        Path base = Paths.get(pathFile).getParent();
+        String resolved = base.resolve(rel).normalize().toString();
+        componentSymbol.setStylePath(resolved);
         return  null;
     }
 

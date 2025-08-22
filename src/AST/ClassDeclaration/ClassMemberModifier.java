@@ -17,8 +17,6 @@ public class ClassMemberModifier implements ASTNode {
                 '}';
     }
 
-    @Override
-    public CodeResult generateCode() {
-        return null;
-    }
+    @Override public CodeResult generateCode() { return new CodeResult("",""); }
+
 }

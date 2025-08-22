@@ -23,6 +23,7 @@ private Identifier parent;
 
     @Override
     public CodeResult generateCode() {
-        return null;
+        // Generic type params are compile-time only; no runtime output.
+        return new CodeResult("", "");
     }
 }

@@ -21,6 +21,12 @@ public class ClassBody implements ASTNode {
 
     @Override
     public CodeResult generateCode() {
-        return null;
+        StringBuilder js = new StringBuilder();
+        for (ClassMember m : classMembers) {
+            if (m == null) continue;
+            CodeResult r = m.generateCode();
+            if (r != null && r.js != null) js.append(r.js);
+        }
+        return new CodeResult("", js.toString());
     }
 }

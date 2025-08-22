@@ -9,7 +9,5 @@ public class ThisExpr implements Expression{
     }
 
     @Override
-    public CodeResult generateCode() {
-        return new CodeResult("","");
-    }
+    public CodeResult generateCode() { return new CodeResult("this", ""); }
 }

@@ -23,6 +23,6 @@ public class VariableDeclarationKeyword implements ASTNode {
 
     @Override
     public CodeResult generateCode() {
-        return null;
+        return new CodeResult("", ""); // يُستخدم نصياً فقط من المتغير
     }
 }

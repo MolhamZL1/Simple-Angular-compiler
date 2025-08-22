@@ -28,6 +28,12 @@ public class PropertyDeclaration implements ClassStatment{
 
     @Override
     public CodeResult generateCode() {
-        return null;
+        String id = name == null ? "_" : name.getIdentifier();
+        CodeResult v = value != null ? value.generateCode() : new CodeResult("", "");
+        String assign = (v.html == null || v.html.isBlank()) ? "" : (" = " + v.html);
+        String js = "var " + id + assign + ";\n";
+        return new CodeResult("", safe(v.js) + js);
     }
+
+    private static String safe(String s){ return s==null? "": s; }
 }

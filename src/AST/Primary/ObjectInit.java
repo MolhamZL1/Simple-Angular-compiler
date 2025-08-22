@@ -27,6 +27,9 @@ private Args args;
 
     @Override
     public CodeResult generateCode() {
-        return null;
+        String name = className == null ? "" : className.getIdentifier();
+        CodeResult a = args != null ? args.generateCode() : new CodeResult("", "");
+        String expr = "new " + name + "(" + a.html + ")";
+        return new CodeResult(expr, a.js==null? "": a.js);
     }
 }

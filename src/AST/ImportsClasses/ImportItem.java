@@ -8,10 +8,6 @@ public class ImportItem implements ASTNode {
     private Identifier original;
     private Identifier alias;
 
-    @Override
-    public CodeResult generateCode() {
-        return null;
-    }
 
     public ImportItem(Identifier original, Identifier alias) {
         this.original = original;
@@ -26,5 +22,11 @@ public class ImportItem implements ASTNode {
         else{
             return original.toString();
         }
+    }
+
+    @Override
+    public CodeResult generateCode() {
+        // استيراد = ميتاداتا فقط — لا HTML/JS وقت التشغيل
+        return new CodeResult("", "");
     }
 }

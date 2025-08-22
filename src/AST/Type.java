@@ -20,8 +20,10 @@ public class Type implements ASTNode{
                 '}';
     }
 
+
     @Override
     public CodeResult generateCode() {
-        return null;
+        // النوع لا ينتج HTML أو JS وقت التشغيل
+        return new CodeResult("", "");
     }
 }

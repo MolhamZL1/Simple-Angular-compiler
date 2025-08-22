@@ -18,6 +18,7 @@ private String literal;
 
     @Override
     public CodeResult generateCode() {
-        return null;
+        // جاهز للاستخدام كتعبير JS (true/false/null/'text'/42 ...)
+        return new CodeResult(literal, "");
     }
 }

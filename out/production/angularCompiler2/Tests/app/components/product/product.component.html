@@ -25,7 +25,7 @@
              {{product.description[0]}}
             </div>
             <div class="d-flex justify-content-between mb-2">
-              <button class="btn f-size-11 px-2 py-1 mt-2" [ngClass]="product.availableQty > 0 ? 'btn-primary' : 'btn-secondary'" [disabled]="product.availableQty < 1"  (click)="addToCat(product)">Add to cart</button>
+              <button class="btn f-size-11 px-2 py-1 mt-2" [ngClass]="product.availableQty > 0 ? 'btn-primary' : 'btn-secondary'" [disabled]="product.availableQty < 1"  (click)="addToCart(product)">Add to cart</button>
               <div class="text-primary f-size-11 mt-auto me-2 pointer" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="selectedProduct = product">view more</div>
             </div>
           </div>
@@ -44,7 +44,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <app-product-popup [produt]="selectedProduct"></app-product-popup>
+        <app-product-popup [product]="selectedProduct"></app-product-popup>
       </div>
     </div>
   </div>

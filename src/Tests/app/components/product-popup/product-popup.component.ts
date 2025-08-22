@@ -14,12 +14,11 @@ import { FormsModule } from '@angular/forms';
 export class ProductPopupComponent implements OnInit {
 
   @Input() product:any = null;
-  @Input() product:any = null;
   public selectedImage:any ;
 
   public selectedMaterial:any;
   public selectedColor:any;
-
+  
 
   constructor(){
     console.log("hi");

@@ -22,6 +22,8 @@ private String controlKeyword;
 
     @Override
     public CodeResult generateCode() {
-        return null;
+        String t = controlKeyword==null? "" : controlKeyword.trim();
+        if (!t.endsWith(";")) t = t + ";";
+        return new CodeResult("", t + "\n");
     }
 }

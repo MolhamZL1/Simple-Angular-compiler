@@ -18,9 +18,12 @@ public class PreFixExpr implements Expression{
                 ", operation='" + operation + '\'' +
                 '}';
     }
+    private static String safe(String s){ return s==null? "": s; }
 
     @Override
     public CodeResult generateCode() {
-        return new CodeResult("","");
+        CodeResult r = expression != null ? expression.generateCode() : new CodeResult("", "");
+        String expr = operation + (r.html==null?"":r.html);
+        return new CodeResult(expr, safe(r.js));
     }
 }

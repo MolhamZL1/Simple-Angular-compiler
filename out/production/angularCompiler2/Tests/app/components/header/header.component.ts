@@ -14,8 +14,6 @@ export class HeaderComponent {
   @Output() newItemEvent = new EventEmitter<any>();
   public products:any = [];
   public qty:number = 1;
-  public qty:number = 1;
-  var i=8;
   public total:number = 0;
   constructor(){
 
@@ -32,18 +30,8 @@ export class HeaderComponent {
       this.totalPriceOfCheckout();
     }
   }
-  public receiveProduct(product:any){
-    const isAdded = this.products.some((productItem: any) => productItem.id === product.id);
-    if(isAdded){
-      window.alert("item already added")
-    }else{
-      product['qty'] = 1;
-      product['total'] = product.price;
-      this.products.push(product);
-      this.totalPriceOfCheckout();
-    }
-  }
-  public deleteProduct(id:number,id:number){
+
+  public deleteProduct(id:number){
     this.products = this.products.filter((productItem: any) => productItem.id !== id);
     this.totalPriceOfCheckout();
   }

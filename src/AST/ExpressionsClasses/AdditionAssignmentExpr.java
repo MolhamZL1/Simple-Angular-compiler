@@ -7,10 +7,7 @@ public class AdditionAssignmentExpr implements Expression{
     private Expression valueExpression;
     private String op;
 
-    @Override
-    public CodeResult generateCode() {
-        return new CodeResult("","");
-    }
+
 
     public AdditionAssignmentExpr(Expression variableExpression, String op, Expression valueExpression) {
         this.variableExpression = variableExpression;
@@ -26,4 +23,13 @@ public class AdditionAssignmentExpr implements Expression{
                 ", valueExpression=" + valueExpression +
                 '}';
     }
+    @Override
+    public CodeResult generateCode() {
+        CodeResult v = variableExpression != null ? variableExpression.generateCode() : new CodeResult("", "");
+        CodeResult val = valueExpression    != null ? valueExpression.generateCode()    : new CodeResult("", "");
+        String expr = (v.html==null?"":v.html) + " " + op + " " + (val.html==null?"":val.html);
+        return new CodeResult(expr, safe(v.js)+safe(val.js));
+    }
+
+    private static String safe(String s){ return s==null? "": s; }
 }

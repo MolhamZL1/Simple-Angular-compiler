@@ -31,6 +31,13 @@ public class ForOfStatement implements LoopStatement{
 
     @Override
     public CodeResult generateCode() {
-        return null;
+        String kw = variableDeclarationKeyword==null? "let" : variableDeclarationKeyword.getKeyword();
+        String id = item==null? "_" : item.getIdentifier();
+        CodeResult it = items!=null ? items.generateCode() : new CodeResult("[]", "");
+        CodeResult b  = body!=null ? body.generateCode() : new CodeResult("","");
+
+        String js = "for ("+kw+" "+id+" of "+it.html+") {\n"+safe(b.js)+"}\n";
+        return new CodeResult("", safe(it.js)+js);
     }
+    private static String safe(String s){ return s==null? "": s; }
 }

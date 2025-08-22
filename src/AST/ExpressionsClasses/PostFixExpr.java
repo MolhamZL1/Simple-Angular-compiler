@@ -21,6 +21,10 @@ public class PostFixExpr implements Expression{
 
     @Override
     public CodeResult generateCode() {
-        return new CodeResult("","");
+        CodeResult r = expression != null ? expression.generateCode() : new CodeResult("", "");
+        String expr = (r.html==null?"":r.html) + operation;
+        return new CodeResult(expr, safe(r.js));
     }
+
+    private static String safe(String s){ return s==null? "": s; }
 }

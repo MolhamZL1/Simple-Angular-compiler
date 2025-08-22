@@ -46,6 +46,13 @@ public class VariableDeclaration implements Statement , ClassStatment {
 
     @Override
     public CodeResult generateCode() {
-        return null;
+        String kw = (variableDeclarationKeyword == null ? "let" : variableDeclarationKeyword.getKeyword());
+        String id = (name == null ? "_" : name.getIdentifier());
+        CodeResult v = (value == null ? new CodeResult("", "") : value.generateCode());
+        String assign = v.html == null || v.html.isBlank() ? "" : (" = " + v.html);
+        String js = (isExported ? "" : "") + kw + " " + id + assign + ";\n"; // export لا حاجة إلها الآن
+        return new CodeResult("", safe(v.js) + js);
     }
+
+    private static String safe(String s){ return s==null? "": s; }
 }

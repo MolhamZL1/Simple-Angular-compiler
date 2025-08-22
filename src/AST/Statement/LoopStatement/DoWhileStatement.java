@@ -23,6 +23,10 @@ public class DoWhileStatement implements LoopStatement{
 
     @Override
     public CodeResult generateCode() {
-        return null;
+        CodeResult c = condition!=null ? condition.generateCode() : new CodeResult("false","");
+        CodeResult b = body!=null ? body.generateCode() : new CodeResult("","");
+        String js = "do {\n" + safe(b.js) + "} while ("+c.html+");\n";
+        return new CodeResult("", safe(c.js)+js);
     }
+    private static String safe(String s){ return s==null? "": s; }
 }

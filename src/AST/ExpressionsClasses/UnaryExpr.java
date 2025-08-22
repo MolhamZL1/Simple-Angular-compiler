@@ -18,9 +18,12 @@ public class UnaryExpr implements Expression{
                 ", op='" + op + '\'' +
                 "\n}";
     }
-
     @Override
     public CodeResult generateCode() {
-        return new CodeResult("","");
+        CodeResult e = expression != null ? expression.generateCode() : new CodeResult("", "");
+        String exprJs = op + "(" + (e.html == null ? "" : e.html) + ")";
+        return new CodeResult(exprJs, safe(e.js));
     }
+
+    private static String safe(String s){ return s==null? "": s; }
 }

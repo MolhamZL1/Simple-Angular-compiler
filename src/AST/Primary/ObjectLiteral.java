@@ -21,6 +21,18 @@ public class ObjectLiteral implements Primary{
 
     @Override
     public CodeResult generateCode() {
-        return null;
+        StringBuilder html = new StringBuilder("{");
+        StringBuilder js = new StringBuilder();
+        boolean first = true;
+        for (PropertyAssignment p : properties) {
+            if (p == null) continue;
+            CodeResult r = p.generateCode();
+            if (!first) html.append(", ");
+            html.append(r.html);
+            if (r.js != null) js.append(r.js);
+            first = false;
+        }
+        html.append("}");
+        return new CodeResult(html.toString(), js.toString());
     }
 }

@@ -10,10 +10,6 @@ public class DeafultConstructor implements ConstructorDeclaration{
     private BlockStatement body;
     private List<Parameter> parameters;
 
-    @Override
-    public CodeResult generateCode() {
-        return null;
-    }
 
     public DeafultConstructor(List<Parameter> parameters, BlockStatement body) {
         this.body = body;
@@ -32,5 +28,12 @@ public class DeafultConstructor implements ConstructorDeclaration{
         }
         sb.append('}');
         return sb.toString();
+    }
+    @Override
+    public CodeResult generateCode() {
+        // بدون نمذجة كائن/إنستانس، ما في أثر وقت تشغيل—خلّي جسد الكونستركتر يتنفّذ لوحده عند التوليد (اختياري)
+        CodeResult b = body != null ? body.generateCode() : new CodeResult("", "");
+        // ممكن تتركه فارغ: return new CodeResult("","");
+        return new CodeResult("", b.js);
     }
 }

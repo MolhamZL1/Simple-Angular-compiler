@@ -22,6 +22,11 @@ public class SafeNavExpr implements Expression{
 
     @Override
     public CodeResult generateCode() {
-        return new CodeResult("","");
+        CodeResult b = baseObject != null ? baseObject.generateCode() : new CodeResult("undefined", "");
+        String prop = (id == null) ? "" : id.getIdentifier();
+        String expr = "((" + b.html + ")==null?undefined:(" + b.html + ")." + prop + ")";
+        return new CodeResult(expr, safe(b.js));
     }
+
+    private static String safe(String s){ return s==null? "": s; }
 }

@@ -47,6 +47,29 @@ public class InputDeclaration implements AngularSpecificMember{
 
     @Override
     public CodeResult generateCode() {
-        return null;
+        // اسم الخاصية
+        String name = (identifier == null || identifier.getIdentifier() == null || identifier.getIdentifier().isBlank())
+                ? "_input"
+                : identifier.getIdentifier();
+
+        // المهيّئ (إن وُجد)
+        CodeResult init = (initializer != null)
+                ? initializer.generateCode()
+                : new CodeResult("undefined", "");
+
+        // ميتاداتا (alias/config/type) ما إلها أثر وقت التشغيل، لذلك منترك تعليق اختياري
+        StringBuilder js = new StringBuilder();
+        if (init.js != null) js.append(init.js);
+
+        // عرّف المتغيّر بشكل Global بسيط ليستخدمه التمبلِت
+        js.append("var ").append(name).append(" = ")
+                .append(init.html == null || init.html.isBlank() ? "undefined" : init.html)
+                .append(";\n");
+
+        // ملاحظة: alias و config و type معلومات تعريفية فقط
+        // js.append("/* @Input alias=" + (alias!=null?alias:"") + " */\n");
+
+        return new CodeResult("", js.toString());
     }
+
 }

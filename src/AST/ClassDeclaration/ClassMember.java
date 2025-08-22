@@ -25,6 +25,6 @@ private ClassStatment classStatment;
 
     @Override
     public CodeResult generateCode() {
-        return null;
+        return classStatment != null ? classStatment.generateCode() : new CodeResult("","");
     }
 }

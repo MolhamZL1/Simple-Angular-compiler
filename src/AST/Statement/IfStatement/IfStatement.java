@@ -30,9 +30,14 @@ private ElseSection elseSection;
 
         return sb.append('}').toString();
     }
-
     @Override
     public CodeResult generateCode() {
-        return null;
+        StringBuilder js = new StringBuilder();
+        if (ifSection != null) js.append(ifSection.generateCode().js);
+        if (elseIfSections != null) {
+            for (ElseIfSection e : elseIfSections) if (e != null) js.append(e.generateCode().js);
+        }
+        if (elseSection != null) js.append(elseSection.generateCode().js);
+        return new CodeResult("", js.toString());
     }
 }

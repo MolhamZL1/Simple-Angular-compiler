@@ -20,6 +20,9 @@ public class ElseSection implements ASTNode {
 
     @Override
     public CodeResult generateCode() {
-        return null;
+        CodeResult b = body!=null ? body.generateCode() : new CodeResult("","");
+        String js = "else {\n" + safe(b.js) + "}\n";
+        return new CodeResult("", js);
     }
+    private static String safe(String s){ return s==null? "": s; }
 }

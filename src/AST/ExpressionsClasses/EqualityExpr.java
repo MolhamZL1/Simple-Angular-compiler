@@ -21,9 +21,13 @@ public class EqualityExpr implements Expression{
 
                 "\n}";
     }
-
     @Override
     public CodeResult generateCode() {
-        return new CodeResult("","");
+        CodeResult l = leftExpression  != null ? leftExpression.generateCode()  : new CodeResult("", "");
+        CodeResult r = rightExpression != null ? rightExpression.generateCode() : new CodeResult("", "");
+        String expr = "(" + l.html + ") " + op + " (" + r.html + ")";
+        return new CodeResult(expr, safe(l.js)+safe(r.js));
     }
+
+    private static String safe(String s){ return s==null? "": s; }
 }

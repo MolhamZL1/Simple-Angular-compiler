@@ -20,6 +20,14 @@ public class BlockStatement implements Statement{
 
     @Override
     public CodeResult generateCode() {
-        return null;
+        StringBuilder js = new StringBuilder();
+        if (statements != null) {
+            for (Statement s : statements) {
+                if (s == null) continue;
+                CodeResult r = s.generateCode();
+                if (r != null && r.js != null) js.append(r.js);
+            }
+        }
+        return new CodeResult("", js.toString());
     }
 }

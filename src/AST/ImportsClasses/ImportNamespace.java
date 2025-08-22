@@ -9,7 +9,8 @@ public class ImportNamespace implements ImportStatement {
 
     @Override
     public CodeResult generateCode() {
-        return null;
+        // استيراد ذو أثر جانبي فقط — لا HTML/JS وقت التشغيل
+        return new CodeResult("", "");
     }
 
     public ImportNamespace(Identifier alias, String module) {

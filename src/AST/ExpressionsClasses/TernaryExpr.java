@@ -24,6 +24,12 @@ public class TernaryExpr implements Expression{
 
     @Override
     public CodeResult generateCode() {
-        return new CodeResult("","");
+        CodeResult c = conditionExpr != null ? conditionExpr.generateCode() : new CodeResult("false","");
+        CodeResult t = trueExpr  != null ? trueExpr.generateCode()  : new CodeResult("undefined","");
+        CodeResult f = falseExpr != null ? falseExpr.generateCode() : new CodeResult("undefined","");
+        String expr = "(" + c.html + ") ? (" + t.html + ") : (" + f.html + ")";
+        return new CodeResult(expr, safe(c.js)+safe(t.js)+safe(f.js));
     }
+
+    private static String safe(String s){ return s==null? "": s; }
 }

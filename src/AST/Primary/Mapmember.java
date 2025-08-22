@@ -23,6 +23,8 @@ public class Mapmember  implements ASTNode {
 
     @Override
     public CodeResult generateCode() {
-        return null;
+        CodeResult v = value != null ? value.generateCode() : new CodeResult("undefined", "");
+        String pair = key + ": " + (v.html==null?"":v.html); // key متضمنة اقتباسات
+        return new CodeResult(pair, v.js==null? "": v.js);
     }
 }

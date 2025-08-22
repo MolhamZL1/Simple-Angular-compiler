@@ -8,7 +8,8 @@ public class ImportSideEffect implements ImportStatement {
 
     @Override
     public CodeResult generateCode() {
-        return null;
+        // استيراد ذو أثر جانبي فقط — لا HTML/JS وقت التشغيل
+        return new CodeResult("", "");
     }
 
     public ImportSideEffect(String module) {

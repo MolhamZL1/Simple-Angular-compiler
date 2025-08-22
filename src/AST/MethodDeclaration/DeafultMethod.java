@@ -2,9 +2,11 @@ package AST.MethodDeclaration;
 
 import AST.*;
 import AST.ExpressionsClasses.Expression;
+import AST.Statement.Statement;
 import Code_Generation.CodeResult;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DeafultMethod implements MethodDeclaration {
     private boolean isAsync;
@@ -12,11 +14,6 @@ public class DeafultMethod implements MethodDeclaration {
     private List<Parameter> parameters;
 
     private Args args;
-
-    @Override
-    public CodeResult generateCode() {
-        return null;
-    }
 
     private Type type;
     private ASTNode body;
@@ -54,5 +51,31 @@ public class DeafultMethod implements MethodDeclaration {
 
         return sb.toString();
     }
+    @Override
+    public CodeResult generateCode() {
+        String fnName = name == null ? "_fn" : name.getIdentifier();
+        String params = parameters.stream().map(Parameter::getName).collect(Collectors.joining(", "));
+
+        StringBuilder js = new StringBuilder();
+        js.append(isAsync ? "async function " : "function ")
+                .append(fnName).append("(").append(params).append("){\n");
+
+        if (body instanceof Statement st) {
+            CodeResult br = st.generateCode();
+            js.append(safe(br.js));
+        } else if (body instanceof Expression ex) {
+            CodeResult br = ex.generateCode();
+            js.append(safe(br.js));
+            js.append("return ").append(br.html == null ? "undefined" : br.html).append(";\n");
+        } else if (body != null) {
+            CodeResult br = body.generateCode();
+            js.append(safe(br.js));
+        }
+
+        js.append("}\n");
+        return new CodeResult("", js.toString());
+    }
+
+    private static String safe(String s){ return s==null? "": s; }
 
 }

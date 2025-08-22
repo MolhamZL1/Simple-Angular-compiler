@@ -22,6 +22,5 @@ public class Number implements ASTNode{
 
     @Override
     public CodeResult generateCode() {
-        return null;
-    }
-}
+        return new CodeResult(number, "");
+    }}

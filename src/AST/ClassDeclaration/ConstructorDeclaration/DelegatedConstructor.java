@@ -10,10 +10,7 @@ public class DelegatedConstructor implements ConstructorDeclaration{
     private List<Parameter> parameters;
 private Args args;
 
-    @Override
-    public CodeResult generateCode() {
-        return null;
-    }
+  
 
     public DelegatedConstructor(List<Parameter> parameters, Args args) {
         this.parameters = parameters;
@@ -26,5 +23,10 @@ private Args args;
                 "parameters=" + parameters +
                 (args != null ? ", args=" + args : "") +
                 '}';
+    }
+    @Override
+    public CodeResult generateCode() {
+        // ما منبني Prototype/ES6 class حالياً؛ فهالكونستركتر ما إلو أثر بزمن التشغيل
+        return new CodeResult("", "");
     }
 }

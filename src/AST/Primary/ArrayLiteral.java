@@ -21,6 +21,18 @@ public class ArrayLiteral implements Primary{
 
     @Override
     public CodeResult generateCode() {
-        return null;
+        StringBuilder html = new StringBuilder("[");
+        StringBuilder js = new StringBuilder();
+        boolean first = true;
+        for (Expression e : items) {
+            if (e == null) continue;
+            CodeResult r = e.generateCode();
+            if (!first) html.append(", ");
+            html.append(r.html == null ? "" : r.html);
+            if (r.js != null) js.append(r.js);
+            first = false;
+        }
+        html.append("]");
+        return new CodeResult(html.toString(), js.toString());
     }
 }

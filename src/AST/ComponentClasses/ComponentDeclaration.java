@@ -7,10 +7,7 @@ import Code_Generation.CodeResult;
 import java.util.List;
 
 public class ComponentDeclaration implements ASTNode {
-    @Override
-    public CodeResult generateCode() {
-        return null;
-    }
+
 
     private List<MetadataProperty> metadataPropertyList;
 
@@ -21,5 +18,10 @@ public class ComponentDeclaration implements ASTNode {
     @Override
     public String toString() {
         return "\nComponent{"+metadataPropertyList+"}";
+    }
+    @Override
+    public CodeResult generateCode() {
+        // بيانات تعريفية فقط — لا HTML ولا JS وقت التشغيل
+        return new CodeResult("", "");
     }
 }

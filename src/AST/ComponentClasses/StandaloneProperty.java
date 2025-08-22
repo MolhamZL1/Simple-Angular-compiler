@@ -18,6 +18,6 @@ public class StandaloneProperty implements MetadataProperty{
 
     @Override
     public CodeResult generateCode() {
-        return null;
+        return new CodeResult("","");
     }
 }

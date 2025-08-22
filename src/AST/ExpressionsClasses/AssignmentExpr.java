@@ -21,6 +21,11 @@ public class AssignmentExpr implements Expression{
 
     @Override
     public CodeResult generateCode() {
-        return new CodeResult("","");
+        CodeResult v = variableExpression != null ? variableExpression.generateCode() : new CodeResult("", "");
+        CodeResult val = valueExpression != null ? valueExpression.generateCode()   : new CodeResult("", "");
+        String expr = (v.html==null?"":v.html) + " = " + (val.html==null?"":val.html);
+        return new CodeResult(expr, safe(v.js)+safe(val.js));
     }
+
+    private static String safe(String s){ return s==null? "": s; }
 }
