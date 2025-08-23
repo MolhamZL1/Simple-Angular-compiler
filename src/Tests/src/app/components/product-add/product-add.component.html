@@ -1,0 +1,38 @@
+<h1>Add Product</h1>
+<!-- Compiler‑safe template: لا تستعمل [] ولا () ولا * ولا ngModel -->
+<form>
+  <label>
+    Name
+    <input type="text" value="{{ name }}" name="name" required />
+  </label>
+
+  <label>
+    Price
+    <input
+      type="number"
+      value="{{ price }}"
+      name="price"
+      step="0.01"
+      required
+    />
+  </label>
+
+  <label>
+    Description
+    <textarea name="description" rows="3">{{ description }}</textarea>
+  </label>
+
+  <label>
+    Image URL
+    <input
+      type="text"
+      value="{{ imageUrl }}"
+      name="imageUrl"
+      placeholder="https://example.com/image.jpg"
+    />
+  </label>
+
+  <!-- بدون (click) أو (submit) لتفادي أخطاء الغرامر -->
+  <button type="button">Save</button>
+  <a href="/">Cancel</a>
+</form>

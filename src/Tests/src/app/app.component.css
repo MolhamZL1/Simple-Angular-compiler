@@ -1,0 +1,3 @@
+.nav{display:flex;gap:12px;padding:12px;border-bottom:1px solid #eee}
+.nav a{text-decoration:none}
+.container{padding:16px;max-width:900px;margin:0 auto}
