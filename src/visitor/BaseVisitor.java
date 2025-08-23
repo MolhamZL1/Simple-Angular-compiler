@@ -243,21 +243,26 @@ if(pathFile.contains(templatePath)){
     @Override
     public EventBinding visitEventBinding(AngularParser.EventBindingContext ctx) {
 
-        for (ComponentSymbol componentSymbol:componentsSymboleTable.getSymbols().values()) {
-            int index=componentSymbol.getTemplatePath().lastIndexOf("/");
-            String templatePath=componentSymbol.getTemplatePath().substring(index+1).replaceAll("'","");
-            if(pathFile.contains(templatePath)){
+        for (ComponentSymbol componentSymbol : componentsSymboleTable.getSymbols().values()) {
+            String tpl = componentSymbol.getTemplatePath();
+            if (tpl == null || tpl.isBlank()) continue; // <-- مهم
 
-                String name=ctx.attributeValue().STRING().getText();
-                if(name.contains("(")&&name.contains(")")){
-                int end=name.indexOf("(");
-                String methodName=name.substring(0,end).replaceAll("\"","");
-                componentSymbol.getMethods().check(methodName,pathFile);
+            int slash = Math.max(tpl.lastIndexOf('/'), tpl.lastIndexOf('\\'));
+            String templatePath = tpl.substring(slash + 1).replace("'", "");
+
+            if (pathFile.contains(templatePath)) {
+                String name = ctx.attributeValue().STRING().getText();
+                if (name.contains("(") && name.contains(")")) {
+                    int end = name.indexOf("(");
+                    String methodName = name.substring(0, end).replace("\"", "");
+                    componentSymbol.getMethods().check(methodName, pathFile);
                 }
             }
         }
-        return new EventBinding((Identifier) visit(ctx.identifier()),(AttributeValue) visit(ctx.attributeValue()));
+        return new EventBinding((Identifier) visit(ctx.identifier()),
+                (AttributeValue) visit(ctx.attributeValue()));
     }
+
 
     @Override
     public TwoWayBinding visitTwoWayBinding(AngularParser.TwoWayBindingContext ctx) {
