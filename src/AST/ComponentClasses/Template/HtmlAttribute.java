@@ -31,7 +31,7 @@ public class HtmlAttribute implements Attribute{
             String elId = "el_" + System.nanoTime();
             String htmlPart = "id=\"" + elId + "\"";
             String expr = attributeValue.generateJsExpression()
-                    .replace("produc.", "product."); // تصليح سريع لغلطة شائعة
+                    ; // تصليح سريع لغلطة شائعة
 
             String jsPart =
                     "var __el = document.getElementById('" + elId + "');\n" +

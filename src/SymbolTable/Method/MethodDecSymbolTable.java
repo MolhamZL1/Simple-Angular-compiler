@@ -51,11 +51,27 @@ public class MethodDecSymbolTable {
         return symbols;
     }
 
-    public void print() {
-        System.out.println(  ColorsConsole.GREEN +"========== Method Declaration Symbol Table =========="+ColorsConsole.RESET );
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("========== Method Declaration Symbol Table ==========")
+                .append("\n");
+
         for (MethodDecSymbol s : symbols.values()) {
-            System.out.println(  " - " + s.getName()  + " (line " + s.getLine() + ")");
-            s.getArgsMethodSymbolTable().print();
+            sb.append(" - ")
+                    .append(s.getName())
+                    .append(" (line ")
+                    .append(s.getLine())
+                    .append(")")
+                    .append("\n");
+
+            // استدعاء toString للـ Args table
+            if (s.getArgsMethodSymbolTable() != null) {
+                sb.append(s.getArgsMethodSymbolTable().toString()).append("\n");
+            }
         }
+
+        return sb.toString();
     }
+
 }

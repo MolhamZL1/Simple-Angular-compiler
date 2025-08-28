@@ -1,0 +1,758 @@
+GENERATED REPORT
+Root: C:\Users\USER\Desktop\cpmoiler project 2\angularCompiler2\src\Tests\src
+
+========== Component Declaration Symbol Table ==========
+ ------- app-product-add (line 0) ---------------
+========== Property Declaration Symbol Table ==========
+========== Property Declaration Symbol Table ==========
+ - name: type :any (line 16)
+ - price: type :any (line 17)
+ - description: type :any (line 18)
+ - imageUrl: type :any (line 19)
+ - router: type :Router (line 20)
+
+========== Method Declaration Symbol Table ==========
+ - onName: type :any (line 28)
+ - onPrice: type :any (line 29)
+ - onDesc: type :any (line 34)
+ - onImage: type :any (line 35)
+ - save: type :void (line 38)
+========== Input Declaration Symbol Table ==========
+ ------- app-product-detail (line 0) ---------------
+========== Property Declaration Symbol Table ==========
+========== Property Declaration Symbol Table ==========
+ - product: type :Product (line 16)
+ - found: type :any (line 17)
+ - route: type :ActivatedRoute (line 18)
+ - router: type :Router (line 19)
+
+========== Method Declaration Symbol Table ==========
+========== Input Declaration Symbol Table ==========
+ ------- app-product-list (line 0) ---------------
+========== Property Declaration Symbol Table ==========
+========== Property Declaration Symbol Table ==========
+ - products: type :any (line 11)
+ - p1: type :any (line 12)
+ - p2: type :any (line 13)
+ - p3: type :any (line 14)
+
+========== Method Declaration Symbol Table ==========
+========== Input Declaration Symbol Table ==========
+ ------- app-root (line 0) ---------------
+========== Property Declaration Symbol Table ==========
+========== Property Declaration Symbol Table ==========
+ - title: type :any (line 13)
+
+========== Method Declaration Symbol Table ==========
+========== Input Declaration Symbol Table ==========
+
+=============================================
+AST for: src\Tests\src\app\app.component.html
+=============================================
+{	TemplateContent{templateContents=[HtmlElement{tag=
+identifier{nav}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"nav"'}, id='class'}], content=TemplateContent{templateContents=[HtmlElement{tag=
+identifier{a}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='""'}, id='routerLink'}], content=TemplateContent{templateContents=[
+identifier{Products}]}}, HtmlElement{tag=
+identifier{a}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"/add"'}, id='routerLink'}], content=TemplateContent{templateContents=[
+identifier{Add}, 
+identifier{Product}]}}]}}, HtmlElement{tag=
+identifier{main}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"container"'}, id='class'}], content=TemplateContent{templateContents=[HtmlElement{tag=
+identifier{router-outlet}, attributes=(none), content=TemplateContent{templateContents=[]}}]}}]}
+}
+
+=============================================
+AST for: src\Tests\src\app\app.component.ts
+=============================================
+{	
+ import{[
+identifier{Component}] from '@angular/core}	
+ import{[
+identifier{RouterModule}] from '@angular/router}	
+Component{[selectorProperty{app-root}, standalone{true}, ImportsComponent{[RouterModule]}, TemplateUrl{'./app.component.html'}, StyleUrls{['./app.component.css']}]}	ClassDeclaration{isExported=true, isAbstract=false, name=
+identifier{AppComponent}, genericParameters=[], interfaces=[], classBody=
+ClassBody{classMembers=[
+ClassMember{classStatement=
+PropertyDeclaration{name=
+identifier{title}, value=Literal{'mini-shop'}}}]}}
+}
+
+=============================================
+AST for: src\Tests\src\app\components\product-add\product-add.component.html
+=============================================
+{	TemplateContent{templateContents=[HtmlElement{tag=
+identifier{h1}, attributes=(none), content=TemplateContent{templateContents=[
+identifier{Add}, 
+identifier{Product}]}}, HtmlElement{tag=
+identifier{form}, attributes=(none), content=TemplateContent{templateContents=[HtmlElement{tag=
+identifier{label}, attributes=(none), content=TemplateContent{templateContents=[
+identifier{Name}, HtmlElement{tag=
+identifier{input}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"text"'}, id='type'}, HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"{{ name }}"'}, id='value'}, HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"name"'}, id='name'}], content=null}]}}, HtmlElement{tag=
+identifier{label}, attributes=(none), content=TemplateContent{templateContents=[
+identifier{Price}, HtmlElement{tag=
+identifier{input}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"number"'}, id='type'}, HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"{{ price }}"'}, id='value'}, HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"price"'}, id='name'}, HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"0.01"'}, id='step'}], content=null}]}}, HtmlElement{tag=
+identifier{label}, attributes=(none), content=TemplateContent{templateContents=[
+identifier{Description}, HtmlElement{tag=
+identifier{textarea}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"description"'}, id='name'}, HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"3"'}, id='rows'}], content=TemplateContent{templateContents=[Interpolation{expression=
+identifier{description}}]}}]}}, HtmlElement{tag=
+identifier{label}, attributes=(none), content=TemplateContent{templateContents=[
+identifier{Image}, 
+identifier{URL}, HtmlElement{tag=
+identifier{input}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"text"'}, id='type'}, HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"{{ imageUrl }}"'}, id='value'}, HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"imageUrl"'}, id='name'}, HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"https://example.com/image.jpg"'}, id='placeholder'}], content=null}]}}, HtmlElement{tag=
+identifier{button}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"button"'}, id='type'}], content=TemplateContent{templateContents=[
+identifier{Save}]}}, HtmlElement{tag=
+identifier{a}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"/"'}, id='href'}], content=TemplateContent{templateContents=[
+identifier{Cancel}]}}]}}]}
+}
+
+=============================================
+AST for: src\Tests\src\app\components\product-add\product-add.component.ts
+=============================================
+{	
+ import{[
+identifier{Component}] from '@angular/core}	
+ import{[
+identifier{CommonModule}] from '@angular/common}	
+ import{[
+identifier{Router}, 
+identifier{RouterModule}] from '@angular/router}	
+ import{[
+identifier{productsStore}] from '../../data/products.store}	
+ import{[
+identifier{Product}] from '../../models/product}	
+Component{[selectorProperty{app-product-add}, standalone{true}, ImportsComponent{[CommonModule, RouterModule]}, TemplateUrl{'./product-add.component.html'}, StyleUrls{['./product-add.component.css']}]}	ClassDeclaration{isExported=true, isAbstract=false, name=
+identifier{ProductAddComponent}, genericParameters=[], interfaces=[], classBody=
+ClassBody{classMembers=[
+ClassMember{classStatement=
+PropertyDeclaration{name=
+identifier{name}, value=Literal{''}}}, 
+ClassMember{classStatement=
+PropertyDeclaration{name=
+identifier{price}, value=Literal{0}}}, 
+ClassMember{classStatement=
+PropertyDeclaration{name=
+identifier{description}, value=Literal{''}}}, 
+ClassMember{classStatement=
+PropertyDeclaration{name=
+identifier{imageUrl}, value=Literal{''}}}, 
+ClassMember{classStatement=
+PropertyDeclaration{name=
+identifier{router}, type=Type{Router}}}, 
+ClassMember{classStatement=
+DefaultConstructor{parameters=[Parameter{id='
+identifier{router}', type=Type{Router}}], body=
+BlockStatement{statements=[
+AssignmentExpr{variableExpression=
+DotExpr{
+left=this
+, right=
+identifier{router}
+}, valueExpression=
+identifier{router}}]}}}, 
+ClassMember{classStatement=
+DefaultMethod{isAsync=false, name=
+identifier{onName}, parameters=[Parameter{id='
+identifier{e}', type=Type{any}}], body=
+BlockStatement{statements=[
+TernaryExpr{conditionExpr=
+AssignmentExpr{variableExpression=
+DotExpr{
+left=this
+, right=
+identifier{name}
+}, valueExpression=
+LogicalExpr{
+leftExpression=
+identifier{e}
+, op='&&'
+, rightExpression=
+DotExpr{
+left=
+identifier{e}
+, right=
+identifier{target}
+}
+}}, trueExpr=
+DotExpr{
+left=
+DotExpr{
+left=
+identifier{e}
+, right=
+identifier{target}
+}
+, right=
+identifier{value}
+}, falseExpr=Literal{''}}]}}}, 
+ClassMember{classStatement=
+DefaultMethod{isAsync=false, name=
+identifier{onPrice}, parameters=[Parameter{id='
+identifier{e}', type=Type{any}}], body=
+BlockStatement{statements=[
+VariableDeclaration{isExported=false, variableDeclarationKeyword=VariableDeclarationKeyword{keyword='const'}, name=
+identifier{v}, value=
+TernaryExpr{conditionExpr=
+LogicalExpr{
+leftExpression=
+identifier{e}
+, op='&&'
+, rightExpression=
+DotExpr{
+left=
+identifier{e}
+, right=
+identifier{target}
+}
+}, trueExpr=
+DotExpr{
+left=
+DotExpr{
+left=
+identifier{e}
+, right=
+identifier{target}
+}
+, right=
+identifier{value}
+}, falseExpr=Literal{'0'}}}, 
+VariableDeclaration{isExported=false, variableDeclarationKeyword=VariableDeclarationKeyword{keyword='const'}, name=
+identifier{n}, value=
+CallExpr{
+expression=
+identifier{Number}, 
+args=
+Args{[
+identifier{v}]}
+}}, 
+TernaryExpr{conditionExpr=
+AssignmentExpr{variableExpression=
+DotExpr{
+left=this
+, right=
+identifier{price}
+}, valueExpression=
+CallExpr{
+expression=
+identifier{isNaN}, 
+args=
+Args{[
+identifier{n}]}
+}}, trueExpr=Literal{0}, falseExpr=
+identifier{n}}]}}}, 
+ClassMember{classStatement=
+DefaultMethod{isAsync=false, name=
+identifier{onDesc}, parameters=[Parameter{id='
+identifier{e}', type=Type{any}}], body=
+BlockStatement{statements=[
+TernaryExpr{conditionExpr=
+AssignmentExpr{variableExpression=
+DotExpr{
+left=this
+, right=
+identifier{description}
+}, valueExpression=
+LogicalExpr{
+leftExpression=
+identifier{e}
+, op='&&'
+, rightExpression=
+DotExpr{
+left=
+identifier{e}
+, right=
+identifier{target}
+}
+}}, trueExpr=
+DotExpr{
+left=
+DotExpr{
+left=
+identifier{e}
+, right=
+identifier{target}
+}
+, right=
+identifier{value}
+}, falseExpr=Literal{''}}]}}}, 
+ClassMember{classStatement=
+DefaultMethod{isAsync=false, name=
+identifier{onImage}, parameters=[Parameter{id='
+identifier{e}', type=Type{any}}], body=
+BlockStatement{statements=[
+TernaryExpr{conditionExpr=
+AssignmentExpr{variableExpression=
+DotExpr{
+left=this
+, right=
+identifier{imageUrl}
+}, valueExpression=
+LogicalExpr{
+leftExpression=
+identifier{e}
+, op='&&'
+, rightExpression=
+DotExpr{
+left=
+identifier{e}
+, right=
+identifier{target}
+}
+}}, trueExpr=
+DotExpr{
+left=
+DotExpr{
+left=
+identifier{e}
+, right=
+identifier{target}
+}
+, right=
+identifier{value}
+}, falseExpr=Literal{''}}]}}}, 
+ClassMember{classStatement=
+DefaultMethod{isAsync=false, name=
+identifier{save}, parameters=[], type=Type{void}, body=
+BlockStatement{statements=[
+VariableDeclaration{isExported=false, variableDeclarationKeyword=VariableDeclarationKeyword{keyword='const'}, name=
+identifier{newId}, value=
+CallExpr{
+expression=
+DotExpr{
+left=
+identifier{Date}
+, right=
+identifier{now}
+}
+}}, 
+VariableDeclaration{isExported=false, variableDeclarationKeyword=VariableDeclarationKeyword{keyword='const'}, name=
+identifier{product}, value=
+ObjectInit{className=
+identifier{Product}, type=null, args=
+Args{[
+identifier{newId}, 
+DotExpr{
+left=this
+, right=
+identifier{name}
+}, 
+CallExpr{
+expression=
+identifier{Number}, 
+args=
+Args{[
+DotExpr{
+left=this
+, right=
+identifier{price}
+}]}
+}, 
+DotExpr{
+left=this
+, right=
+identifier{description}
+}, 
+DotExpr{
+left=this
+, right=
+identifier{imageUrl}
+}]}}}, 
+CallExpr{
+expression=
+DotExpr{
+left=
+identifier{productsStore}
+, right=
+identifier{push}
+}, 
+args=
+Args{[
+identifier{product}]}
+}, 
+CallExpr{
+expression=
+DotExpr{
+left=
+DotExpr{
+left=this
+, right=
+identifier{router}
+}
+, right=
+identifier{navigate}
+}, 
+args=
+Args{[ArrayLiteral{items=[Literal{'/products'}, 
+identifier{newId}]}]}
+}]}}}]}}
+}
+
+=============================================
+AST for: src\Tests\src\app\components\product-detail\product-detail.component.html
+=============================================
+{	TemplateContent{templateContents=[HtmlElement{tag=
+identifier{a}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"/"'}, id='href'}], content=TemplateContent{templateContents=[
+identifier{Back}]}}, HtmlElement{tag=
+identifier{h1}, attributes=(none), content=TemplateContent{templateContents=[Interpolation{expression=
+DotExpr{
+left=
+identifier{product}
+, right=
+identifier{name}
+}}]}}, HtmlElement{tag=
+identifier{p}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"muted"'}, id='class'}], content=null}, 
+identifier{ID}]}
+}
+
+=============================================
+AST for: src\Tests\src\app\components\product-detail\product-detail.component.ts
+=============================================
+{	
+ import{[
+identifier{Component}] from '@angular/core}	
+ import{[
+identifier{CommonModule}] from '@angular/common}	
+ import{[
+identifier{ActivatedRoute}, 
+identifier{Router}, 
+identifier{RouterModule}] from '@angular/router}	
+ import{[
+identifier{productsStore}] from '../../data/products.store}	
+ import{[
+identifier{Product}] from '../../models/product}	
+Component{[selectorProperty{app-product-detail}, standalone{true}, ImportsComponent{[CommonModule, RouterModule]}, TemplateUrl{'./product-detail.component.html'}, StyleUrls{['./product-detail.component.css']}]}	ClassDeclaration{isExported=true, isAbstract=false, name=
+identifier{ProductDetailComponent}, genericParameters=[], interfaces=[], classBody=
+ClassBody{classMembers=[
+ClassMember{classStatement=
+PropertyDeclaration{name=
+identifier{product}, type=Type{Product}, value=
+ObjectInit{className=
+identifier{Product}, type=null, args=
+Args{[Literal{0}, Literal{''}, Literal{0}, Literal{''}, Literal{''}]}}}}, 
+ClassMember{classStatement=
+PropertyDeclaration{name=
+identifier{found}, value=Literal{false}}}, 
+ClassMember{classStatement=
+PropertyDeclaration{name=
+identifier{route}, type=Type{ActivatedRoute}}}, 
+ClassMember{classStatement=
+PropertyDeclaration{name=
+identifier{router}, type=Type{Router}}}, 
+ClassMember{classStatement=
+DefaultConstructor{parameters=[Parameter{id='
+identifier{route}', type=Type{ActivatedRoute}}, Parameter{id='
+identifier{router}', type=Type{Router}}], body=
+BlockStatement{statements=[
+AssignmentExpr{variableExpression=
+DotExpr{
+left=this
+, right=
+identifier{route}
+}, valueExpression=
+identifier{route}}, 
+AssignmentExpr{variableExpression=
+DotExpr{
+left=this
+, right=
+identifier{router}
+}, valueExpression=
+identifier{router}}, 
+VariableDeclaration{isExported=false, variableDeclarationKeyword=VariableDeclarationKeyword{keyword='let'}, name=
+identifier{idParam}, value=Literal{''}}, IfStatement{ifSection=
+IfSection{condition=
+LogicalExpr{
+leftExpression=
+LogicalExpr{
+leftExpression=
+DotExpr{
+left=this
+, right=
+identifier{route}
+}
+, op='&&'
+, rightExpression=
+DotExpr{
+left=
+DotExpr{
+left=this
+, right=
+identifier{route}
+}
+, right=
+identifier{snapshot}
+}
+}
+, op='&&'
+, rightExpression=
+MemberIndexExpr{
+member=
+DotExpr{
+left=
+DotExpr{
+left=this
+, right=
+identifier{route}
+}
+, right=
+identifier{snapshot}
+}
+, index=Literal{'params'}
+}
+}, body=
+BlockStatement{statements=[
+AssignmentExpr{variableExpression=
+identifier{idParam}, valueExpression=
+MemberIndexExpr{
+member=
+MemberIndexExpr{
+member=
+DotExpr{
+left=
+DotExpr{
+left=this
+, right=
+identifier{route}
+}
+, right=
+identifier{snapshot}
+}
+, index=Literal{'params'}
+}
+, index=Literal{'id'}
+}}]}}, elseIfSections=[]}, 
+VariableDeclaration{isExported=false, variableDeclarationKeyword=VariableDeclarationKeyword{keyword='const'}, name=
+identifier{id}, value=
+TernaryExpr{conditionExpr=
+identifier{idParam}, trueExpr=
+CallExpr{
+expression=
+identifier{Number}, 
+args=
+Args{[
+identifier{idParam}]}
+}, falseExpr=
+identifier{NaN}}}, 
+VariableDeclaration{isExported=false, variableDeclarationKeyword=VariableDeclarationKeyword{keyword='const'}, name=
+identifier{match}, value=
+CallExpr{
+expression=
+DotExpr{
+left=
+identifier{productsStore}
+, right=
+identifier{find}
+}, 
+args=
+Args{[
+DefaultMethod{isAsync=false, parameters=[Parameter{id='
+identifier{p}'}], body=
+EqualityExpr{
+leftExpression=
+DotExpr{
+left=
+identifier{p}
+, right=
+identifier{id}
+}
+, op='==='
+, rightExpression=
+identifier{id}
+}}]}
+}}, IfStatement{ifSection=
+IfSection{condition=
+identifier{match}, body=
+BlockStatement{statements=[
+AssignmentExpr{variableExpression=
+DotExpr{
+left=this
+, right=
+identifier{product}
+}, valueExpression=
+identifier{match}}, 
+AssignmentExpr{variableExpression=
+DotExpr{
+left=this
+, right=
+identifier{found}
+}, valueExpression=Literal{true}}]}}, elseIfSections=[], elseSection=
+elseSection{body=
+BlockStatement{statements=[
+AssignmentExpr{variableExpression=
+DotExpr{
+left=this
+, right=
+identifier{found}
+}, valueExpression=Literal{false}}]}}}]}}}]}}
+}
+
+=============================================
+AST for: src\Tests\src\app\components\product-list\product-list.component.html
+=============================================
+{	TemplateContent{templateContents=[HtmlElement{tag=
+identifier{h1}, attributes=(none), content=TemplateContent{templateContents=[
+identifier{Products}]}}, HtmlElement{tag=
+identifier{div}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"grid"'}, id='class'}], content=TemplateContent{templateContents=[HtmlElement{tag=
+identifier{div}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"card"'}, id='class'}], content=TemplateContent{templateContents=[HtmlElement{tag=
+identifier{div}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"thumb"'}, id='class'}], content=TemplateContent{templateContents=[HtmlElement{tag=
+identifier{img}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"{{ p1.imageUrl }}"'}, id='src'}, HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"{{ p1.name }}"'}, id='alt'}], content=null}]}}, HtmlElement{tag=
+identifier{h3}, attributes=(none), content=TemplateContent{templateContents=[Interpolation{expression=
+DotExpr{
+left=
+identifier{p1}
+, right=
+identifier{name}
+}}]}}, HtmlElement{tag=
+identifier{p}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"muted"'}, id='class'}], content=TemplateContent{templateContents=[
+identifier{$}, Interpolation{expression=
+DotExpr{
+left=
+identifier{p1}
+, right=
+identifier{price}
+}}]}}, HtmlElement{tag=
+identifier{a}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"/products/{{ p1.id }}"'}, id='href'}], content=TemplateContent{templateContents=[
+identifier{Details}]}}]}}, HtmlElement{tag=
+identifier{div}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"card"'}, id='class'}], content=TemplateContent{templateContents=[HtmlElement{tag=
+identifier{div}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"thumb"'}, id='class'}], content=TemplateContent{templateContents=[HtmlElement{tag=
+identifier{img}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"{{ p2.imageUrl }}"'}, id='src'}, HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"{{ p2.name }}"'}, id='alt'}], content=null}]}}, HtmlElement{tag=
+identifier{h3}, attributes=(none), content=TemplateContent{templateContents=[Interpolation{expression=
+DotExpr{
+left=
+identifier{p2}
+, right=
+identifier{name}
+}}]}}, HtmlElement{tag=
+identifier{p}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"muted"'}, id='class'}], content=TemplateContent{templateContents=[
+identifier{$}, Interpolation{expression=
+DotExpr{
+left=
+identifier{p2}
+, right=
+identifier{price}
+}}]}}, HtmlElement{tag=
+identifier{a}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"/products/{{ p2.id }}"'}, id='href'}], content=TemplateContent{templateContents=[
+identifier{Details}]}}]}}, HtmlElement{tag=
+identifier{div}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"card"'}, id='class'}], content=TemplateContent{templateContents=[HtmlElement{tag=
+identifier{div}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"thumb"'}, id='class'}], content=TemplateContent{templateContents=[HtmlElement{tag=
+identifier{img}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"{{ p3.imageUrl }}"'}, id='src'}, HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"{{ p3.name }}"'}, id='alt'}], content=null}]}}, HtmlElement{tag=
+identifier{h3}, attributes=(none), content=TemplateContent{templateContents=[Interpolation{expression=
+DotExpr{
+left=
+identifier{p3}
+, right=
+identifier{name}
+}}]}}, HtmlElement{tag=
+identifier{p}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"muted"'}, id='class'}], content=TemplateContent{templateContents=[
+identifier{$}, Interpolation{expression=
+DotExpr{
+left=
+identifier{p3}
+, right=
+identifier{price}
+}}]}}, HtmlElement{tag=
+identifier{a}, attributes=[HtmlAttribute{attributeValue=AttributeValue{interpolation=null, value='"/products/{{ p3.id }}"'}, id='href'}], content=TemplateContent{templateContents=[
+identifier{Details}]}}]}}]}}]}
+}
+
+=============================================
+AST for: src\Tests\src\app\components\product-list\product-list.component.ts
+=============================================
+{	
+ import{[
+identifier{Component}] from '@angular/core}	
+ import{[
+identifier{productsStore}] from '../../data/products.store}	
+Component{[selectorProperty{app-product-list}, TemplateUrl{'./product-list.component.html'}, StyleUrls{['./product-list.component.css']}]}	ClassDeclaration{isExported=true, isAbstract=false, name=
+identifier{ProductListComponent}, genericParameters=[], interfaces=[], classBody=
+ClassBody{classMembers=[
+ClassMember{classStatement=
+PropertyDeclaration{name=
+identifier{products}, type=Type{any}, value=
+identifier{productsStore}}}, 
+ClassMember{classStatement=
+PropertyDeclaration{name=
+identifier{p1}, type=Type{any}, value=
+TernaryExpr{conditionExpr=
+RelationalExpr{
+leftExpression=
+DotExpr{
+left=
+identifier{productsStore}
+, right=
+identifier{length}
+}
+, op='>'
+, rightExpression=Literal{0}
+}, trueExpr=
+MemberIndexExpr{
+member=
+identifier{productsStore}
+, index=Literal{0}
+}, falseExpr=
+ObjectLiteral{properties=[
+PropertyAssignment{property=
+identifier{name}, value=Literal{''}}, 
+PropertyAssignment{property=
+identifier{price}, value=Literal{0}}, 
+PropertyAssignment{property=
+identifier{imageUrl}, value=Literal{''}}, 
+PropertyAssignment{property=
+identifier{id}, value=Literal{0}}]}}}}, 
+ClassMember{classStatement=
+PropertyDeclaration{name=
+identifier{p2}, type=Type{any}, value=
+TernaryExpr{conditionExpr=
+RelationalExpr{
+leftExpression=
+DotExpr{
+left=
+identifier{productsStore}
+, right=
+identifier{length}
+}
+, op='>'
+, rightExpression=Literal{1}
+}, trueExpr=
+MemberIndexExpr{
+member=
+identifier{productsStore}
+, index=Literal{1}
+}, falseExpr=
+ObjectLiteral{properties=[
+PropertyAssignment{property=
+identifier{name}, value=Literal{''}}, 
+PropertyAssignment{property=
+identifier{price}, value=Literal{0}}, 
+PropertyAssignment{property=
+identifier{imageUrl}, value=Literal{''}}, 
+PropertyAssignment{property=
+identifier{id}, value=Literal{0}}]}}}}, 
+ClassMember{classStatement=
+PropertyDeclaration{name=
+identifier{p3}, type=Type{any}, value=
+TernaryExpr{conditionExpr=
+RelationalExpr{
+leftExpression=
+DotExpr{
+left=
+identifier{productsStore}
+, right=
+identifier{length}
+}
+, op='>'
+, rightExpression=Literal{2}
+}, trueExpr=
+MemberIndexExpr{
+member=
+identifier{productsStore}
+, index=Literal{2}
+}, falseExpr=
+ObjectLiteral{properties=[
+PropertyAssignment{property=
+identifier{name}, value=Literal{''}}, 
+PropertyAssignment{property=
+identifier{price}, value=Literal{0}}, 
+PropertyAssignment{property=
+identifier{imageUrl}, value=Literal{''}}, 
+PropertyAssignment{property=
+identifier{id}, value=Literal{0}}]}}}}]}}
+}
+

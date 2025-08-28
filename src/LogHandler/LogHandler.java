@@ -34,6 +34,7 @@ public class LogHandler {
     static public void log(Exception exception) {
         String content = exception.getMessage();
         FileManager.appendToFile(filename, content);
+        printError( content);
     }
 
     static public void clear() throws IOException {

@@ -1,9 +1,18 @@
 package AST.ComponentClasses.Template;
 
 import AST.ASTNode;
+import AST.ComponentClasses.MetadataProperty;
+import AST.ComponentClasses.SelectorProperty;
 import AST.Identifier;
+import AST.Program;
+import Code_Generation.CodeGeneration;
 import Code_Generation.CodeResult;
+import SymbolTable.Component.ComponentSymbol;
+import SymbolTable.Component.ComponentsSymboleTable;
+import org.antlr.v4.runtime.tree.ParseTree;
+import visitor.BaseVisitor;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -25,10 +34,57 @@ public class HtmlElement implements ASTNode {
         this.attributes = attributes;
         this.templateContent = templateContent;
     }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("HtmlElement{");
 
+        // التاغ
+        sb.append("tag=").append(tagname != null ? tagname.toString() : "null");
+
+        // الخصائص
+        if (attributes != null && !attributes.isEmpty()) {
+            sb.append(", attributes=[");
+            for (int i = 0; i < attributes.size(); i++) {
+                sb.append(attributes.get(i));
+                if (i < attributes.size() - 1) sb.append(", ");
+            }
+            sb.append("]");
+        } else {
+            sb.append(", attributes=(none)");
+        }
+
+        // الكونتنت
+        sb.append(", content=");
+        sb.append(templateContent != null ? templateContent.toString() : "null");
+
+        sb.append("}");
+        return sb.toString();
+    }
+ private CodeResult parseComponent(String tag){
+     CodeResult codeResult=null;
+             ComponentSymbol componentSymbol=   ComponentsSymboleTable.symbols.get(tag);
+             String componentPath=componentSymbol.getPath();
+     System.out.println(componentPath);
+             try {
+                 ParseTree componentTree=   CodeGeneration.parse(componentPath);
+                 Program componentProgram = (Program) new BaseVisitor(new ComponentsSymboleTable(), componentPath).visit(componentTree);
+                  codeResult=  componentProgram.generateCode();
+
+             } catch (IOException e) {
+                 throw new RuntimeException(e);
+
+     }
+return codeResult;
+}
     @Override
     public CodeResult generateCode() {
         String tag = tagname.generateCode().html;
+        if (tag.contains("app-")){
+            CodeResult codeResult=parseComponent(tag);
+         return codeResult;
+
+        }
         boolean isVoid = VOID_TAGS.contains(tag.toLowerCase());
 
         StringBuilder html = new StringBuilder();
@@ -75,6 +131,6 @@ public class HtmlElement implements ASTNode {
             html.append("</").append(tag).append(">");
         }
 
-        return new CodeResult(html.toString(), js.toString());
+        return new CodeResult(html.toString()+"\n", js.toString());
     }
 }

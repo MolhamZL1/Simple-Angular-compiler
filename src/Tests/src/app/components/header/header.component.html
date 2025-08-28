@@ -1,0 +1,84 @@
+<section style="width: 100%;">
+    <nav style="background-color: #f8f9fa; padding: 10px 0; border-bottom: 1px solid #ddd;">
+        <div style="width: 90%; margin: auto; display: flex; justify-content: space-between; align-items: center;">
+            <a href="#" style="font-size: 20px; font-weight: bold; text-decoration: none; color: black;">
+                IMTHATH_IMT
+            </a>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 5px; cursor: pointer;">
+                <div style="border: 1px solid #ccc; border-radius: 5px; margin-right: 10px; position: relative; padding: 8px; cursor: pointer;"
+                     data-bs-toggle="modal" data-bs-target="#add-to-cart">
+                    ADD TO CART <i class="fa-solid fa-cart-shopping"></i>
+                    <span style="position: absolute; top: -5px; right: -10px; transform: translate(50%, -50%); background-color: red; color: white; border-radius: 50%; padding: 2px 7px; font-size: 12px;">
+            {{products.length}}
+          </span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div style="margin-top: 20px; width: 100%;">
+        <app-product (arrayEmitter)="receiveProduct($event)"></app-product>
+    </div>
+</section>
+
+
+<!-- modal -->
+<div class="modal fade" id="add-to-cart" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div style="max-width: 900px; margin: auto; display: flex; justify-content: center; align-items: center; height: 100vh;">
+        <div style="background: white; border-radius: 10px; width: 100%; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #ddd;">
+                <h1 style="font-size: 20px; margin: 0;">Add To Cart Details</h1>
+                <button type="button" style="background: none; border: none; font-size: 20px; cursor: pointer;" data-bs-dismiss="modal" aria-label="Close">✖</button>
+            </div>
+
+            <div style="padding: 20px;">
+                <div class="row" *ngIf="products.length > 0">
+                    <div *ngFor="let product of products" style="margin-top: 15px; border: 1px solid #ccc; padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+
+                            <div style="flex: 0 0 80px; padding: 5px;">
+                                <img src={{product.images[0]}} alt="..." style="object-fit: cover; width: 80px; height: 80px; border-radius: 5px;">
+                            </div>
+
+                            <div style="flex: 1; text-align: center;">{{product.name}}</div>
+
+                            <div style="flex: 1; text-align: center;">
+                                Quantity
+                                <span style="display: inline-block; background-color: red; color: white; border-radius: 50%; padding: 5px 10px; margin: 0 5px; cursor: pointer;"
+                                      (click)="changeQuantity(product.id,false)">-</span>
+                                {{product.qty}}
+                                <span style="display: inline-block; background-color: red; color: white; border-radius: 50%; padding: 5px 10px; margin: 0 5px; cursor: pointer;"
+                                      (click)="changeQuantity(product.id,true)">+</span>
+                            </div>
+
+                            <div style="flex: 0 0 40px; text-align: center; cursor: pointer;" (click)="deleteProduct(product.id)">
+                                <i class="fa-solid fa-trash" style="color: red; font-size: 18px;"></i>
+                            </div>
+
+                            <div style="flex: 1; text-align: right;">
+                                <button style="background-color: #0d6efd; border: none; color: white; padding: 5px 10px; border-radius: 5px;">
+                                    Total {{product.total}}$
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: flex-end; margin-top: 15px;">
+                        <button style="background-color: red; border: none; color: white; padding: 10px 20px; border-radius: 5px;">
+                            Checkout ({{total}})
+                        </button>
+                    </div>
+                </div>
+
+                <div *ngIf="products.length === 0" style="font-size: 22px; text-align: center;">
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/008/515/488/small/empty-cart-flat-illustration-concept-vector.jpg" style="max-width: 300px;">
+                    <div style="font-size: 18px; color: gray;">Empty</div>
+                    <button type="button" style="background-color: #0d6efd; border: none; color: white; margin-top: 15px; padding: 8px 20px; border-radius: 5px;" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

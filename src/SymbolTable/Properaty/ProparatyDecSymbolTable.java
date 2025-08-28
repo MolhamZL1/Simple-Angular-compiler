@@ -63,11 +63,24 @@ public class ProparatyDecSymbolTable {
             return null;
         }
     }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("========== Property Declaration Symbol Table ==========")
+                .append("\n");
 
-    public void print() {
-        System.out.println(  ColorsConsole.GREEN +"========== Property Declaration Symbol Table =========="+ColorsConsole.RESET );
         for (ProparatyDecSymbol s : symbols.values()) {
-            System.out.println(  " - " + s.getName()  + ": type :"+s.getType()+ " (line " + s.getLine() + ")");
+            sb.append(" - ")
+                    .append(s.getName())
+                    .append(": type :")
+                    .append(s.getType())
+                    .append(" (line ")
+                    .append(s.getLine())
+                    .append(")")
+                    .append("\n");
         }
+
+        return sb.toString();
     }
+
 }

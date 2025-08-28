@@ -754,7 +754,7 @@ List<Statement> statements=new ArrayList<>();
     @Override
     public ObjectInit visitObjectInit(AngularParser.ObjectInitContext ctx) {
         Identifier className= (Identifier) visit(ctx.identifier());
-        Type type= (Type) visit(ctx.type());
+        Type type=ctx.type()!=null ?(Type) visit(ctx.type()):null;
         Args args=ctx.args()!=null? (Args) visit(ctx.args()):null;
         return new ObjectInit(className,type,args);
     }

@@ -10,7 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ComponentsSymboleTable {
-    private final Map<String, ComponentSymbol> symbols = new LinkedHashMap<>();
+  public   static final Map<String, ComponentSymbol> symbols = new LinkedHashMap<>();
 
     public boolean setSymbol(ComponentSymbol symbol,String fileName) {
         if (lookup(symbol.getName())) {
@@ -51,13 +51,25 @@ public class ComponentsSymboleTable {
         return symbols;
     }
 
-    public void print() {
-        System.out.println(  ColorsConsole.GREEN +"========== Component Declaration Symbol Table =========="+ColorsConsole.RESET );
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("========== Component Declaration Symbol Table ==========")
+                .append("\n");
+
         for (ComponentSymbol s : symbols.values()) {
-            System.out.println(  " ------- " + s.getName()  + "-component (line " + s.getLine() + ") ---------------");
-            s.getProperties().print();
-            s.getMethods().print();
-            s.getInputs().print();
+            sb.append(" ------- ")
+                    .append(s.getName())
+                    .append("-component (line ")
+                    .append(s.getLine())
+                    .append(") ---------------\n");
+
+            sb.append(s.getProperties().toString()).append("\n");
+            sb.append(s.getMethods().toString()).append("\n");
+            sb.append(s.getInputs().toString()).append("\n");
         }
+
+        return sb.toString();
     }
+
 }

@@ -22,13 +22,22 @@ private String value;
 
     @Override
     public CodeResult generateCode() {
-        // رجّع قيمة attribute بدون اقتباسات مضاعفة
-        String lit = (interpolation != null) ? "" : (value == null ? "" :
-                value.replace("&","&amp;").replace("\"","&quot;").replace("<","&lt;").replace(">","&gt;"));
+        if (interpolation != null) {
+            return new CodeResult("", "");
+        }
+
+        if (value == null) {
+            return new CodeResult("", "");
+        }
+
+        // امنع double-quote escaping
+        String lit = value.replace("\"","")
+                .replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;");
+
         return new CodeResult(lit, "");
     }
-
-
 
     @Override
     public String toString() {

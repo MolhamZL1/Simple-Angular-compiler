@@ -51,10 +51,22 @@ public class InputDecSymbolTable {
         return symbols;
     }
 
-    public void print() {
-        System.out.println(  ColorsConsole.GREEN +"========== Input Declaration Symbol Table =========="+ColorsConsole.RESET );
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("========== Input Declaration Symbol Table ==========")
+                .append("\n");
+
         for (InputDecSymbol s : symbols.values()) {
-            System.out.println(  " - " + s.getName()  + " (line " + s.getLine() + ")");
+            sb.append(" - ")
+                    .append(s.getName())
+                    .append(" (line ")
+                    .append(s.getLine())
+                    .append(")")
+                    .append("\n");
         }
+
+        return sb.toString();
     }
+
 }

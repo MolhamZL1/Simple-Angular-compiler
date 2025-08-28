@@ -52,11 +52,24 @@ public class ArgsMethodSymbolTable {
         return symbols;
     }
 
-    public void print() {
-        System.out.println(  ColorsConsole.GREEN +"==== Arguments Declaration Symbol Table ===="+ColorsConsole.RESET );
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("==== Arguments Declaration Symbol Table ====")
+                .append("\n");
+
         for (ArgsMethodSymbol s : symbols.values()) {
-            System.out.println(  " - " + s.getName()  + " (line " + s.getLine() + ")");
+            sb.append(" - ")
+                    .append(s.getName())
+                    .append(" (line ")
+                    .append(s.getLine())
+                    .append(")")
+                    .append("\n");
         }
-        System.out.println(  ColorsConsole.GREEN +"--------------------"+ColorsConsole.RESET );
+
+        sb.append("--------------------");
+
+        return sb.toString();
     }
+
 }

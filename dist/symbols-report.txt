@@ -1,0 +1,56 @@
+GENERATED SYMBOLS REPORT
+Root: C:\Users\USER\Desktop\cpmoiler project 2\angularCompiler2\src\Tests
+
+========== Component Declaration Symbol Table ==========
+ ------- app-product-add (line 0) ---------------
+ template: src\Tests\src\app\components\product-add\product-add.component.html
+ style:    src\Tests\src\app\components\product-add\product-add.component.css
+========== Property Declaration Symbol Table ==========
+========== Property Declaration Symbol Table ==========
+ - name: type :any (line 16)
+ - price: type :any (line 17)
+ - description: type :any (line 18)
+ - imageUrl: type :any (line 19)
+ - router: type :Router (line 20)
+
+========== Method Declaration Symbol Table ==========
+ - onName: type :any (line 28)
+ - onPrice: type :any (line 29)
+ - onDesc: type :any (line 34)
+ - onImage: type :any (line 35)
+ - save: type :void (line 38)
+========== Input Declaration Symbol Table ==========
+ ------- app-product-detail (line 0) ---------------
+ template: src\Tests\src\app\components\product-detail\product-detail.component.html
+ style:    src\Tests\src\app\components\product-detail\product-detail.component.css
+========== Property Declaration Symbol Table ==========
+========== Property Declaration Symbol Table ==========
+ - product: type :Product (line 16)
+ - found: type :any (line 17)
+ - route: type :ActivatedRoute (line 18)
+ - router: type :Router (line 19)
+
+========== Method Declaration Symbol Table ==========
+========== Input Declaration Symbol Table ==========
+ ------- app-product-list (line 0) ---------------
+ template: src\Tests\src\app\components\product-list\product-list.component.html
+ style:    src\Tests\src\app\components\product-list\product-list.component.css
+========== Property Declaration Symbol Table
+==========
+========== Property Declaration Symbol Table ==========
+ - products: type :any (line 11)
+ - p1: type :any (line 12)
+ - p2: type :any (line 13)
+ - p3: type :any (line 14)
+
+========== Method Declaration Symbol Table ==========
+========== Input Declaration Symbol Table ==========
+ ------- app-root (line 0) ---------------
+ template: src\Tests\src\app\app.component.html
+ style:    src\Tests\src\app\app.component.css
+========== Property Declaration Symbol Table ==========
+========== Property Declaration Symbol Table ==========
+ - title: type :any (line 13)
+
+========== Method Declaration Symbol Table ==========
+========== Input Declaration Symbol Table ==========

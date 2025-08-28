@@ -16,11 +16,17 @@ public class ComponentSymbol implements Symbol {
     private MethodDecSymbolTable methods;
     private InputDecSymbolTable inputs;
     private int line;
+    private  String path;
 
-    public ComponentSymbol() {
+    public ComponentSymbol(String path) {
         this.properties =new ProparatyDecSymbolTable();
         this.methods =new MethodDecSymbolTable();
         this.inputs=new InputDecSymbolTable();
+        this.path=path;
+    }
+
+    public String getPath() {
+        return path;
     }
 
     public String getStylePath() {
