@@ -52,25 +52,22 @@ private ASTNode body;
     @Override
     public CodeResult generateCode() {
         String params = parameters.stream().map(Parameter::getName).collect(Collectors.joining(", "));
-        StringBuilder expr = new StringBuilder();
-        expr.append("(").append(isAsync ? "async " : "").append("function(").append(params).append("){\n");
+        StringBuilder exprJs = new StringBuilder();
+        exprJs.append("(").append(isAsync ? "async " : "").append("function(").append(params).append("){\n");
 
-        if (body instanceof Statement st) {
-            CodeResult br = st.generateCode();
-            expr.append(safe(br.js));
-        } else if (body instanceof Expression ex) {
-            CodeResult br = ex.generateCode();
-            expr.append(safe(br.js));
-            expr.append("return ").append(br.html == null ? "undefined" : br.html).append(";\n");
-        } else if (body != null) {
-            CodeResult br = body.generateCode();
-            expr.append(safe(br.js));
-        }
+        CodeResult br = body.generateCode();
+        exprJs.append(safe(br.js));
 
-        expr.append("})");
-        // كمُعادل تعبيري: نرجّعه في html (تعـبير JS)
-        return new CodeResult(expr.toString(), "");
+        exprJs.append("})");
+        return new CodeResult(exprJs.toString(), ""); // كتعبير JS صالح
     }
+    private static String expr(CodeResult c){
+        if (c == null) return "";
+        String js = (c.js == null ? "" : c.js.trim());
+        if (!js.isEmpty()) return js;              // لو العقدة أنتجت تعبير JS واضح، خُذْه
+        return (c.html == null ? "" : c.html);     // وإلا خُذ النص (مثل المعرّفات والأرقام حالياً)
+    }
+
 
     private static String safe(String s){ return s==null? "": s; }
 }

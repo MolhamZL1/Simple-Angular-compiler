@@ -22,10 +22,17 @@ public class PropertyAssignment implements ASTNode{
 
     @Override
     public CodeResult generateCode() {
-        String key = (proparty == null) ? "" : proparty.getIdentifier(); // مثل imports أو name
-        CodeResult v = value != null ? value.generateCode() : new CodeResult("undefined", "");
-        // مفتاح كـ معرّف JS صالح — بدون اقتباس
-        String pair = key + ": " + (v.html==null?"":v.html);
-        return new CodeResult(pair, v.js==null? "": v.js);
+        String key = (proparty == null) ? "" : proparty.getIdentifier();
+        CodeResult v = (value != null) ? value.generateCode() : new CodeResult("undefined", "");
+        String pair = key + ": " + (expr(v).isBlank()? "undefined" : expr(v));
+        return new CodeResult(pair, (v.js == null ? "" : v.js));
     }
+    private static String expr(CodeResult c){
+        if (c == null) return "";
+        String js = (c.js == null ? "" : c.js.trim());
+        if (!js.isEmpty()) return js;              // لو العقدة أنتجت تعبير JS واضح، خُذْه
+        return (c.html == null ? "" : c.html);     // وإلا خُذ النص (مثل المعرّفات والأرقام حالياً)
+    }
+
+
 }

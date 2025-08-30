@@ -2,82 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>MyShop</title>
-  <base href="/">
+  <title>Angular Project</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
+<link rel="stylesheet" href="styles.css"></head>
 <body>
-<section style="width: 100%;"><nav style="background-color: #f8f9fa; padding: 10px 0; border-bottom: 1px solid #ddd;"><div style="width: 90%; margin: auto; display: flex; justify-content: space-between; align-items: center;"><a href="#" style="font-size: 20px; font-weight: bold; text-decoration: none; color: black;">IMTHATH_IMT</a>
-<div style="display: flex; justify-content: flex-end; margin-top: 5px; cursor: pointer;"><div style="border: 1px solid #ccc; border-radius: 5px; margin-right: 10px; position: relative; padding: 8px; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#add-to-cart">ADDTOCART<i class="fa-solid fa-cart-shopping"></i>
-<span style="position: absolute; top: -5px; right: -10px; transform: translate(50%, -50%); background-color: red; color: white; border-radius: 50%; padding: 2px 7px; font-size: 12px;"><span id="span_11489777534400"></span></span>
-</div>
-</div>
-</div>
+<nav class="nav"><a href="#">Products</a>
+<a href="#/add">AddProduct</a>
 </nav>
-<div style="margin-top: 20px; width: 100%;"><section><div class="container"><div class="row"><div class="col-12 col-sm-6 col-md-3 mt-3" id="ngfor_11489899524400"><div class="card shadow-lg"><div class="p-1 w-100"><img id="el_11489910981300" class="object-fit-cover position-relative" alt="..." width="100%" height="250px">
-<div class="card-body p-1"><div class="f-size-11 fw-bold"><span id="span_11489911630400"></span></div>
-<div class="f-size-11 badge bg-info">price<span id="span_11489911672800"></span>$</div>
-<div class="d-flex mt-1 mb-1"><i class="fa-solid fa-star text-warning" id="ngfor_11489911732100"></i>
-</div>
-<div class="f-size-8 mt-1"><span id="span_11489912009300"></span></div>
-<div class="d-flex justify-content-between mb-2"><button class="btn f-size-11 px-2 py-1 mt-2" id="el_11489912083700">Addtocart</button>
-<div class="text-primary f-size-11 mt-auto me-2 pointer" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="el_11489912989500">viewmore</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-centered modal-lg"><div class="modal-content"><div class="modal-header border-bottom-0"><h1 class="modal-title fs-5" id="staticBackdropLabel"><span id="span_11489913313900"></span>Details</h1>
-<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-</div>
-<div class="modal-body"><div class="row m-0" id="ngif_11489960474700"><div class="col-12"><div class="row"><div class="col-12"><div class="row"><div class="col-5"><img class="mt-2 product-main-img" src="{{ selectedImage }}" alt="product-images" width="300px" height="300px">
-<div class="d-flex mb-3"><div class="mt-2 me-3" id="ngfor_11489963922300"><img class="pointer object-fit-cover" src="{{ image }}" alt="{{ product.id }}" width="50px" height="75px" id="el_11489964478700">
-</div>
-</div>
-</div>
-<div class="col-7"><div class="fs-5 fw-bold"><span id="span_11489964618100"></span></div>
-<div class="d-flex mt-1 mb-1"><i class="fa-solid fa-star text-warning" id="ngfor_11489964702300"></i>
-</div>
-<div class="text-muted small mt-2"></div>
-<div class="mt-1"></div>
-Price</div>
-<div class="mt-1"></div>
-$<span id="span_11489965106700"></span></div>
-</div>
-<div class="mt-2"></div>
-<span class="badge" id="el_11489965198400"></span>
-<span id="span_11489965309300"></span></div>
-</div>
-<div class="text-muted small mt-3"></div>
-Description</div>
-<div class="bult-points text-muted small mt-2"></div>
-<ul></ul>
-<li></li>
-Thist-shirtfeaturesabeautifullycrafteddesignthataddsaneleganttouchto</div>
-</div>
-</div>
-</div>
-</section>
-</div>
-</section>
-<div class="modal fade" id="add-to-cart" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true"><div style="max-width: 900px; margin: auto; display: flex; justify-content: center; align-items: center; height: 100vh;"><div style="background: white; border-radius: 10px; width: 100%; box-shadow: 0 5px 15px rgba(0,0,0,0.3);"><div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #ddd;"><h1 style="font-size: 20px; margin: 0;">AddToCartDetails</h1>
-<button type="button" style="background: none; border: none; font-size: 20px; cursor: pointer;" data-bs-dismiss="modal" aria-label="Close"></button>
-</div>
-</div>
-<div style="padding: 20px;"></div>
-<div class="row" id="ngif_11489971600600"></div>
-<div id="ngfor_11489971693900" style="margin-top: 15px; border: 1px solid #ccc; padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"></div>
-<div style="display: flex; align-items: center; justify-content: space-between;"></div>
-<div style="flex: 0 0 80px; padding: 5px;"></div>
-<img id="el_11489971917800" alt="..." style="object-fit: cover; width: 80px; height: 80px; border-radius: 5px;">
-</div>
-<div style="flex: 1; text-align: center;"></div>
-<span id="span_11489971975500"></span></div>
-<div style="flex: 1; text-align: center;"></div>
-Quantity<span style="display: inline-block; background-color: red; color: white; border-radius: 50%; padding: 5px 10px; margin: 0 5px; cursor: pointer;" id="el_11489972024600"></span>
-</body>
+<main class="container">
+<div id="outlet"></div>
+</main>
+<script src="routes.js"></script>
 <script src="index.js"></script>
+</body>
 </html>

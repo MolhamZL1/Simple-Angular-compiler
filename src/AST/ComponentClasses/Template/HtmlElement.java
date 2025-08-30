@@ -80,6 +80,9 @@ return codeResult;
     @Override
     public CodeResult generateCode() {
         String tag = tagname.generateCode().html;
+        if (tag.contains("router-outlet")){
+            return new CodeResult("\n<div id=\"outlet\"></div>\n","");
+        }
         if (tag.contains("app-")){
             CodeResult codeResult=parseComponent(tag);
          return codeResult;

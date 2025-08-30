@@ -24,18 +24,26 @@ public class TwoWayBinding implements Binding {
     @Override
     public CodeResult generateCode() {
         String elementId = "el_" + System.nanoTime();
-        String htmlPart = "id=\"" + elementId + "\"";
-        String value = attributeValue.generateCode().html;
+        String htmlPart  = "id=\"" + elementId + "\"";
+
+        // لازم ناخد التعبير كـ JS (مو HTML)
+        String expr = attributeValue.generateJsExpression();
+
         String jsPart = """
-        (function(){
-            var el = document.getElementById('%s');
-            el.value = %s;
-            el.addEventListener('input', function(){
-                %s = el.value;
-            });
-        })();
-        """.formatted(elementId, value, value);
+    (function(){
+        var el = document.getElementById('%s');
+        if (!el) return;
+        try {
+            el.value = (%s);
+        } catch(e){ /* ignore */ }
+        el.addEventListener('input', function(){
+            try { %s = el.value; } catch(e){ console.error(e); }
+        });
+    })();
+    """.formatted(elementId, expr, expr);
+
         return new CodeResult(htmlPart, jsPart);
     }
+
 
 }

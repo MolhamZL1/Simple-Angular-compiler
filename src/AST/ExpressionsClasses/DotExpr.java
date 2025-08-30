@@ -22,8 +22,12 @@ public class DotExpr implements Expression{
     @Override
     public CodeResult generateCode() {
         CodeResult L = left.generateCode(), R = right.generateCode();
-        String js = (L.js.isEmpty()?L.html:L.js) + "." + (R.js.isEmpty()?R.html:R.js);
-        return new CodeResult(js, js);
+        String le = (L.html != null && !L.html.isBlank()) ? L.html : (L.js == null ? "" : L.js);
+        String re = (R.html != null && !R.html.isBlank()) ? R.html : (R.js == null ? "" : R.js);
+        String expr = le + "." + re;
+        String side = (L.js == null ? "" : L.js) + (R.js == null ? "" : R.js);
+        return new CodeResult(expr, side);
     }
+
 
 }

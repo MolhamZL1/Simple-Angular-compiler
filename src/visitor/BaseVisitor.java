@@ -591,14 +591,14 @@ if(pathFile.contains(templatePath)){
 
     @Override
     public BlockStatement visitBlockStatement(AngularParser.BlockStatementContext ctx) {
+List<ASTNode> statements=new ArrayList<>();
+for (int i=0;i<ctx.getChildCount();i++){
+ if (!ctx.getChild(i).getText().equals(ctx.LCURLY().getText())&&!ctx.getChild(i).getText().equals(ctx.RCURLY().getText())){
+     System.out.println(visit(ctx.getChild(i)));
+     statements.add((ASTNode) visit(ctx.getChild(i)));
 
-List<Statement> statements=new ArrayList<>();
-        if (ctx.statement()!=null){
-            for (AngularParser.StatementContext statementContext:ctx.statement()
-            ) {
-                statements.add((Statement) visit(statementContext));
-            }
-        }
+ }
+}
 
         return new BlockStatement(statements);
     }
@@ -639,7 +639,12 @@ List<Statement> statements=new ArrayList<>();
 
     @Override
     public Expression visitExpressionStatemntLabel(AngularParser.ExpressionStatemntLabelContext ctx) {
-        return (Expression) visit(ctx.expressionStatement().expression());
+        return (Expression) visit(ctx.expressionStatement());
+    }
+
+    @Override
+    public Expression visitExpressionStatement(AngularParser.ExpressionStatementContext ctx) {
+        return (Expression) visit(ctx.expression());
     }
 
     @Override

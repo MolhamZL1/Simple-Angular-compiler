@@ -10,6 +10,7 @@ import Code_Generation.CodeResult;
 import SymbolTable.Component.ComponentSymbol;
 import SymbolTable.Component.ComponentsSymboleTable;
 import org.antlr.v4.runtime.tree.ParseTree;
+import utils.FileManager;
 import visitor.BaseVisitor;
 
 import java.io.IOException;
@@ -35,12 +36,14 @@ public class ComponentDeclaration implements ASTNode {
         for (MetadataProperty item:metadataPropertyList) {
             if (item instanceof SelectorProperty){
              ComponentSymbol componentSymbol=   ComponentsSymboleTable.symbols.get(((SelectorProperty) item).getSelector());
-                System.out.println(componentSymbol.getName());
              String templateHtml=componentSymbol.getTemplatePath();
              try {
                  ParseTree componentTree=   CodeGeneration.parse(templateHtml);
                  Program componentProgram = (Program) new BaseVisitor(new ComponentsSymboleTable(), templateHtml).visit(componentTree);
                   codeResult=  componentProgram.generateCode();
+             String cssOutput=    FileManager.readFile(componentSymbol.getStylePath());
+                 FileManager.createFile(CodeGeneration.DIST_DIR+"/styles.css");
+                 FileManager.appendToFile(CodeGeneration.DIST_DIR+"/styles.css",cssOutput);
 
              } catch (IOException e) {
                  throw new RuntimeException(e);

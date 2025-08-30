@@ -21,11 +21,20 @@ public class AssignmentExpr implements Expression{
 
     @Override
     public CodeResult generateCode() {
-        CodeResult v = variableExpression != null ? variableExpression.generateCode() : new CodeResult("", "");
-        CodeResult val = valueExpression != null ? valueExpression.generateCode()   : new CodeResult("", "");
-        String expr = (v.html==null?"":v.html) + " = " + (val.html==null?"":val.html);
-        return new CodeResult(expr, safe(v.js)+safe(val.js));
+        CodeResult l = variableExpression.generateCode();
+        CodeResult r = valueExpression.generateCode();
+        String expr = l.html + " = " + r.html;
+        return new CodeResult(expr, (l.js==null?"":l.js) + (r.js==null?"":r.js));
     }
+
+    private static String expr(CodeResult c){
+        if (c == null) return "";
+        String js = (c.js == null ? "" : c.js.trim());
+        if (!js.isEmpty()) return js;              // لو العقدة أنتجت تعبير JS واضح، خُذْه
+        return (c.html == null ? "" : c.html);     // وإلا خُذ النص (مثل المعرّفات والأرقام حالياً)
+    }
+
+
 
     private static String safe(String s){ return s==null? "": s; }
 }

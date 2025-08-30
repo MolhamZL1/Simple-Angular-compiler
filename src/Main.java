@@ -11,14 +11,11 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import visitor.BaseVisitor;
 import visitor.SymbolTableInitializerVisitor;
-import utils.FileManager;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.antlr.v4.runtime.CharStreams.fromFileName;
 
@@ -35,13 +32,13 @@ public class Main {
     /* =================== Utilities =================== */
 
     private static boolean isTarget(File f){
-        if (f == null || !f.isFile()) return false;
+        if (f == null || !f.isFile()||f.getName().endsWith("routes.ts")||f.getName().endsWith(".spec.ts")) return false;
         String n = f.getName();
-        return n.endsWith(".component.ts") || n.endsWith(".component.html");
+        return n.endsWith(".ts") || n.endsWith(".component.html");
     }
 
     private static boolean isComponentTs(File f){
-        return f != null && f.isFile() && f.getName().endsWith(".component.ts");
+        return f != null && f.isFile() && !f.getName().endsWith("routes.ts")&&!f.getName().endsWith(".spec.ts")&& f.getName().endsWith(".component.ts");
     }
 
     private static void ensureDist() throws IOException {
@@ -207,6 +204,6 @@ public class Main {
 //        FileManager.writeFile(REPORT.toString(), report.toString());
 //        System.out.println(ColorsConsole.CYAN + "→ Wrote AST & SymbolTable report: " + REPORT.toAbsolutePath() + ColorsConsole.RESET);
         CodeGeneration codeGeneration=new CodeGeneration(root,COMPONENTS);
-        codeGeneration.generateComponent();
+        codeGeneration.generatebaseComponent();
     }
 }

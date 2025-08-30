@@ -26,10 +26,14 @@ private Args args;
     @Override
     public CodeResult generateCode() {
         CodeResult f = expression.generateCode();
-        CodeResult a = args != null ? args.generateCode() : new CodeResult("", "");
-        String fn = f.js.isEmpty()?f.html:f.js;
-        String js = fn + "(" + a.js + ")";
-        return new CodeResult(js, js);
+        CodeResult a = (args != null) ? args.generateCode() : new CodeResult("", "");
+
+        String fn   = (f.html != null && !f.html.isBlank()) ? f.html : (f.js == null ? "" : f.js);
+        String expr = fn + "(" + (a.html == null ? "" : a.html) + ")";
+        String side = (f.js == null ? "" : f.js) + (a.js == null ? "" : a.js);
+
+        return new CodeResult(expr, side);
     }
+
 
 }

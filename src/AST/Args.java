@@ -22,22 +22,23 @@ public class Args implements ASTNode{
 
     @Override
     public CodeResult generateCode() {
-        CodeResult result = new CodeResult("","");
-        StringBuilder jsCode = new StringBuilder();
+        CodeResult result = new CodeResult("", "");
+        StringBuilder argsExpr = new StringBuilder();
+        StringBuilder side     = new StringBuilder();
 
         if (expressions != null) {
-            for (Expression expr : expressions) {
-                if (expr != null) {
-                    CodeResult exprCode = expr.generateCode();
-                    if (exprCode != null && exprCode.js != null) {
-                        if (jsCode.length() > 0) jsCode.append(", ");
-                        jsCode.append(exprCode.js);
-                    }
-                }
+            for (int idx = 0; idx < expressions.size(); idx++) {
+                Expression expr = expressions.get(idx);
+                if (expr == null) continue;
+                CodeResult cr = expr.generateCode();
+                if (argsExpr.length() > 0) argsExpr.append(", ");
+                argsExpr.append(cr.html == null ? "" : cr.html);
+                if (cr.js != null) side.append(cr.js);
             }
         }
-
-        result.js = jsCode.toString();
+        result.html = argsExpr.toString();
+        result.js   = side.toString();
         return result;
     }
+
 }

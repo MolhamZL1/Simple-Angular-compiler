@@ -1,13 +1,14 @@
 package AST.Statement;
 
+import AST.ASTNode;
 import Code_Generation.CodeResult;
 
 import java.util.List;
 
 public class BlockStatement implements Statement{
-    List<Statement> statements;
+    List<ASTNode> statements;
 
-    public BlockStatement(List<Statement> statements) {
+    public BlockStatement(List<ASTNode> statements) {
         this.statements = statements;
     }
 
@@ -21,13 +22,11 @@ public class BlockStatement implements Statement{
     @Override
     public CodeResult generateCode() {
         StringBuilder js = new StringBuilder();
-        if (statements != null) {
-            for (Statement s : statements) {
-                if (s == null) continue;
-                CodeResult r = s.generateCode();
-                if (r != null && r.js != null) js.append(r.js);
-            }
+        for (ASTNode s : statements) {
+            CodeResult r = s.generateCode();
+            if (r.js != null) js.append(r.js);
         }
         return new CodeResult("", js.toString());
     }
+
 }

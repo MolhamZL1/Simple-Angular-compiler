@@ -25,10 +25,12 @@ public class ArthmaticOpExpr implements Expression{
     @Override
     public CodeResult generateCode() {
         CodeResult L = leftExpression.generateCode(), R = rightExpression.generateCode();
-        String a = L.js.isEmpty()?L.html:L.js;
-        String b = R.js.isEmpty()?R.html:R.js;
-        String js = a + " " + op + " " + b;
-        return new CodeResult(js, js);
+        String a = (L.html != null && !L.html.isBlank()) ? L.html : (L.js == null ? "" : L.js);
+        String b = (R.html != null && !R.html.isBlank()) ? R.html : (R.js == null ? "" : R.js);
+        String expr = a + " " + op + " " + b;
+        String side = (L.js == null ? "" : L.js) + (R.js == null ? "" : R.js);
+        return new CodeResult(expr, side);
     }
+
 
 }

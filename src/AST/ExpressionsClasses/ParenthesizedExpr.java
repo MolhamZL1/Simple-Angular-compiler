@@ -18,9 +18,8 @@ public class ParenthesizedExpr implements Expression{
     @Override
     public CodeResult generateCode() {
         CodeResult c = expression.generateCode();
-        String v = c.js.isEmpty()?c.html:c.js;
-        String js = "(" + v + ")";
-        return new CodeResult(js, js);
+        String inner = (c.html != null && !c.html.isBlank()) ? c.html : (c.js == null ? "" : c.js);
+        return new CodeResult("(" + inner + ")", c.js == null ? "" : c.js);
     }
 
 }

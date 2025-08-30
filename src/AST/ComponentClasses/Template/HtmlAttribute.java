@@ -25,6 +25,14 @@ public class HtmlAttribute implements Attribute{
         if (attributeValue == null) return new CodeResult(id, "");
         String name = id;
         String valHtml = attributeValue.generateCode().html;
+        if ("routerLink".equals(name)) {
+            name = "href";
+            valHtml = "#" + valHtml;
+        }
+        if ("href".equals(name) && valHtml != null && !valHtml.isEmpty() && valHtml.startsWith("/")) {
+            valHtml = "#" + valHtml;
+        }
+
         boolean isInterpolated = valHtml.isEmpty(); // لأننا رجّعنا "" مع الـ interpolation
 
         if (isInterpolated) {

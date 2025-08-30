@@ -309,7 +309,8 @@ identifier{target}
 identifier{value}
 }, falseExpr=Literal{''}}]}}}, 
 ClassMember{classStatement=
-DefaultMethod{isAsync=false, name=
+
+{isAsync=false, name=
 identifier{save}, parameters=[], type=Type{void}, body=
 BlockStatement{statements=[
 VariableDeclaration{isExported=false, variableDeclarationKeyword=VariableDeclarationKeyword{keyword='const'}, name=

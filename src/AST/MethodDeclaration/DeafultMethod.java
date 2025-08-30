@@ -53,28 +53,24 @@ public class DeafultMethod implements MethodDeclaration {
     }
     @Override
     public CodeResult generateCode() {
-        String fnName = name == null ? "_fn" : name.getIdentifier();
+        String fnName = (name == null ? "_fn" : name.getIdentifier());
         String params = parameters.stream().map(Parameter::getName).collect(Collectors.joining(", "));
-
         StringBuilder js = new StringBuilder();
-        js.append(isAsync ? "async function " : "function ")
-                .append(fnName).append("(").append(params).append("){\n");
+        js.append(isAsync ? "async function " : "function ").append(fnName).append("(").append(params).append("){\n");
 
-        if (body instanceof Statement st) {
-            CodeResult br = st.generateCode();
-            js.append(safe(br.js));
-        } else if (body instanceof Expression ex) {
-            CodeResult br = ex.generateCode();
-            js.append(safe(br.js));
-            js.append("return ").append(br.html == null ? "undefined" : br.html).append(";\n");
-        } else if (body != null) {
-            CodeResult br = body.generateCode();
-            js.append(safe(br.js));
-        }
+        CodeResult br = body.generateCode();
+        js.append(safe(br.js));
 
         js.append("}\n");
         return new CodeResult("", js.toString());
     }
+    private static String expr(CodeResult c){
+        if (c == null) return "";
+        String js = (c.js == null ? "" : c.js.trim());
+        if (!js.isEmpty()) return js;              // لو العقدة أنتجت تعبير JS واضح، خُذْه
+        return (c.html == null ? "" : c.html);     // وإلا خُذ النص (مثل المعرّفات والأرقام حالياً)
+    }
+
 
     private static String safe(String s){ return s==null? "": s; }
 
