@@ -22,20 +22,6 @@ It implements the full compilation pipeline:
 
 ---
 
-## Project Structure
-```
-src/
- ├── lexer/                 # AngularLexer rules
- ├── parser/                # AngularParser grammar
- ├── ast/                   # AST node classes with codeGenerate()
- ├── symbols/               # Symbol table + scope management
- ├── visitors/              # BaseVisitor & SymbolTableInitializerVisitor
- ├── codegen/               # Code generation logic (HTML + JS)
- └── main/Compiler.java     # Entry point
-```
-
----
-
 ## Example
 
 ### Input
